@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+/* Navigation Bar ./Navbar
+  --------------------------------------------- 
+  This is used to style the Navigation bar on the home page.
+*/
+.navbar{
+  border-radius: 0px 0px 50px 50px;
+  background: #121920;
+  backdrop-filter: blur(2.5px);
+}
+.nav-link {
+  margin: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  transition: color 0.3s ease; /* Smooth transition for color change */
+  display: flex;
+  direction: row;
+}
+
+.nav-link:hover {
+  color: #19BACC; /* Change to your desired hover color */
+}
+
+.logo{
+  width: 100px;
+  height: 25px;
+  padding: 20px; 
+}
