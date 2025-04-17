@@ -1,4 +1,30 @@
+h1{
+  font-size: 48px;
+}
 
+h2{
+  font-size: 40px;
+}
+
+h3{
+  font-size: 32px;
+}
+
+h4{
+  font-size: 24px;
+}
+
+h5{
+  font-size: 20px;
+}
+
+.navlinks{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
 
 .App-logo {
   height: 40vmin;
@@ -40,22 +66,15 @@
   This is used to style the Navigation bar on the home page.
 */
 .navbar{
-  width: 1920px;
-  height: 100px;
+  height: fit-content;
   border-radius: 0px 0px 50px 50px;
   background-color: #121920;
   backdrop-filter: blur(2.5px);
 }
 
-.nav-links {
-  display: flex;
-  gap: 30px; /* Space between links */
-}
-
 .nav-link {
   margin: 10px;
   color: #fff;
-  text-align: left;
   font-family: "Jost", sans-serif;
   font-size: 24px;
   font-weight: 400;
@@ -77,8 +96,5 @@
 }
 
 .logo{
-  width: 87px;
-  height: 60px;
-  margin-left: 40px;
-  margin-right: 70px;
+  height: 80px;
 }

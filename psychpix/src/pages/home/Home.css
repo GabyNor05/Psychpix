@@ -1,0 +1,128 @@
+.box{
+    background-color: hsl(0, 0%, 7%);
+    border-radius: 24px;
+}
+
+.box:hover{
+    transform: scale(1.02);
+}
+
+.lineSquareTL{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: -12px;
+    left: -12px;
+}
+.lineSquareTR{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: -12px;
+    right: -12px;
+}
+.lineSquareBL{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    bottom: -12px;
+    left: -12px;
+}
+.lineSquareBR{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    bottom: -12px;
+    right: -12px;
+}
+
+.HeroSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.grid-container{
+    display: grid;
+    grid-auto-columns: 250px;
+    grid-auto-rows: 150px;
+    gap: 1em;
+    padding: 5%;
+    grid-template-areas: 
+    "box-1 box-1 box-2 box-2 box-3 box-4"
+    "box-1 box-1 box-2 box-2 box-3 box-4"
+    "box-1 box-1 box-5 box-5 box-6 box-6"
+    "box-1 box-1 box-5 box-5 box-6 box-6"
+    "box-1 box-1 box-5 box-5 box-7 box-7";
+}
+
+.linkScroll{
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 4px solid black;
+    border-bottom: 4px solid black;
+    width: 90%;
+    margin: auto;
+}
+
+.linkScroll h1{
+    margin: 10px;
+}
+
+@media(max-width: 100em) {
+    .grid-container{
+        grid-template-areas: 
+        "box-1 box-1 box-2 box-2"
+        "box-1 box-1 box-2 box-2"
+        "box-1 box-1 box-5 box-5"
+        "box-1 box-1 box-5 box-5"
+        "box-3 box-4 box-6 box-6"
+        "box-3 box-4 box-6 box-6"
+        "box-7 box-7 box-7 box7";
+    }
+}
+
+@media (max-width: 70em) {
+    .grid-container{
+        grid-template-areas: 
+        "box-1 box-1 box-6"
+        "box-1 box-1 box-6"
+        "box-1 box-1 box-5"
+        "box-7 box-7 box-5"
+        "box-3 box-4 box-2"
+        "box-3 box-4 box-2"
+    }
+}
+
+#bentoImage1{
+    background-image: url('./images/bento1.jpg');
+    background-size: cover;
+}
+
+#bentoImage2{
+    background-image: url('./images/bento2.jpg');
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+#bentoContent1{
+    position: relative;
+    color: white;
+    z-index: 2;
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+#bentoImage2::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(black, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
+    border-radius: inherit;
+    z-index: 1;
+}
