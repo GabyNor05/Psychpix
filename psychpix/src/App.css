@@ -42,8 +42,6 @@
 .navbar{
   width: 1920px;
   height: 100px;
-  align-items: center;
-  display: flex;
   border-radius: 0px 0px 50px 50px;
   background-color: #121920;
   backdrop-filter: blur(2.5px);

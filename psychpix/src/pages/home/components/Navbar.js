@@ -7,7 +7,6 @@ function Navbar() {
   return (
     <nav className="navbar">
       <img className = "logo" src={Logo} alt="PyschPixels"/>
-      <div className = "nav-links" >
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/discover" className="nav-link">Discover</Link>
         <Link to="/about" className="nav-link">About</Link>
