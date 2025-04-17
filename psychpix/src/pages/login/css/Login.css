@@ -6,7 +6,7 @@
   width: 40%; /* Adjust width as needed */
   height: 100%;
   
-  background: linear-gradient(45deg, #75DBF0, #DB50EF); 
+  background: linear-gradient(45deg, #a44599, #3BD6F5 ); 
   background-size: 300% 300%;
   animation: color 12s ease-in-out infinite;
 }
