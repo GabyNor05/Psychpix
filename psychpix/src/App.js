@@ -6,14 +6,15 @@ import Discover from './pages/discover/Discover';
 import About from './pages/about/About';
 import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
+import logo from './logo.svg';
 
 function App() {
   return (
     <div className="App" >
       <Router>
-      <Navbar /> 
+      {/* <Navbar />  */}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
