@@ -66,7 +66,7 @@
 }
 
 .nav-link:hover {
-  background: radial-gradient(50% 50% at 50% 50%, #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);
+  background: linear-gradient(90deg, #56adc7 0%, #7791BA 30.58%, #916FAA 66.83%, #A2479A 95.67%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
