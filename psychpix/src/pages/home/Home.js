@@ -25,7 +25,7 @@ function Home() {
   return (
     <>
       <BentoGrids />
-      <GeneralCarousel slides={slides}/>
+      <GeneralCarousel slides={slides} Title={"Currently Trending"} />
       <LinkScroll />
       <Footer />
     </>
