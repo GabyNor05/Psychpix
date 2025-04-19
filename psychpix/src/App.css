@@ -23,10 +23,142 @@ h5{
 
 .navlinks{
   display: flex;
-  justify-content: start;
   align-items: center;
   gap: 16px;
   padding: 16px;
+}
+
+.GeneralCarousel{
+  position: relative;
+  display: flex;
+  height: 400px;
+  margin: auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.GeneralCarousel::-webkit-scrollbar{
+  display: none;
+}
+
+.carouselProgressContainer{
+  display: flex;
+  width: 90%;
+  justify-content: flex-end;
+  padding: 16px;
+  gap: 16px;
+}
+
+.carouselProgress{
+  width: 64px;
+  height: 8px;
+  background-color: #868686;
+  border-radius: 8px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  max-width: 90%;
+  margin: auto;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+
+.carousel-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 256px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 255, 255));
+  pointer-events: none; /* allow clicks to pass through */
+  z-index: 2;
+}
+
+.carousel-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 256px;
+  height: 100%;
+  background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+  pointer-events: none; /* allow clicks to pass through */
+  z-index: 2;
+}
+
+.carousel-track{
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+
+.carousel-image{
+  border-radius: 24px;
+}
+
+#carouselCarotRight{
+  position: absolute;
+  top: 128px;
+  right: 0;
+  z-index: 4;
+  width: 67px;
+  height: 132px;
+  background: linear-gradient(45deg, #ff00cc, #3333ff);
+  -webkit-mask-image: url('./pages/_GeneralComponents/icons/CarouselArrowRight.png');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+
+  mask-image: url('./pages/_GeneralComponents/icons/CarouselArrowRight.png');
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
+
+  cursor: pointer;
+
+  background: linear-gradient(45deg, #8f1176, #33a3ff);
+  background-size: 200% 200%;       /* <- Allows movement */
+  background-position: left center; /* <- Initial position */
+  transition: background-position 0.2s ease;
+}
+
+#carouselCarotRight:hover{
+  background-position: right center;
+}
+
+#carouselCarotLeft{
+  position: absolute;
+  top: 128px;
+  left: 0;
+  z-index: 4;
+  width: 67px;
+  height: 132px;
+  background: linear-gradient(45deg, #ff00cc, #3333ff);
+  -webkit-mask-image: url('./pages/_GeneralComponents/icons/CarouselArrowLeft.png');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+
+  mask-image: url('./pages/_GeneralComponents/icons/CarouselArrowLeft.png');
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
+
+  cursor: pointer;
+
+  background: linear-gradient(45deg, #8f1176, #33a3ff);
+  background-size: 200% 200%;       /* <- Allows movement */
+  background-position: left center; /* <- Initial position */
+  transition: background-position 0.2s ease;
+}
+
+#carouselCarotLeft:hover{
+  background-position: right center;
 }
 
 .App-logo {
@@ -100,4 +232,17 @@ h5{
 
 .logo{
   height: 80px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 9999px;
 }

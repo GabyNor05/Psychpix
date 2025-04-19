@@ -10,14 +10,21 @@
 
 .ItemDisplay{
     position: relative;
-    width: 800px;
-    height: 800px;
+    width: clamp(min(10vw, 20rem), 800px, max(90vw, 55rem));
+    height: clamp(min(10vw, 20rem), 800px, max(90vw, 55rem));
     /* left: 256px;
     top: 256px; */
     background-image: url('../home/images/bento2.jpg');
     background-size: cover;
     border-radius: 24px;
-    box-shadow: 0px 0px 40px inset rgb(0, 0, 0);
+    box-shadow: 0px 0px 20px 4px inset rgb(0, 0, 0);
+}
+
+.ItemDisplayContainer{
+    width: fit-content;
+    border-radius: 24px;
+    margin-left: 100px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.493);
 }
 
 .ItemDisplay::before{
@@ -31,28 +38,50 @@
     z-index: -1;
 }
 
-/* .yearDisplay{
+.catagoryText{
     position: absolute;
-    top: 1024px;
-    left: 256px;
-} */
+    transform: rotate(-90deg);
+    top: 700px;
+    left: -220px;
+    transform-origin: top left;
+    white-space: nowrap;
+}
+
+.catagoryText h1{
+    color: rgb(124, 124, 124);
+    font-weight: 700;
+    font-family: "Charis SIL";
+    font-style: italic;
+    letter-spacing: 14px;
+    font-size: 96px;
+}
 
 .yearDisplay h1{
     font-size: 96px;
     letter-spacing: 16px;
     font-weight: 700;
     font-family: "Charis SIL";
+    font-style: italic;
     color: rgb(124, 124, 124);
+}
+
+.yearDisplay{
+    position: absolute;
+    color: rgb(139, 139, 139);
+    width: 200px;
+    height: 200px;
+    bottom: -200px;
+    z-index: 2;
 }
 
 .gridSingleItem{
     display: grid;
     margin: auto;
-    grid-template-columns: 800px 1fr;
+    width: 90%;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
-    align-items: center;
     gap: 48px;
-    margin-top: 32px;
+    margin-top: 192px;
     grid-template-areas:
     "ItemDisplay ItemInfo";
 }
@@ -66,29 +95,28 @@
     gap: 16px;
 }
 
+.singleItemFixed{
+    position: relative;
+}
+
 .UserEdit{
     width: fit-content;
     height: 100px;
     background-color: black;
     border-radius: 24px;
+    z-index: -5;
 }
 
-.WoodSelected::before{
+#WoodSelected::before{
     content: '';
     position: absolute;
-    top: -16px;
-    left: -16px;
-    width: 46px;
-    height: 46px;
-    background-color: white;
-    border-radius: 8px;
-    z-index: 0;
-}
-
-.WoodSelected{
-    position: relative;
-    background-image: url('./images/woodFrame.jpg');
-    z-index: 1;
+    top: -4px;
+    left: -4px;
+    width: 48px;
+    height: 48px;
+    background-color: rgb(255, 255, 255);
+    border-radius: inherit;
+    z-index: -1;
 }
 
 #woodEdit{
@@ -98,10 +126,12 @@
     padding: 0 8px;
 }
 
-#exampleWood{
+.exampleWood{
+    position: relative;
     border-radius: 50px;
     width: 40px;
     height: 40px;
+    border: 2px solid black;
     background-image: url('./images/woodFrame.jpg');
     margin: 8px;
 }
