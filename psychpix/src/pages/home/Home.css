@@ -1,3 +1,9 @@
+footer{
+    border-radius: 50px 50px 0px 0px;
+    background: #060C12;
+    margin-top: 100px;
+}
+
 .box{
     background-color: hsl(0, 0%, 7%);
     border-radius: 24px;
@@ -36,6 +42,24 @@
     right: -12px;
 }
 
+.WelcomeUser{
+    position: relative;
+    color: white;
+    padding-left: 16px;
+    z-index: 2;
+}
+
+.WelcomeUser span{
+    background: linear-gradient(180deg, #3BD6F5 0%, #7791BA 35.58%, #916FAA 66.83%, #A2479A 95.67%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Charis SIL";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+}
+
 .HeroSection{
     display: flex;
     align-items: center;
@@ -71,6 +95,15 @@
     margin: 10px;
 }
 
+.footerLinks{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    margin: auto;
+    padding: 32px;
+}
+
 @media(max-width: 100em) {
     .grid-container{
         grid-template-areas: 
@@ -96,16 +129,30 @@
     }
 }
 
+#footerLogo{
+    width: 100%;
+}
+
+#footerInnerContainer{
+    width: 70%;
+    margin: auto;
+    height: 200px;
+    display: flex;
+    align-items: center;
+}
+
+#footerLogoContainer{
+    position: relative;
+    width: 70%;
+    margin: auto;
+    border-color: white;
+    border-width: 2px 0px;
+    border-style: solid;
+}
+
 #bentoImage1{
     background-image: url('./images/bento1.jpg');
     background-size: cover;
-}
-
-#bentoImage2{
-    background-image: url('./images/bento2.jpg');
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
 }
 
 #bentoContent1{
@@ -118,6 +165,12 @@
     letter-spacing: 4px;
 }
 
+#bentoImage2{
+    position: relative;
+    background-image: url('./images/welcomeBentoIMG.jpg');
+    background-size: cover;
+}
+
 #bentoImage2::before{
     content: '';
     position: absolute;
@@ -125,4 +178,56 @@
     background: linear-gradient(black, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
     border-radius: inherit;
     z-index: 1;
+}
+
+#bentoImage3{
+    background-image: url('./images/bento4.jpg');
+    background-size: cover;
+    border: 2px solid;
+}
+
+#bentoImage4{
+    background-image: url('./images/bento5.jpg');
+    background-size: cover;
+}
+
+#bentoImage5{
+    background-image: url('./images/bento3.jpg');
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+#bentoImage5::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(black, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
+    border-radius: inherit;
+    z-index: 1;
+}
+
+#bentoImage6{
+    position: relative;
+    background-image: url('./images/bento6.jpg');
+    background-size: contain;
+}
+
+#bentoImage6::before{
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(40deg, rgba(12, 50, 70, 0.253), rgb(22, 15, 48));
+    inset: 0;
+    border-radius: inherit;
+}
+
+#bentoImage7{
+    position: relative;
+}
+
+#bentoLogo{
+    width: 90%;
+    padding-left: 26px;
+    padding-top: 50px;
+    position: absolute;
 }

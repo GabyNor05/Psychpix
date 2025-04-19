@@ -8,14 +8,17 @@ h2{
 
 h3{
   font-size: 32px;
+  font-weight: 400;
 }
 
 h4{
   font-size: 24px;
+  font-weight: 400;
 }
 
 h5{
   font-size: 20px;
+  font-weight: 300;
 }
 
 .navlinks{

@@ -1,0 +1,107 @@
+.singleItemOverlay{
+    position: absolute;
+    top: 0;
+    height: 2000px;
+    background-color: black;
+    color: rgba(255, 255, 255, 0.158);
+    width: 700px;
+    z-index: -1;
+}
+
+.ItemDisplay{
+    position: relative;
+    width: 800px;
+    height: 800px;
+    /* left: 256px;
+    top: 256px; */
+    background-image: url('../home/images/bento2.jpg');
+    background-size: cover;
+    border-radius: 24px;
+    box-shadow: 0px 0px 40px inset rgb(0, 0, 0);
+}
+
+.ItemDisplay::before{
+    content: '';
+    position: absolute;
+    width: 832px;
+    height: 832px;
+    translate: -16px -16px;
+    background-image: url('./images/woodFrame.jpg');
+    border-radius: inherit;
+    z-index: -1;
+}
+
+/* .yearDisplay{
+    position: absolute;
+    top: 1024px;
+    left: 256px;
+} */
+
+.yearDisplay h1{
+    font-size: 96px;
+    letter-spacing: 16px;
+    font-weight: 700;
+    font-family: "Charis SIL";
+    color: rgb(124, 124, 124);
+}
+
+.gridSingleItem{
+    display: grid;
+    margin: auto;
+    grid-template-columns: 800px 1fr;
+    grid-template-rows: auto 1fr;
+    align-items: center;
+    gap: 48px;
+    margin-top: 32px;
+    grid-template-areas:
+    "ItemDisplay ItemInfo";
+}
+
+.ItemInfo{
+    color: #6b6b6b;
+}
+
+.ItemUserEdits{
+    display: flex;
+    gap: 16px;
+}
+
+.UserEdit{
+    width: fit-content;
+    height: 100px;
+    background-color: black;
+    border-radius: 24px;
+}
+
+.WoodSelected::before{
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    width: 46px;
+    height: 46px;
+    background-color: white;
+    border-radius: 8px;
+    z-index: 0;
+}
+
+.WoodSelected{
+    position: relative;
+    background-image: url('./images/woodFrame.jpg');
+    z-index: 1;
+}
+
+#woodEdit{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 8px;
+}
+
+#exampleWood{
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    background-image: url('./images/woodFrame.jpg');
+    margin: 8px;
+}
