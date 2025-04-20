@@ -5,10 +5,10 @@ import LinkScroll from './components/LinkScroll';
 import GeneralCarousel from '../_GeneralComponents/Carousel';
 import './Home.css';
 
-import image1 from './images/bento1.jpg';
-import image2 from './images/bento2.jpg';
-import image3 from './images/bento3.jpg';
-import image4 from './images/bento4.jpg';
+import image1 from './images/bento/bento1.jpg';
+import image2 from './images/bento/bento2.jpg';
+import image3 from './images/bento/bento3.jpg';
+import image4 from './images/bento/bento4.jpg';
 
 const slides = [
   image1,

@@ -27,6 +27,12 @@
     height: 8px;
     background-color: #868686;
     border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #currentProg{
+    background-color: #4e4e4e;
   }
   
   .carousel-wrapper {
@@ -38,28 +44,54 @@
     
   }
   
-  .carousel-wrapper::before {
+  .carousel-wrapper:has(> #carouselCarotRight)::before {
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    width: 256px;
+    width: 128px;
     height: 100%;
     background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 255, 255));
     pointer-events: none; /* allow clicks to pass through */
     z-index: 2;
   }
+
+  .carousel-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 255, 255));
+    pointer-events: none; /* allow clicks to pass through */
+    z-index: 2;
+    transition: width 0.3s ease;
+  }
   
+  .carousel-wrapper:has(> #carouselCarotLeft)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 128px;
+    height: 100%;
+    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+    pointer-events: none; /* allow clicks to pass through */
+    z-index: 2;
+  }
+
   .carousel-wrapper::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 256px;
+    width: 0px;
     height: 100%;
     background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
     pointer-events: none; /* allow clicks to pass through */
     z-index: 2;
+    transition: width 0.3s ease;
   }
   
   .carousel-track{
@@ -69,12 +101,14 @@
     flex-wrap: nowrap;
     height: 400px;
     gap: 16px;
+    padding: 16px;
   }
   
   .carousel-image{
     border-radius: 24px;
     transition: transform 0.1s ease;
     scroll-snap-align: center;
+    height: inherit;
   }
 
   .carousel-image:hover{
@@ -89,6 +123,23 @@
     padding-right: 32px;
     border-bottom: 3px solid black;
     width: fit-content;
+  }
+
+  .carouselLink{
+    height: inherit;
+  }
+
+  .carouselCarot{
+    width: 67px;
+    height: 132px;
+  }
+
+  #Inactive{
+    position: absolute;
+    top: 128px;
+    right: 0;
+    z-index: 4;
+    width: 0px;
   }
   
   #carouselCarotRight{
@@ -114,7 +165,7 @@
     background: linear-gradient(45deg, #8f1176, #33a3ff);
     background-size: 200% 200%;       /* <- Allows movement */
     background-position: left center; /* <- Initial position */
-    transition: background-position 0.2s ease;
+    transition: background-position 0.2s ease, width 0.2s ease;
   }
   
   #carouselCarotRight:hover{
@@ -144,7 +195,7 @@
     background: linear-gradient(45deg, #8f1176, #33a3ff);
     background-size: 200% 200%;       /* <- Allows movement */
     background-position: left center; /* <- Initial position */
-    transition: background-position 0.2s ease;
+    transition: background-position 0.2s ease, width 0.2s ease;
   }
   
   #carouselCarotLeft:hover{

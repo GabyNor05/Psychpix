@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import lineSquare from './icons/lilsquare.png';
 import './Carousel.css';
 
@@ -7,12 +8,21 @@ export default function Carousel({ slides = [], Title}) {
     const [progress, setProgress] = useState(0);
 
     const scrollRight = () => {
-        scrollRef.current?.scrollBy({ left: 300, behavior: 'smooth' });
+        scrollRef.current?.scrollBy({ left: 400, behavior: 'smooth' });
     };
 
     const scrollLeft = () => {
-        scrollRef.current?.scrollBy({ left: -300, behavior: 'smooth' });
+        scrollRef.current?.scrollBy({ left: -400, behavior: 'smooth' });
     };
+
+    function setScroll(amount){
+        let scrollAmt = amount;
+        const container = scrollRef.current;
+        if((progress + amount) > (container.scrollWidth * 0.8) && amount > progress){
+            scrollAmt =  (amount * 1.5);
+        }
+        container.scrollBy({ left: scrollAmt - progress, behavior: 'smooth'});
+    }
 
     useEffect(() => {
         const container = scrollRef.current;
@@ -30,27 +40,59 @@ export default function Carousel({ slides = [], Title}) {
 
     function leftButton(){
         if(progress > 0){
-            console.log("#p");
             return(
-                <div id="carouselCarotLeft" onClick={scrollLeft}></div>
+                <div className='carouselCarot' id="carouselCarotLeft" onClick={scrollLeft}></div>
             )
         }else{
-            return('');
+            return(<div className='carouselCarot' id="Inactive" onClick={scrollRight}></div>);
         }
     }
 
     function RightButton(){
         const container = scrollRef.current;
         if(container == null){
-            return(<div id="carouselCarotRight" onClick={scrollRight}></div>);
+            return(<div className='carouselCarot' id="carouselCarotRight" onClick={scrollRight}></div>);
         }
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         if(progress >= maxScrollLeft){
-            console.log();
-            return('')
+            return(<div className='carouselCarot' id="Inactive" onClick={scrollRight}></div>)
         }else{
-            return(<div id="carouselCarotRight" onClick={scrollRight}></div>);
+            return(<div className='carouselCarot' id="carouselCarotRight" onClick={scrollRight}></div>);
         }
+    }
+
+    const progressBits = () => {
+        const container = scrollRef.current;
+        if(container == null){
+            return('');
+        }
+        const excessScroll = container.scrollWidth - container.clientWidth;
+        const increments = Math.floor(excessScroll / 300);
+        let currentProgress = Math.round(progress / 400);
+
+        if(increments <= 1){
+            return('');
+        }
+
+        console.log(increments);
+
+        let progressBar = [];
+
+        if(currentProgress >= increments){
+            currentProgress = increments - 1;
+        }
+
+        for (let x = 0; x < increments; x++) {
+            if(x != currentProgress){
+                progressBar.push(<div key={x} className='carouselProgress' onClick={() => setScroll(x * (excessScroll / increments))}></div>);
+            }else{
+                progressBar.push(<div key={x} className='carouselProgress' id='currentProg'></div>);
+            }
+        }
+
+        return(
+            progressBar
+        )
     }
 
     return (
@@ -61,9 +103,7 @@ export default function Carousel({ slides = [], Title}) {
             </div>
 
             <div className='carouselProgressContainer'>
-                <div className='carouselProgress'></div>
-                <div className='carouselProgress'></div>
-                <div className='carouselProgress'></div>
+                {progressBits()}
             </div>
 
             <div className="carousel-wrapper">
@@ -73,7 +113,9 @@ export default function Carousel({ slides = [], Title}) {
                 
                     <div className="flex carousel-track">
                         {slides.map((src, i) => (
-                        <img key={i} src={src} className="h-auto flex-shrink-0 carousel-image" alt={`Slide ${i}`}/>
+                        <Link to="/singleItem" className="carouselLink">
+                            <img key={i} src={src} className="h-auto flex-shrink-0 carousel-image" alt={`Slide ${i}`}/>
+                        </Link> 
                         ))}
                     </div>
 
