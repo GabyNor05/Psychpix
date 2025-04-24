@@ -6,7 +6,7 @@ import Logo from "../../logo.png";
 function Navbar() {
   return (
     <nav className="navbar">
-      <div className="navlinks">
+      <div className="navlinks text-white fs-5">
         <img className="logo" src={Logo} alt="PyschPixels"/>
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/discover" className="nav-link">Discover</Link>

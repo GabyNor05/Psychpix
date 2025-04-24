@@ -1,9 +1,8 @@
 .GeneralCarousel{
     position: relative;
     display: flex;
-    align-items: center;
-    height: 450px;
-    margin: auto;
+    align-items: start;
+    height: 430px;
     overflow-x: auto;
     white-space: nowrap;
     -ms-overflow-style: none;
@@ -14,12 +13,19 @@
     display: none;
   }
   
-  .carouselProgressContainer{
+  .carouselProgressWrapper{
     display: flex;
-    width: 90%;
-    justify-content: flex-end;
     padding: 16px;
+    padding-bottom: 0;
     gap: 16px;
+    transition: width 2s ease;
+    overflow: hidden;
+  }
+
+  .carouselProgressContainer{
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
   }
   
   .carouselProgress{
@@ -41,57 +47,60 @@
     margin: auto;
     overflow: hidden;
     margin-bottom: 48px;
+  }
+
+  @media(min-width: 800px) {
     
-  }
-  
-  .carousel-wrapper:has(> #carouselCarotRight)::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 128px;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 255, 255));
-    pointer-events: none; /* allow clicks to pass through */
-    z-index: 2;
-  }
 
-  .carousel-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0px;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 255, 255));
-    pointer-events: none; /* allow clicks to pass through */
-    z-index: 2;
-    transition: width 0.3s ease;
-  }
+    .carousel-wrapper:has(> #carouselCarotRight)::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 128px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 255, 255));
+      pointer-events: none; /* allow clicks to pass through */
+      z-index: 2;
+    }
   
-  .carousel-wrapper:has(> #carouselCarotLeft)::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 128px;
-    height: 100%;
-    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
-    pointer-events: none; /* allow clicks to pass through */
-    z-index: 2;
-  }
-
-  .carousel-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0px;
-    height: 100%;
-    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
-    pointer-events: none; /* allow clicks to pass through */
-    z-index: 2;
-    transition: width 0.3s ease;
+    .carousel-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 255, 255));
+      pointer-events: none; /* allow clicks to pass through */
+      z-index: 2;
+      transition: width 0.3s ease;
+    }
+    
+    .carousel-wrapper:has(> #carouselCarotLeft)::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 128px;
+      height: 100%;
+      background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+      pointer-events: none; /* allow clicks to pass through */
+      z-index: 2;
+    }
+  
+    .carousel-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      height: 100%;
+      background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+      pointer-events: none; /* allow clicks to pass through */
+      z-index: 2;
+      transition: width 0.3s ease;
+    }
   }
   
   .carousel-track{
@@ -117,12 +126,16 @@
 
   .carouselTitle{
     position: relative;
-    font-weight: 900;
-    font-family: "Charis SIL";
-    padding-left: 128px;
+    padding-left: 96px;
     padding-right: 32px;
     border-bottom: 3px solid black;
     width: fit-content;
+  }
+
+  .carouselTitle h1{
+    font-weight: 900;
+    font-family: "Charis SIL";
+    font-size: 48px;
   }
 
   .carouselLink{

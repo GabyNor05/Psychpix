@@ -1,7 +1,20 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&family=Domine:wght@400..700&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap');
-
 @import url('https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&family=Domine:wght@400..700&display=swap');
+
+.jost-light{
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.jost-regular{
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .domine-Label{
   font-family: "Domine", serif;
@@ -39,7 +52,7 @@
 
 h1{
   font-size: 48px;
-  
+  font-weight: 600;
 }
 
 h2{
@@ -88,6 +101,13 @@ h5{
   height: 22px;
   bottom: -12px;
   right: -12px;
+  animation: App-logo-spin infinite 6s linear;
+  animation-play-state: paused;
+}
+
+.lineSquareBR:hover{
+  
+  animation-play-state: running;
 }
 
 .navlinks{
@@ -134,26 +154,37 @@ h5{
   }
 }
 
+@keyframes lineSquarePop {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
 /* Navigation Bar ./Navbar
   --------------------------------------------- 
   This is used to style the Navigation bar on the home page.
 */
 .navbar{
   height: fit-content;
-  border-radius: 0px 0px 50px 50px;
+  border-radius: 0px 0px 48px 48px;
   background-color: #121920;
   backdrop-filter: blur(2.5px);
 }
 
 .nav-link {
-  margin: 10px;
+  margin: 8px;
   color: #fff;
   font-family: "Jost", sans-serif;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 400;
   letter-spacing: 5.4px;
   text-decoration: none;
   flex-shrink: 2;
+  width: 160px;
+  text-align: center;
 }
 
 .nav-link:hover {
@@ -161,12 +192,13 @@ h5{
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: "Roboto", sans-serif;
-  font-size: 24px;
+  font-family: "Jost", sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   line-height: normal;
   letter-spacing: 5.4px;
+  flex-shrink: 2;
+  
 }
 
 .logo{

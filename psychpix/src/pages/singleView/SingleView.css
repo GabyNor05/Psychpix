@@ -135,3 +135,137 @@
     background-image: url('./images/woodFrame.jpg');
     margin: 8px;
 }
+
+.CommentInputBlock{
+    width: 70%;
+    height: 320px;
+    border-radius: 24px;
+    margin: auto;
+    background: #060C12;
+}
+
+.ProfileContainer{
+    display: flex;
+    color: rgba(255, 255, 255, 0.705);
+    justify-content: start;
+    align-items: center;
+    gap: 16px;
+    padding: 32px;
+}
+
+.CommentProfilePic{
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 100px;
+}
+
+.StarRatingBlock{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.CommentInputBlock{
+    margin: 32px auto;
+}
+
+.commentInputContainer{
+    width: 85%;
+    margin: auto;
+}
+
+.CommentInput{
+    width: 90%;
+    height: 96px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.185);
+    border: none;
+    font-size: 24px;
+    padding: 16px;
+}
+
+.CommentInput input{
+    color: wheat;
+}
+
+.submitCommentButton{
+    height: 96px;
+    width: 96px;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.185);
+    border: none;
+    border-left: 2px solid #060C12;
+}
+
+#commentForm{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.userComment{
+    padding-top: 16px;
+    width: 90%;
+    letter-spacing: 2.5px;
+    text-align: justify;
+}
+
+.userTimeStamp{
+    color: rgba(255, 255, 255, 0.445);
+}
+
+.userInteract{
+    display: flex;
+    gap: 32px;
+}
+
+.userHearts{
+    color: rgba(255, 255, 255, 0.445);
+    width: fit-content;
+    cursor: pointer;
+}
+
+.userHearts h6{
+    text-align: center;
+}
+
+.UserCommentBlock{
+    min-height: 256px;
+    padding: 32px;
+    width: 70%;
+    margin: 32px auto;
+    border-radius: 24px;
+    background-color: #060C12;
+    color: white;
+    display: grid;
+    grid-template-columns: 128px 1fr max-content;
+    grid-template-rows: min-content min-content max-content;
+    grid-template-areas:
+    "userPic userName userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment"
+    "userReply userReply userReply";
+}
+
+.UserReplyBlock{
+    border-top: 2px solid white;
+    width: 80%;
+    justify-content: end;
+    min-height: 256px;
+    padding: 32px;
+    margin: 32px auto;
+    color: white;
+    display: grid;
+    grid-template-columns: 128px 1fr max-content;
+    grid-template-rows: min-content min-content max-content;
+    grid-template-areas:
+    "userPic userName userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment";
+}
+
+.UserReplyBlock .userComment{
+    width: 100%;
+}
