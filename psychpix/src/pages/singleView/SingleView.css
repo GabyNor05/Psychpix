@@ -280,6 +280,8 @@
     margin: auto;
     overflow-y: scroll;
     overflow-x: hidden;
+    border-radius: 24px;
+    background: #060c1236;
 }
 
 .UserReplyBlock .userComment{

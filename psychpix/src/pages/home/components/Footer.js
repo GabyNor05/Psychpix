@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import LongLogo from '../images/LongLogo.png';
 import lineSquare from '../images/lil_square2.png';
 import { XLogo, LinkedinLogo, InstagramLogo, MessengerLogo } from "@phosphor-icons/react";
+import DockIcons from './DockIcons';
 
 function Footer() {
   return (
@@ -25,16 +26,13 @@ function Footer() {
         </div>
 
         <div className="footerSocialIcons">
-          <XLogo size={48} weight="light" />
-          <LinkedinLogo size={48} weight="light" />
-          <InstagramLogo size={48} weight="light" />
-          <MessengerLogo size={48} weight="light" />
+          <DockIcons />
         </div>
-
+        
         <div className="citation">
           <img className='lineSquareTL' src={lineSquare} alt='lilSquare'/>
           <img className='lineSquareTR' src={lineSquare} alt='lilSquare'/>
-          <h5 className="jost-light text-white m-auto">© 2025 Psychedelic Pixels. All Right Reserved.</h5>
+          <h6 className="jost-light text-white m-auto">© 2025 Psychedelic Pixels. All Right Reserved.</h6>
         </div>
         
     </footer>

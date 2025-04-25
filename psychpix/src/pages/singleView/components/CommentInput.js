@@ -9,9 +9,9 @@ function CommentInput(){
                     <img className='CommentProfilePic' src={ProfilePic}/>
                     <h1 className='domine-Label m-0'>Keith Waterson</h1>
                     <div className='StarRatingBlock' style={{justifySelf: 'end'}}>
-                        <span><Star size={42} weight="fill" /></span>
-                        <span><Star size={42} weight="fill" /></span>
-                        <span><Star size={42} weight="fill" /></span>
+                        <span><Star size={42} weight="light" /></span>
+                        <span><Star size={42} weight="light" /></span>
+                        <span><Star size={42} weight="light" /></span>
                         <span><Star size={42} weight="light" /></span>
                         <span><Star size={42} weight="light" /></span>
                     </div>

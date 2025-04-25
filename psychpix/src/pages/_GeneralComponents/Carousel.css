@@ -118,6 +118,7 @@
     transition: transform 0.1s ease;
     scroll-snap-align: center;
     height: inherit;
+    object-fit: cover;
   }
 
   .carousel-image:hover{
