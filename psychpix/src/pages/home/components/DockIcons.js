@@ -61,13 +61,13 @@ const DockIcon = ({ Icon, index, mousePos, containerRect }) => {
     const distanceY = mousePos.y - iconCenterY;
     const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
 
-    const maxDistance = 500;
-    const snapThreshold = 60;
+    const maxDistance = 600;
+    const snapThreshold = 80;
 
     const scale = Math.max(1, 1.8 - distance / maxDistance);
 
     let translateX = 0;
-    let translateY = -15 * (scale - 1); // Default "lift"
+    let translateY = -20 * (scale - 1); // Default "lift"
 
     // Snap to cursor if close enough
     if (distance < snapThreshold) {
@@ -83,7 +83,7 @@ const DockIcon = ({ Icon, index, mousePos, containerRect }) => {
   return (
     <div className="dock-icon-wrapper">
       <div ref={iconRef} className="dock-icon" style={{ transform: getTransform(), }}>
-        <Icon size={48} />
+        <Icon size={48} weight='light'/>
       </div>
     </div>      
   );
