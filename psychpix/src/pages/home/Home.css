@@ -1,7 +1,6 @@
 footer{
     border-radius: 50px 50px 0px 0px;
     background: #060C12;
-    margin-top: 100px;
 }
 
 .box{
@@ -77,6 +76,19 @@ footer{
     margin: 8px;
 }
 
+.citation h5{
+    width: fit-content;
+    margin: auto;
+    padding: 16px;
+}
+
+.citation{
+    position: relative;
+    width: 70%;
+    border-top: 2px solid rgb(134, 134, 134);
+    margin: auto;
+}
+
 .footerLinks{
     display: flex;
     align-items: center;
@@ -98,7 +110,7 @@ footer{
 .footerInnerContainer{
     width: 80%;
     margin: auto;
-    height: 200px;
+    height: 128px;
     display: flex;
     align-items: center;
 }
@@ -155,7 +167,7 @@ footer{
     width: 70%;
     margin: auto;
     border-color: rgb(134, 134, 134);
-    border-width: 2px 0px;
+    border-width: 0px 0px 2px 0px;
     border-style: solid;
 }
 

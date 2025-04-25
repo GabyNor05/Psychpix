@@ -19,8 +19,6 @@ function Footer() {
         <div id="footerLogoContainer">
             <div className="footerInnerContainer">
                 <img src={LongLogo} id='footerLogo' />
-                <img className='lineSquareTL' src={lineSquare} alt='lilSquare'/>
-                <img className='lineSquareTR' src={lineSquare} alt='lilSquare'/>
                 <img className='lineSquareBL' src={lineSquare} alt='lilSquare'/>
                 <img className='lineSquareBR' src={lineSquare} alt='lilSquare'/>
             </div>
@@ -31,6 +29,12 @@ function Footer() {
           <LinkedinLogo size={48} weight="light" />
           <InstagramLogo size={48} weight="light" />
           <MessengerLogo size={48} weight="light" />
+        </div>
+
+        <div className="citation">
+          <img className='lineSquareTL' src={lineSquare} alt='lilSquare'/>
+          <img className='lineSquareTR' src={lineSquare} alt='lilSquare'/>
+          <h5 className="jost-light text-white m-auto">© 2025 Psychedelic Pixels. All Right Reserved.</h5>
         </div>
         
     </footer>

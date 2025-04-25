@@ -23,7 +23,7 @@ function CommentInput(){
                         
                         </input>
                         <span>
-                            <button className='submitCommentButton'><span id='iconElement'><PaperPlaneRight size={48} color="#FFFFFF55" weight="light" /></span></button>
+                            <button className='submitCommentButton'><span id='iconElement'><PaperPlaneRight size={48} weight="light" /></span></button>
                         </span>
                     </form>
                 </div>
