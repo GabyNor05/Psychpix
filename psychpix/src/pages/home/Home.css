@@ -93,10 +93,9 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
     margin: auto;
     padding: 32px;
-    color: wheat;
+    color: rgb(255, 255, 255);
 }
 
 .footerSocialIcons{
@@ -255,7 +254,7 @@ footer{
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
-    padding: 20px;  
+    padding: 32px;  
     gap: 16px;
   }
   
