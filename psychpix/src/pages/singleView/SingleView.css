@@ -147,7 +147,6 @@
 .ProfileContainer{
     display: flex;
     color: rgba(255, 255, 255, 0.705);
-    justify-content: start;
     align-items: center;
     gap: 16px;
     padding: 32px;
@@ -163,7 +162,9 @@
 
 .StarRatingBlock{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: start;
     gap: 16px;
 }
 
@@ -174,6 +175,11 @@
 .commentInputContainer{
     width: 85%;
     margin: auto;
+}
+
+.replyInputContainer{
+    height: max-content;
+    overflow: hidden;
 }
 
 .CommentInput{
@@ -187,6 +193,7 @@
     padding: 16px;
 }
 
+
 .CommentInput input{
     color: rgb(255, 255, 255);
 }
@@ -194,6 +201,9 @@
 .submitCommentButton{
     height: 96px;
     width: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
     background-color: rgba(255, 255, 255, 0.185);
@@ -242,18 +252,11 @@
 .UserCommentBlock{
     min-height: 256px;
     padding: 32px;
-    margin: 32px;
-    border-radius: 24px;
-    background-color: #060C12;
     color: white;
     display: grid;
     grid-template-columns: 128px 1fr max-content;
     grid-template-rows: min-content min-content max-content;
-    grid-template-areas:
-    "userPic userName userRating"
-    "userPic userTimeStamp userTimeStamp"
-    "userPic userComment userComment"
-    "userReply userReply userReply";
+    
 }
 
 .UserReplyBlock{
@@ -263,15 +266,78 @@
     justify-content: end;
     min-height: 256px;
     padding: 32px;
-    margin: 32px auto;
+    margin: auto;
     color: white;
     display: grid;
-    grid-template-columns: 128px 1fr max-content;
+    grid-template-columns: 128px 1fr min-content;
     grid-template-rows: min-content min-content max-content;
-    grid-template-areas:
+}
+
+.userCommentContainer{
+    background: #060C12;
+    margin: 32px;
+    border-radius: 24px;
+}
+
+@media (max-width: 100em) {
+    .UserReplyBlock{
+        grid-template-areas:
     "userPic userName userRating"
     "userPic userTimeStamp userTimeStamp"
     "userPic userComment userComment";
+    }
+
+    .UserCommentBlock{
+        grid-template-areas:
+    "userPic userName userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment"
+    "userReply userReply userReply";
+    }
+}
+
+@media (max-width: 70em) {
+    .UserCommentBlock{
+        grid-template-areas:
+        "userPic userName userName"
+        "userPic userRating userRating"
+        "userPic userTimeStamp userTimeStamp"
+        "userPic userComment userComment"
+        "userReply userReply userReply";
+    }
+
+    .UserReplyBlock{
+        grid-template-areas:
+    "userPic userName userName"
+    "userPic userRating userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment";
+    }
+}
+
+@media (max-width: 40em){
+    .UserCommentBlock{
+        hyphenate-character: auto;
+        text-align: center;
+        justify-content: center;
+        grid-template-columns: 90%;
+        grid-template-areas:
+        "userPic"
+        "userName"
+        "userRating"
+        "userTimeStamp"
+        "userComment"
+        "userReply";
+    }
+
+    .UserReplyBlock{
+        grid-template-areas:
+        "userPic"
+        "userName"
+        "userRating"
+        "userTimeStamp"
+        "userComment"
+    }
 }
 
 .CommentScroll{
