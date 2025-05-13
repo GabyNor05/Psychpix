@@ -7,6 +7,7 @@ import About from './pages/about/About';
 import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
 
+
 function AppContent() {
   const location = useLocation();
 
