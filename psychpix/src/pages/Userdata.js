@@ -1,5 +1,6 @@
 import ProfilePic from './singleView/images/pfp.webp';
-export const UserData = () => {
+
+export default function UserData() {
     const data = {
         userName: 'BillyFlowers',
         userProfilePic: ProfilePic

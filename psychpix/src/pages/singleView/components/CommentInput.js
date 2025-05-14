@@ -2,12 +2,7 @@ import ProfilePic from '../images/pfp.webp';
 import { Star, PaperPlaneRight } from "@phosphor-icons/react";
 import UserComment from './UserComments';
 import { useState } from 'react';
-
-function addComment (profilePic, userName, userComment){
-    return(<UserComment userProfilePic={profilePic} userName={userName} userComment={userComment} />);
-}
-
-let currentUserName = 'Mike Hunt';
+let currentUserName = 'BillyFlowers';
 
 function CommentInput( {callback} ){
     
@@ -16,6 +11,19 @@ function CommentInput( {callback} ){
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
     };
+
+    const UserData = {
+        _userName: 'BillyFlowers',
+        userProfilePic: ProfilePic
+    }
+
+    const userReply = {
+        userProfilePic: UserData.userProfilePic,
+        userName: UserData._userName,
+        userComment: inputText,
+        userReplies: [],
+        addReply: '',
+    }
 
     return(
         <>
@@ -38,8 +46,11 @@ function CommentInput( {callback} ){
                         
                         </input>
                         <span>
-                            <div className='submitCommentButton' onClick={() => callback(addComment(ProfilePic, currentUserName, inputText))}>
-                                <span id='iconElement'><PaperPlaneRight size={48} weight="light" /></span>
+                            <div className='submitCommentButton' onClick={() => ''}>
+                                <span id='iconElement'><PaperPlaneRight size={48} weight="light" onClick={() => {
+                                    callback(userReply);
+                                    setInputText('');
+                                }} /></span>
                             </div>
                         </span>
                     </form>

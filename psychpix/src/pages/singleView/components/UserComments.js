@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import UserReplies from './CommentReplies';
 import { Star, Heart, ArrowUUpLeft, PaperPlaneRight } from "@phosphor-icons/react";
-import { UserData } from '../../Userdata';
 
 function UserComment( {userProfilePic, userName, userComment, userReplies, callback}){
     const [inputText, setInputText] = useState('');
     const [currentUserData, SetUserData] = useState(null);
-    
-    useEffect(() => {
-        SetUserData(UserData);
-    }, []);
-
-    console.log(currentUserData);
 
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
@@ -40,6 +33,7 @@ function UserComment( {userProfilePic, userName, userComment, userReplies, callb
                     <span><Star weight="light" /></span>
                     <span><Star weight="light" /></span>
                 </div>
+                
                 <div className='userComment' style={{gridArea: 'userComment'}}>
                     <h4 className="jost-light">
                         {userComment}
@@ -54,7 +48,7 @@ function UserComment( {userProfilePic, userName, userComment, userReplies, callb
                         </div>
                     </div>
 
-                    <div className='replyInputContainer'>
+                    <div className='replyInputContainer' style={{ height: 'max-content' }}>
                         <form id='commentForm'>
                             <input className='CommentInput' placeholder="My experience was.. " name="Comment" onChange={handleChange} value={inputText}>
                             
@@ -67,11 +61,15 @@ function UserComment( {userProfilePic, userName, userComment, userReplies, callb
                         </form>
                     </div>
                 </div>    
-            </div>
-
+            </div> 
             <div style={{gridArea: 'userReply'}}>
-                <UserReplies userProfilePic={userReplies.profilePic} userName={userReplies.userName} userComment={userReplies.UserComment} />
-            </div>  
+                {userReplies.map((item, index) => {
+                    return(
+                        <UserReplies key={index} userProfilePic={item.userProfilePic} userName={item.userName} userComment={item.userComment} />
+                    );
+                })}
+                
+            </div>
         </div>
     )
 }

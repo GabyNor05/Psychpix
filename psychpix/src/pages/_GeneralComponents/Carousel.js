@@ -97,7 +97,7 @@ export default function Carousel({ slides = [], Title}) {
 
     return (
         <>
-            <div className='carouselTitle domine-Label pb-3'>
+            <div className='carouselTitle domine-Label pb-3 me-2s'>
                 <h1 className='fw-bold'>{Title}</h1>
                 <img className='lineSquareBR' src={lineSquare} alt='lilSquare'/>
             </div>
