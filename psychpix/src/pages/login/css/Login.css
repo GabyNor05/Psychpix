@@ -168,6 +168,9 @@
   --width: 100px;
   background-color: white;
   border: 1px solid #333;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  margin: 0 1px;
 }
 
 .white.active {
@@ -181,6 +184,8 @@
   margin-right: calc(var(--width) / -2);
   z-index: 2;
   color: white;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 .black.active {

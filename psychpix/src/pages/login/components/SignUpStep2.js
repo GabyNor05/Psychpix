@@ -70,7 +70,14 @@ const SignUpStep2 = () => {
       if (note) playNote(note);
     };
 
+    const handleKeyUp = (e) => {
+      if (e.repeat) return;
+      const note = KEYBOARD_NOTE_MAP[e.key];
+      if (note) stopNote(note);
+    };
+
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
@@ -78,6 +85,7 @@ const SignUpStep2 = () => {
     const audio = audioMap[note];
     if (!audio) return;
 
+    audio.volume = 1;
     audio.currentTime = 0;
     audio.play();
 
@@ -89,6 +97,22 @@ const SignUpStep2 = () => {
       setTimeout(() => keyEl.classList.remove("active"), 200);
     }
   };
+
+  const stopNote = (note) => {
+    const audio = audioMap[note];
+    if (!audio) return;
+
+    let fadeInterval = setInterval(() => {
+    if (audio.volume > 0.05) {
+      audio.volume = Math.max(0, audio.volume - 0.01);
+    } else {
+      audio.volume = 0;
+      audio.pause();
+      audio.currentTime = 0;
+      clearInterval(fadeInterval);
+    }
+  }, 20);
+};
 
 return (
   <div className="login-container">
