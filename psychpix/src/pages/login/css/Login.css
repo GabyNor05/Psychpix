@@ -130,11 +130,36 @@
 
 
 /*paino*/
-.piano {
+.piano-wrapper {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
 
+.pressed-keys-display {
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.piano {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+
 .key {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
   height: calc(var(--width) * 4);
   width: var(--width);
 }
@@ -146,7 +171,7 @@
 }
 
 .white.active {
-  background-color: #CCC;
+  background-color: #ccc;
 }
 
 .black {
@@ -155,8 +180,14 @@
   margin-left: calc(var(--width) / -2);
   margin-right: calc(var(--width) / -2);
   z-index: 2;
+  color: white;
 }
 
 .black.active {
   background-color: #333;
+}
+
+.note-label {
+  padding: 4px;
+  pointer-events: none;
 }

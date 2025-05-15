@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Login.css";
 import LongLogo from "../../../pages/LongLogo.png";
 
@@ -30,24 +30,38 @@ const audioMap = {
   B: new Audio(B),
 };
 
-// ✅ KEY → NOTE mapping for keyboard
 const KEYBOARD_NOTE_MAP = {
-  z: 'C',
-  s: 'Db',
-  x: 'D',
-  d: 'Eb',
-  c: 'E',
-  v: 'F',
-  g: 'Gb',
-  b: 'G',
-  h: 'Ab',
-  n: 'A',
-  j: 'Bb',
-  m: 'B',
+  z: "C",
+  s: "Db",
+  x: "D",
+  d: "Eb",
+  c: "E",
+  v: "F",
+  g: "Gb",
+  b: "G",
+  h: "Ab",
+  n: "A",
+  j: "Bb",
+  m: "B",
 };
 
 const SignUpStep2 = () => {
-  const NOTES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+  const NOTES = [
+    "C",
+    "Db",
+    "D",
+    "Eb",
+    "E",
+    "F",
+    "Gb",
+    "G",
+    "Ab",
+    "A",
+    "Bb",
+    "B",
+  ];
+
+  const [pressedKeys, setPressedKeys] = useState([]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -67,18 +81,26 @@ const SignUpStep2 = () => {
     audio.currentTime = 0;
     audio.play();
 
+    setPressedKeys((prev) => [...prev, note]);
+
     const keyEl = document.querySelector(`[data-note="${note}"]`);
     if (keyEl) {
       keyEl.classList.add("active");
-      setTimeout(() => keyEl.classList.remove("active"), 200); // visual feedback
+      setTimeout(() => keyEl.classList.remove("active"), 200);
     }
   };
 
-  return (
-    <div className="login-container">
-      <div className="logo-container">
-        <img src={LongLogo} alt="Logo" className="logo" />
+return (
+  <div className="login-container">
+    <div className="logo-container">
+      <img src={LongLogo} alt="Logo" className="logo" />
+    </div>
+
+    <div className="piano-wrapper">
+      <div className="pressed-keys-display">
+        {pressedKeys.join(" - ")}
       </div>
+
       <div className="piano">
         {NOTES.map((note) => (
           <div
@@ -86,13 +108,18 @@ const SignUpStep2 = () => {
             data-note={note}
             className={`key ${note.length === 1 ? "white" : "black"}`}
             onClick={() => playNote(note)}
-          ></div>
+          >
+            <span className="note-label">{note}</span>
+          </div>
         ))}
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default SignUpStep2;
+
 
 
