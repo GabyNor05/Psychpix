@@ -7,7 +7,6 @@ import About from './pages/about/About';
 import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
 
-
 function AppContent() {
   const location = useLocation();
 
@@ -19,7 +18,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login/*" element={<Login />} /> {/* Use wildcard for nested routes */}
         <Route path="/cart" element={<Cart />} />
       </Routes>
     </>

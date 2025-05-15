@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../css/Login.css";
 import LongLogo from "../../../pages/LongLogo.png";
 
@@ -10,6 +11,8 @@ const LoginForm = () => {
     password: ''
   });
 
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -20,8 +23,11 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Add your authentication logic here
+if (!isLogin) {
+  navigate("/signup-step2");
+}else {
+      console.log(formData); // Add your login logic here
+    }
   };
 
   return (
@@ -31,7 +37,7 @@ const LoginForm = () => {
       </div>
       <div className="auth-box">
         <div className="auth-left">
-          <h2 style={{ fontSize: '24px', marginBottom: '20px', fontWeight: 'bold' }}>
+          <h2 style={{ fontSize: '28px', marginBottom: '20px', fontWeight: 'bold' }}>
             {isLogin ? "Log in" : "Sign up"}
           </h2>
           <div className="auth-tabs">
