@@ -1,5 +1,6 @@
-import React, { useState } from "react"; // Added useState import
+import React, { useState } from "react";
 import "../css/Login.css";
+import LongLogo from "../../../pages/LongLogo.png";
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,91 +26,73 @@ const LoginForm = () => {
 
   return (
     <div className="login-container">
+      <div className="logo-container">
+        <img src={LongLogo} alt="Logo" className="logo" />
+      </div>
       <div className="auth-box">
-        <div className="auth-header">
-          <h1 className="title">Psychedelic Pixels</h1>
+        <div className="auth-left">
+          <h2 style={{ fontSize: '24px', marginBottom: '20px', fontWeight: 'bold' }}>
+            {isLogin ? "Log in" : "Sign up"}
+          </h2>
           <div className="auth-tabs">
-            <button 
-              className={`tab ${isLogin ? 'active' : ''}`}
-              onClick={() => setIsLogin(true)}
-            >
-              Sign in
-            </button>
             <button 
               className={`tab ${!isLogin ? 'active' : ''}`}
               onClick={() => setIsLogin(false)}
             >
-              Log in
+              sign up
+            </button>
+            <button 
+              className={`tab ${isLogin ? 'active' : ''}`}
+              onClick={() => setIsLogin(true)}
+            >
+              log in
             </button>
           </div>
-        </div>
 
-        <div className="divider"></div>
-
-        <div className="auth-content">
-          {!isLogin ? (
+          <div className="auth-content">
             <form onSubmit={handleSubmit}>
               <div className="input-group">
                 <label>Username</label>
                 <input 
                   type="text" 
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
+                  name="username" 
+                  value={formData.username} 
+                  onChange={handleChange} 
+                  required 
                 />
               </div>
-              <div className="input-group">
-                <label>Email</label>
-                <input 
-                  type="email" 
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="input-group">
-                <label>Password</label>
-                <input 
-                  type="password" 
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <button type="submit" className="auth-button">Sign In</button>
-            </form>
-          ) : (
-            <form onSubmit={handleSubmit}>
-              <div className="input-group">
-                <label>Username</label>
-                <input 
-                  type="text" 
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              {!isLogin && (
+                <div className="input-group">
+                  <label>Email</label>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    value={formData.email} 
+                    onChange={handleChange} 
+                    required 
+                  />
+                </div>
+              )}
               <div className="input-group">
                 <label>Password</label>
                 <input 
                   type="password" 
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
+                  name="password" 
+                  value={formData.password} 
+                  onChange={handleChange} 
+                  required 
                 />
               </div>
-              <button type="submit" className="auth-button">Log In</button>
+              <button type="submit" className="auth-button">
+                {isLogin ? "Log In" : "Sign Up"}
+              </button>
             </form>
-          )}
+          </div>
         </div>
+        <div className="auth-right"></div>
       </div>
     </div>
   );
 };
 
-export default LoginForm; // Fixed typo in export statement
+export default LoginForm;
