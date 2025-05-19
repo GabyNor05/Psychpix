@@ -78,7 +78,7 @@ n: A
 j: Bb
 m: B`;
 
-const SignUpStep2 = ({ onBack, onSubmit }) => {
+const LogInStep2 = ({ onBack, onSubmit }) => {
   const NOTES = Object.keys(audioMap); // List of all notes
   const [pressedKeys, setPressedKeys] = useState([]); // Track currently pressed keys
   const [displayedNotes, setDisplayedNotes] = useState([]); // Track displayed notes (max 7)
@@ -152,11 +152,10 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
 
   return (
     <div className="login-piano-container">
-                  <div className="logo-container">
-              <img src={LongLogo} alt="Logo" className="logo" />
-            </div>
+      <div className="logo-container">
+        <img src={LongLogo} alt="Logo" className="logo" />
+      </div>
       <div className="auth-piano-box">
-
         {/* Arrow Back Button */}
         <button
           className="back-arrow-button"
@@ -165,7 +164,7 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
         >
           ←
         </button>
-        {/* Info Button with Dropdown */}
+        {/* Info Button (absolute, but relative to auth-piano-box) */}
         <div className={`info-dropdown-container${infoOpen ? " info-open" : ""}`}>
           {!infoOpen && (
             <button
@@ -198,6 +197,7 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
             </div>
           )}
         </div>
+        {/* Piano and keys */}
         <div className="piano-wrapper">
           <div className="music-sheet-container">
             {/* Music Sheet SVG */}
@@ -241,8 +241,6 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
               Clear
             </button>
           </div>
-
-          {/* Piano Keys */}
           <div className="piano">
             {NOTES.map((note) => (
               <div
@@ -258,7 +256,7 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
         </div>
         <button
           className="auth-button submit-button"
-          onClick={onSubmit} // <-- Make sure this calls the prop
+          onClick={onSubmit}
         >
           Submit
         </button>
@@ -267,9 +265,4 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
   );
 };
 
-export default SignUpStep2;
-
-
-
-
-
+export default LogInStep2;

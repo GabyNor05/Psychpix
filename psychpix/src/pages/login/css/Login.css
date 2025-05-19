@@ -58,7 +58,7 @@
 
 .tab.active {
 
-  background: radial-gradient(50% 50% at 50% 50%, #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);;
+  background: radial-gradient(50% 50% at 50% 50%, #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -117,6 +117,22 @@
   background-color: #ccc;
 }
 
+.auth-button.signup {
+background-color: #ddd;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
+  color: black;
+  transition: 0.3s;
+}
+
+.auth-button.signup:hover {
+  background-color: #ccc;
+}
+
 .logo-container {
   position: absolute; /* Position the logo absolutely */
   top: 20px; /* Distance from the top */
@@ -126,15 +142,61 @@
 .logo {
   width: 300px; /* Adjust the size of the logo */
   height: auto;
+
 }
 
 
 /*paino*/
+
+.login-piano-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+
+.logo-piano-container {
+  position: absolute; /* Position the logo absolutely */
+  top: 20px; /* Distance from the top */
+  left: 20px; /* Distance from the left */
+}
+
+
+.auth-piano-box {
+  position: relative; /* Enable absolute positioning inside */
+   transform: translateZ(0); /* Force new stacking context */
+  width: 1400px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f6f6f6;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+
 .piano-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.piano-sheet-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+}
+
+
+
+.piano {
+  display: flex;
+  position: relative;
+
 }
 
 .pressed-keys-display {
@@ -145,11 +207,52 @@
   color: #333;
 }
 
-.piano {
+
+.music-sheet-container {
   display: flex;
+  align-items: center;
+  gap: 20px;
   position: relative;
-  justify-content: center;
 }
+
+.info-button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s, transform 0.2s ease-in-out;
+}
+
+.submit-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+padding: 12px 24px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
+  color: black;
+  transition: 0.3s;
+  width: 200px;    
+}
+
+.clear-button {
+  margin-left: 20px;
+  height: 40px;
+  padding: 8px 16px;
+  margin-top: 0px;
+}
+
 
 
 .key {
@@ -170,11 +273,11 @@
   border: 1px solid #333;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
-  margin: 0 1px;
+  margin: 0 0.4px;
 }
 
 .white.active {
-  background-color: #ccc;
+  background: linear-gradient(45deg,  #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);
 }
 
 .black {
@@ -189,10 +292,173 @@
 }
 
 .black.active {
-  background-color: #333;
+  background: linear-gradient(45deg,  #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);
 }
 
 .note-label {
   padding: 4px;
   pointer-events: none;
+}
+
+.login-page-viewport {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  background: white;
+}
+
+.login-steps-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login-form-slide,
+.signup-step2-slide {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: transform 0.7s cubic-bezier(0.77,0,0.175,1);
+  will-change: transform;
+}
+
+.login-form-slide {
+  z-index: 2;
+  transform: translateY(0%);
+}
+
+.login-form-slide.slide-up {
+  transform: translateY(-110%);
+}
+
+.signup-step2-slide {
+  z-index: 1;
+  transform: translateY(110%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.signup-step2-slide.slide-in {
+  transform: translateY(0%);
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.back-arrow-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: #ddd;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.back-arrow-button:hover {
+  background: #ccc;
+}
+
+.info-dropdown-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.info-dropdown {
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 12px 18px;
+  font-size: 1rem;
+  color: #222;
+  white-space: pre;
+}
+
+.info-button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s, transform 0.2s ease-in-out;
+}
+
+.info-button:hover {
+  background: #135ba1;
+  transform: scale(1.05);
+}
+
+/* Hide the info button when dropdown is open */
+.info-dropdown-container.info-open .info-button {
+  display: none;
+}
+
+.signup-step2con-slide {
+  z-index: 1;
+  transform: translateY(110%);
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: transform 0.7s cubic-bezier(0.77,0,0.175,1), opacity 0.7s;
+  will-change: transform;
+}
+.signup-step2con-slide.slide-in {
+  transform: translateY(0%);
+  pointer-events: auto;
+  opacity: 1;
+}
+
+
+.info-dropdown button {
+  margin-top: 12px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.info-dropdown button:hover {
+  background: #135ba1;
+}
+
+/* Optional: fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../css/Login.css";
 import LongLogo from "../../../pages/LongLogo.png";
 
-const LoginForm = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -23,31 +22,25 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-if (!isLogin) {
-  navigate("/signup-step2");
-}else {
-      console.log(formData); // Add your login logic here
-    }
+    if (onSignUp) onSignUp();
   };
 
   return (
     <div className="login-container">
-      <div className="logo-container">
-        <img src={LongLogo} alt="Logo" className="logo" />
-      </div>
+      
       <div className="auth-box">
         <div className="auth-left">
           <h2 style={{ fontSize: '28px', marginBottom: '20px', fontWeight: 'bold' }}>
             {isLogin ? "Log in" : "Sign up"}
           </h2>
           <div className="auth-tabs">
-            <button 
+            <button
               className={`tab ${!isLogin ? 'active' : ''}`}
               onClick={() => setIsLogin(false)}
             >
               sign up
             </button>
-            <button 
+            <button
               className={`tab ${isLogin ? 'active' : ''}`}
               onClick={() => setIsLogin(true)}
             >

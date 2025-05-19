@@ -78,7 +78,7 @@ n: A
 j: Bb
 m: B`;
 
-const SignUpStep2 = ({ onBack, onSubmit }) => {
+const ConfermationStep2 = ({ onBack }) => {
   const NOTES = Object.keys(audioMap); // List of all notes
   const [pressedKeys, setPressedKeys] = useState([]); // Track currently pressed keys
   const [displayedNotes, setDisplayedNotes] = useState([]); // Track displayed notes (max 7)
@@ -152,16 +152,17 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
 
   return (
     <div className="login-piano-container">
-                  <div className="logo-container">
-              <img src={LongLogo} alt="Logo" className="logo" />
-            </div>
+                    <div className="logo-container">
+                <img src={LongLogo} alt="Logo" className="logo" />
+              </div>
       <div className="auth-piano-box">
-
+                    {/* Title above music sheet */}
+            <h2 className="signup-title">Sign up</h2>
         {/* Arrow Back Button */}
         <button
           className="back-arrow-button"
           onClick={onBack}
-          aria-label="Back to Login"
+          aria-label="Back to Piano"
         >
           ←
         </button>
@@ -200,6 +201,7 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
         </div>
         <div className="piano-wrapper">
           <div className="music-sheet-container">
+
             {/* Music Sheet SVG */}
             <svg width="800" height="150" className="music-sheet">
               <text x="10" y="85" fontSize="60" fontFamily="serif">
@@ -235,13 +237,11 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
                 </g>
               ))}
             </svg>
-
             {/* Clear Button beside music sheet */}
             <button onClick={clearNotes} className="auth-button clear-button">
               Clear
             </button>
           </div>
-
           {/* Piano Keys */}
           <div className="piano">
             {NOTES.map((note) => (
@@ -258,7 +258,7 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
         </div>
         <button
           className="auth-button submit-button"
-          onClick={onSubmit} // <-- Make sure this calls the prop
+          onClick={() => console.log("Submitted Notes:", displayedNotes)}
         >
           Submit
         </button>
@@ -267,9 +267,4 @@ const SignUpStep2 = ({ onBack, onSubmit }) => {
   );
 };
 
-export default SignUpStep2;
-
-
-
-
-
+export default ConfermationStep2;
