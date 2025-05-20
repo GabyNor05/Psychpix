@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './admin.css';
+import AdminStockCard from './AdminStockCard';
 
 const AdminForm = () => {
     const [formData, setFormData] = useState({
@@ -36,7 +38,8 @@ const AdminForm = () => {
     };
 
     return (
-        <form className="admin-form-container" onSubmit={handleSubmit}>
+        <div>
+            <form className="admin-form-container" onSubmit={handleSubmit}>
             <div>
                 <label>Serial Number:</label>
                 <input type="text" name="serialNumber" value={formData.serialNumber} onChange={handleChange} required />
@@ -92,6 +95,9 @@ const AdminForm = () => {
             </div>
             <button type="submit">Submit</button>
         </form>
+
+        <AdminStockCard />
+        </div>
     );
 };
 

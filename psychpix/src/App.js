@@ -7,7 +7,7 @@ import About from './pages/about/About';
 import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
 import SingleItem from './pages/singleView/SingleView';
-import AdminForm from './pages/adminForm';
+import AdminForm from './pages/admin/adminForm';
 
 function AppContent() {
   const location = useLocation();
