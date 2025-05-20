@@ -13,7 +13,8 @@ function Navbar() {
         <Link to="/about" className="nav-link">About</Link>
         <Link to="/login" className="nav-link">Login</Link>
         <Link to="/cart" className="nav-link">Cart</Link>
-        <Link to="/singleItem" className="nav-link">Single Item</Link>   
+        <Link to="/singleItem" className="nav-link">Single Item</Link> 
+        <Link to="/adminForm" className="nav-link">Admin Form</Link>  
       </div>    
     </nav>
   );
