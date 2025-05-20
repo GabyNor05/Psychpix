@@ -80,7 +80,7 @@
     width: 90%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
-    gap: 48px;
+    gap: 64px;
     margin-top: 192px;
     grid-template-areas:
     "ItemDisplay ItemInfo";
@@ -406,6 +406,7 @@
 .checkoutSection{
     display: flex;
     gap: 24px;
+    align-items: end;
 }
 
 .AddItem{
@@ -418,6 +419,7 @@
     width: 200px;
     text-align: center;
     align-items: center;
+    height: 80px;
 }
 
 .AddItemWrapper{
@@ -430,6 +432,7 @@
     border-radius: 8px;
     font-size: 48px;
     padding: 16px;
+    height: 80px;
 }
 
 .woodItem{
@@ -439,4 +442,8 @@
     border-radius: 100%;
     background: url('./images/woodFrame.jpg');
     cursor: pointer;
+}
+
+.artInfo{
+    display: grid;
 }

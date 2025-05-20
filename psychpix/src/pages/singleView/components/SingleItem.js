@@ -14,7 +14,7 @@ function SingleItemSelection()
                 </div>
             </div>
             
-            <div style={{gridArea: 'ItemInfo'}}>
+            <div className="artInfo" style={{gridArea: 'ItemInfo'}}>
                 <div className="ItemTitle">
                     <h1>The Art Title 101</h1>
                     <h1>John Pork</h1>
