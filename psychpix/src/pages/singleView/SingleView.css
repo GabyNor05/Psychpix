@@ -405,6 +405,7 @@
 .checkoutSection{
     display: flex;
     gap: 24px;
+    align-items: end;
 }
 
 .AddItem{
@@ -418,6 +419,7 @@
     height: 80px;
     text-align: center;
     align-items: center;
+    height: 80px;
 }
 
 .AddItemWrapper{
@@ -442,12 +444,6 @@
     cursor: pointer;
 }
 
-.checkoutSection{
-    display: flex;
-    align-items: end;
-}
-
 .artInfo{
-    height: 100%;
     display: grid;
 }
