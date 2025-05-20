@@ -444,16 +444,6 @@
     cursor: pointer;
 }
 
-<<<<<<< HEAD
-.checkoutSection{
-    display: flex;
-    align-items: end;
-}
-
 .artInfo{
-    height: 100%;
-=======
-.artInfo{
->>>>>>> KB
     display: grid;
 }
