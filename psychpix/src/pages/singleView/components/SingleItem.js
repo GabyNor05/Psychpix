@@ -10,7 +10,6 @@ function SingleItemSelection()
             <div className="ItemDisplayContainer" style={{gridArea: 'ItemDisplay'}}>
                 <div className="ItemDisplay">
                     <div className="catagoryText"><h1>Illustration</h1></div>
-                    
                     <div className="yearDisplay"><h1>2016</h1></div>
                 </div>
             </div>

@@ -12,8 +12,6 @@
     position: relative;
     width: 800px;
     height: 800px;
-    /* left: 256px;
-    top: 256px; */
     background-image: url('../home/images/bento/bento2.jpg');
     background-size: cover;
     border-radius: 24px;
@@ -22,6 +20,7 @@
 
 .ItemDisplayContainer{
     width: fit-content;
+    height: fit-content;
     border-radius: 24px;
     margin-left: 100px;
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.493);
@@ -41,7 +40,7 @@
 .catagoryText{
     position: absolute;
     transform: rotate(-90deg);
-    right: 0;
+    left: 0;
     transform-origin: top left;
     white-space: nowrap;
 }
@@ -183,7 +182,7 @@
 
 .CommentInput, .CommentInput:focus{
     width: 90%;
-    height: 96px;
+    height: 64px;
     box-shadow: inset 0px 0px 12px 2px rgba(0, 0, 0, 0.678);
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
@@ -201,7 +200,7 @@
 }
 
 .submitCommentButton{
-    height: 96px;
+    height: 100%;
     width: 96px;
     display: flex;
     align-items: center;
