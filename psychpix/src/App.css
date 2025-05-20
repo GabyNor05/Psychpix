@@ -225,3 +225,87 @@ h5{
   background-color: rgba(0, 0, 0, 0.219);
   border-radius: 9999px;
 }
+
+/*Admin Form*/
+/* Add to App.css */
+.admin-form-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 32px 28px;
+  background: #f8f8f8;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  color: #000;
+  font-family: "Jost", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+}
+
+.admin-form-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.admin-form-container input[type="text"],
+.admin-form-container input[type="number"],
+.admin-form-container textarea {
+  width: 600px;
+  padding: 8px 10px;
+  margin-bottom: 18px;
+  border: 1px solid #2c3440;
+  border-radius: 6px;
+  background: #fff;
+  color: #fff;
+  font-size: 16px;
+  resize: vertical;
+  
+}
+
+.admin-form-container textarea {
+  min-height: 60px;
+  
+}
+
+.admin-form-container .tags-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.admin-form-container .tags-group label {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.admin-form-container input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.admin-form-container input[type="file"] {
+  margin-top: 6px;
+  margin-bottom: 18px;
+  color: #000;
+}
+
+.admin-form-container button[type="submit"] {
+  background: linear-gradient(90deg, #56adc7 0%, #916FAA 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-form-container button[type="submit"]:hover {
+  background: linear-gradient(90deg, #A2479A 0%, #56adc7 100%);
+}

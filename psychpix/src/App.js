@@ -7,6 +7,7 @@ import About from './pages/about/About';
 import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
 import SingleItem from './pages/singleView/SingleView';
+import AdminForm from './pages/adminForm';
 
 function AppContent() {
   const location = useLocation();
@@ -22,6 +23,8 @@ function AppContent() {
         <Route path="/login/*" element={<Login />} /> {/* Use wildcard for nested routes */}
         <Route path="/cart" element={<Cart />} />
         <Route path="/singleItem" element={<SingleItem />} />
+        <Route path="/adminForm" element={<AdminForm />} />
+        {/* Add more routes as needed */}
       </Routes>
     </>
   );
