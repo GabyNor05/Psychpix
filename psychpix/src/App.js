@@ -1,10 +1,5 @@
 import './App.css';
-<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-=======
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
->>>>>>> main
 import Navbar from './pages/home/components/Navbar';
 import Home from './pages/home/Home';
 import Discover from './pages/discover/Discover';
