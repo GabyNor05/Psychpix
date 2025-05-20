@@ -1,4 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&family=Domine:wght@400..700&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&family=Domine:wght@400..700&display=swap');
 
+.jost-light{
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.jost-regular{
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.domine-Label{
+  font-family: "Domine", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 8px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.411);
+}
+
+.charis-sil-regular {
+  font-family: "Charis SIL", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.charis-sil-bold {
+  font-family: "Charis SIL", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.charis-sil-regular-italic {
+  font-family: "Charis SIL", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.charis-sil-bold-italic {
+  font-family: "Charis SIL", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+h1{
+  font-size: 48px;
+  font-weight: 600;
+  font-family: "Charis SIL", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h2{
+  font-size: 40px;
+}
+
+h3{
+  font-size: 32px;
+  font-weight: 400;
+}
+
+h4{
+  font-size: 24px;
+  font-weight: 400;
+}
+
+h5{
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.lineSquareTL{
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  top: -12px;
+  left: -12px;
+}
+.lineSquareTR{
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  top: -12px;
+  right: -12px;
+}
+.lineSquareBL{
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  bottom: -12px;
+  left: -12px;
+}
+.lineSquareBR{
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  bottom: -12px;
+  right: -12px;
+  animation: App-logo-spin infinite 6s linear;
+  animation-play-state: paused;
+}
+
+.lineSquareBR:hover{
+  
+  animation-play-state: running;
+}
+
+.navlinks{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  width: 90%;
+  margin: auto;
+}
 
 .App-logo {
   height: 40vmin;
@@ -35,52 +157,66 @@
   }
 }
 
+@keyframes lineSquarePop {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
 /* Navigation Bar ./Navbar
   --------------------------------------------- 
   This is used to style the Navigation bar on the home page.
 */
 .navbar{
-  width: 1920px;
-  height: 100px;
-  align-items: center;
-  display: flex;
-  border-radius: 0px 0px 50px 50px;
+  height: fit-content;
+  border-radius: 0px 0px 48px 48px;
   background-color: #121920;
   backdrop-filter: blur(2.5px);
 }
 
-.nav-links {
-  display: flex;
-  gap: 30px; /* Space between links */
-}
-
 .nav-link {
-  margin: 10px;
+  margin: 8px;
   color: #fff;
-  text-align: left;
   font-family: "Jost", sans-serif;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 400;
   letter-spacing: 5.4px;
   text-decoration: none;
+  flex-shrink: 2;
+  width: 160px;
+  text-align: center;
 }
 
 .nav-link:hover {
-  background: radial-gradient(50% 50% at 50% 50%, #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);
+  background: linear-gradient(90deg, #56adc7 0%, #7791BA 30.58%, #916FAA 66.83%, #A2479A 95.67%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: "Roboto", sans-serif;
-  font-size: 24px;
+  font-family: "Jost", sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   line-height: normal;
   letter-spacing: 5.4px;
+  flex-shrink: 2;
+  
 }
 
 .logo{
-  width: 87px;
-  height: 60px;
-  margin-left: 40px;
-  margin-right: 70px;
+  height: 80px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.219);
+  border-radius: 9999px;
 }

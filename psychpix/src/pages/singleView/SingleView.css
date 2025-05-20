@@ -1,0 +1,453 @@
+.singleItemOverlay{
+    position: absolute;
+    top: 0;
+    height: 2000px;
+    background-color: black;
+    color: rgba(255, 255, 255, 0.158);
+    width: 500px;
+    z-index: -1;
+}
+
+.ItemDisplay{
+    position: relative;
+    width: 800px;
+    height: 800px;
+    /* left: 256px;
+    top: 256px; */
+    background-image: url('../home/images/bento/bento2.jpg');
+    background-size: cover;
+    border-radius: 24px;
+    box-shadow: 0px 0px 20px 4px inset rgb(0, 0, 0);
+}
+
+.ItemDisplayContainer{
+    width: fit-content;
+    border-radius: 24px;
+    margin-left: 100px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.493);
+}
+
+.ItemDisplay::before{
+    content: '';
+    position: absolute;
+    width: 832px;
+    height: 832px;
+    translate: -16px -16px;
+    background-image: url('./images/woodFrame.jpg');
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.catagoryText{
+    position: absolute;
+    transform: rotate(-90deg);
+    right: 0;
+    transform-origin: top left;
+    white-space: nowrap;
+}
+
+.catagoryText h1{
+    color: rgb(124, 124, 124);
+    font-weight: 700;
+    font-family: "Charis SIL";
+    font-style: italic;
+    letter-spacing: 14px;
+    font-size: 96px;
+}
+
+.yearDisplay h1{
+    font-size: 96px;
+    letter-spacing: 16px;
+    font-weight: 700;
+    font-family: "Charis SIL";
+    font-style: italic;
+    color: rgb(124, 124, 124);
+}
+
+.yearDisplay{
+    position: absolute;
+    color: rgb(139, 139, 139);
+    width: 200px;
+    height: 200px;
+    bottom: -200px;
+    z-index: 2;
+}
+
+.gridSingleItem{
+    display: grid;
+    margin: auto;
+    width: 90%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 64px;
+    margin-top: 192px;
+    grid-template-areas:
+    "ItemDisplay ItemInfo";
+}
+
+.ItemInfo{
+    color: #6b6b6b;
+}
+
+.ItemUserEdits{
+    display: flex;
+    gap: 16px;
+}
+
+.singleItemFixed{
+    position: relative;
+}
+
+.UserEdit{
+    width: fit-content;
+    height: 100px;
+    background-color: black;
+    border-radius: 24px;
+    z-index: -5;
+}
+
+#WoodSelected::before{
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 48px;
+    height: 48px;
+    background-color: rgb(255, 255, 255);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+#woodEdit{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.exampleWood{
+    position: relative;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    background-image: url('./images/woodFrame.jpg');
+    margin: 8px;
+}
+
+.CommentInputBlock{
+    width: 70%;
+    height: 320px;
+    border-radius: 24px;
+    margin: auto;
+    background: #060C12;
+}
+
+.ProfileContainer{
+    display: flex;
+    color: rgba(255, 255, 255, 0.705);
+    align-items: center;
+    gap: 16px;
+    padding: 32px;
+}
+
+.CommentProfilePic{
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 100px;
+    border: 1px solid rgba(0, 204, 255, 0.473);
+}
+
+.StarRatingBlock{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: start;
+    gap: 16px;
+}
+
+.CommentInputBlock{
+    margin: 32px auto;
+}
+
+.commentInputContainer{
+    width: 85%;
+    margin: auto;
+}
+
+.replyInputContainer{
+    height: 0;
+    overflow: hidden;
+}
+
+.CommentInput, .CommentInput:focus{
+    width: 90%;
+    height: 96px;
+    box-shadow: inset 0px 0px 12px 2px rgba(0, 0, 0, 0.678);
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.185);
+    border: none;
+    font-size: 24px;
+    padding: 16px;
+    outline: none;
+    color: white;
+}
+
+
+.CommentInput input{
+    color: rgb(255, 255, 255);
+}
+
+.submitCommentButton{
+    height: 96px;
+    width: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.185);
+    border: none;
+    border-left: 2px solid rgba(255, 255, 255, 0.247);
+    color: #060C12;
+    transition: border 2s ease, color 0.3s ease;
+}
+
+.submitCommentButton:hover{
+    border-left: 2px solid #ffffff;
+    color: white;
+}
+
+#commentForm{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.userComment{
+    padding-top: 16px;
+    width: 90%;
+    letter-spacing: 2.5px;
+    text-align: justify;
+}
+
+.userTimeStamp{
+    color: rgba(255, 255, 255, 0.445);
+}
+
+.userInteract{
+    display: flex;
+    gap: 32px;
+}
+
+.userHearts{
+    color: rgba(255, 255, 255, 0.445);
+    width: fit-content;
+    cursor: pointer;
+}
+
+.userHearts h6{
+    text-align: center;
+}
+
+.UserCommentBlock{
+    min-height: 256px;
+    padding: 32px;
+    color: white;
+    display: grid;
+    grid-template-columns: 128px 1fr max-content;
+    grid-template-rows: min-content min-content max-content;
+    
+}
+
+.UserReplyBlock{
+    position: relative;
+    border-top: 2px solid white;
+    width: 80%;
+    justify-content: end;
+    min-height: 256px;
+    padding: 32px;
+    margin: auto;
+    color: white;
+    display: grid;
+    grid-template-columns: 128px 1fr min-content;
+    grid-template-rows: min-content min-content max-content;
+}
+
+.userCommentContainer{
+    background: #060C12;
+    margin: 32px;
+    border-radius: 24px;
+}
+
+@media (min-width: 100px){
+    .UserCommentBlock{
+        grid-template-areas:
+    "userPic userName userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment"
+    "userReply userReply userReply";
+    }
+
+    .UserReplyBlock{
+        grid-template-areas:
+    "userPic userName userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment";
+    }
+}
+
+/* @media (max-width: 100em) {
+    .UserReplyBlock{
+        grid-template-areas:
+    "userPic userName userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment";
+    }
+
+    .UserCommentBlock{
+        grid-template-areas:
+    "userPic userName userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment"
+    "userReply userReply userReply";
+    }
+}
+
+@media (max-width: 70em) {
+    .UserCommentBlock{
+        grid-template-areas:
+        "userPic userName userName"
+        "userPic userRating userRating"
+        "userPic userTimeStamp userTimeStamp"
+        "userPic userComment userComment"
+        "userReply userReply userReply";
+    }
+
+    .UserReplyBlock{
+        grid-template-areas:
+    "userPic userName userName"
+    "userPic userRating userRating"
+    "userPic userTimeStamp userTimeStamp"
+    "userPic userComment userComment";
+    }
+}
+
+@media (max-width: 40em){
+    .UserCommentBlock{
+        hyphenate-character: auto;
+        text-align: center;
+        justify-content: center;
+        grid-template-columns: 90%;
+        grid-template-areas:
+        "userPic"
+        "userName"
+        "userRating"
+        "userTimeStamp"
+        "userComment"
+        "userReply";
+    }
+
+    .UserReplyBlock{
+        grid-template-areas:
+        "userPic"
+        "userName"
+        "userRating"
+        "userTimeStamp"
+        "userComment"
+    }
+} */
+
+.CommentScroll{
+    height: 800px;
+    width: 70%;
+    margin: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 24px;
+    background: #060c1236;
+}
+
+.UserReplyBlock .userComment{
+    width: 100%;
+}
+
+.userSelect{
+    display: flex;
+    gap: 16px;
+    text-align: center;
+}
+
+.selectBox{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #060C12;
+    min-width: 100px;
+    height: 80px;
+    border-radius: 8px;
+    color: white;
+}
+
+.sizeSelection{
+    display: flex;
+}
+
+.sizeSelection h1{
+    padding: 4px 16px;
+}
+
+#SelectedSize{
+    border-bottom: 3px solid white;
+}
+
+.checkoutSection{
+    display: flex;
+    gap: 24px;
+}
+
+.AddItem{
+    background: #060C12;
+    color: white;
+    border-radius: 8px;
+    font-size: 48px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 200px;
+    height: 80px;
+    text-align: center;
+    align-items: center;
+}
+
+.AddItemWrapper{
+    text-align: center;
+}
+
+.AddToCart{
+    background: #060C12;
+    color: white;
+    border-radius: 8px;
+    font-size: 48px;
+    padding: 16px;
+    height: 80px;
+}
+
+.woodItem{
+    width: 40px;
+    height: 40px;
+    margin: 12px;
+    border-radius: 100%;
+    background: url('./images/woodFrame.jpg');
+    cursor: pointer;
+}
+
+.checkoutSection{
+    display: flex;
+    align-items: end;
+}
+
+.artInfo{
+    height: 100%;
+    display: grid;
+}

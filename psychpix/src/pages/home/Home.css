@@ -1,0 +1,275 @@
+footer{
+    border-radius: 50px 50px 0px 0px;
+    background: #060C12;
+}
+
+.box{
+    background-color: hsl(0, 0%, 7%);
+    border-radius: 24px;
+}
+
+.box:hover{
+    transform: scale(1.02);
+}
+
+.WelcomeUser{
+    position: relative;
+    color: white;
+    padding-left: 16px;
+    z-index: 2;
+}
+
+.WelcomeUser span{
+    background: linear-gradient(180deg, #3BD6F5 0%, #7791BA 35.58%, #916FAA 66.83%, #A2479A 95.67%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Charis SIL";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.HeroSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 64px;
+    background: url('../home/images/Home1.jpeg');
+    background-size: cover;
+}
+
+.grid-container{
+    display: grid;
+    grid-auto-columns: 250px;
+    grid-auto-rows: 180px;
+    gap: 1em;
+    grid-template-areas: 
+    "box-1 box-1 box-2 box-2 box-3 box-4"
+    "box-1 box-1 box-2 box-2 box-3 box-4"
+    "box-1 box-1 box-5 box-5 box-6 box-6"
+    "box-1 box-1 box-5 box-5 box-6 box-6"
+    "box-1 box-1 box-5 box-5 box-7 box-7";
+}
+
+.linkScroll{
+    position: relative;
+    display: flex;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    width: 90%;
+    margin: 32px auto;
+    color: #1791CF;
+}
+
+.linkTextArea{
+    display: flex;
+    overflow: hidden;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.linkScroll h1{
+    margin: 10px;
+}
+
+.linkScroll h4{
+    margin: 8px;
+}
+
+.citation h6{
+    width: fit-content;
+    margin: auto;
+    padding: 16px;
+}
+
+.citation{
+    position: relative;
+    width: 70%;
+    border-top: 2px solid rgb(134, 134, 134);
+    margin: auto;
+}
+
+.footerLinks{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: 32px;
+    color: rgb(255, 255, 255);
+}
+
+.footerSocialIcons{
+    color: wheat;
+    display: flex;
+}
+
+.footerInnerContainer{
+    width: 80%;
+    margin: auto;
+    height: 128px;
+    display: flex;
+    align-items: center;
+}
+
+@media(max-width: 100em) {
+    .grid-container{
+        grid-template-areas: 
+        "box-1 box-1 box-2 box-2"
+        "box-1 box-1 box-2 box-2"
+        "box-1 box-1 box-5 box-5"
+        "box-1 box-1 box-5 box-5"
+        "box-3 box-4 box-6 box-6"
+        "box-3 box-4 box-6 box-6"
+        "box-7 box-7 box-7 box7";
+    }
+}
+
+@media (max-width: 70em) {
+    .grid-container{
+        grid-template-areas: 
+        "box-1 box-1 box-3"
+        "box-1 box-1 box-3"
+        "box-1 box-1 box-3"
+        "box-1 box-1 box-2"
+        "box-6 box-4 box-2"
+        "box-6 box-4 box-5"
+        "box-7 box-7 box-5"
+    }
+}
+
+@media (max-width: 50em) {
+    .grid-container{
+        grid-auto-columns: 170px;
+        grid-auto-rows: 250px;
+        grid-template-areas: 
+        "box-2 box-2"
+        "box-1 box-1"
+        "box-1 box-1"
+        "box-5 box-5"
+        "box-5 box-5"
+        "box-4 box-3"
+        "box-6 box-3"
+        "box-7 box-7";
+    }
+}
+
+
+#footerLogo{
+    width: 100%;
+}
+
+#footerLogoContainer{
+    position: relative;
+    width: 70%;
+    margin: auto;
+    border-color: rgb(134, 134, 134);
+    border-width: 0px 0px 2px 0px;
+    border-style: solid;
+}
+
+#bentoImage1{
+    background-image: url('./images/bento/bento1.jpg');
+    background-size: cover;
+}
+
+#bentoContent1{
+    position: relative;
+    color: white;
+    z-index: 2;
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+#bentoImage2{
+    position: relative;
+    background-image: url('./images/welcomeBentoIMG.jpg');
+    background-size: cover;
+}
+
+#bentoImage2::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(black, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
+    border-radius: inherit;
+    z-index: 1;
+}
+
+#bentoImage3{
+    background-image: url('./images/bento/bento4.jpg');
+    background-size: cover;
+    border: 2px solid;
+}
+
+#bentoImage4{
+    background-image: url('./images/bento/bento5.jpg');
+    background-size: cover;
+}
+
+#bentoImage5{
+    background-image: url('./images/bento/bento3.jpg');
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+#bentoImage5::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(black, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
+    border-radius: inherit;
+    z-index: 1;
+}
+
+#bentoImage6{
+    position: relative;
+    background-image: url('./images/bento/bento6.jpg');
+    background-size: contain;
+}
+
+#bentoImage6::before{
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(40deg, rgba(12, 50, 70, 0.253), rgb(22, 15, 48));
+    inset: 0;
+    border-radius: inherit;
+}
+
+#bentoImage7{
+    position: relative;
+}
+
+#bentoLogo{
+    width: 90%;
+    padding-left: 26px;
+    padding-top: 50px;
+    position: absolute;
+}
+
+.icon-dock-container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 32px;  
+    gap: 16px;
+  }
+  
+  .dock-icon-wrapper {
+    transition: transform 0.25s cubic-bezier(0.23, 0.2, 0.32, 1);
+    will-change: transform;
+  }
+  
+  .dock-icon {
+    transition: transform 0.25s cubic-bezier(0.23, 0.4, 0.32, 1);
+    transform-origin: bottom center; /* Makes the scale look more natural */
+    will-change: transform;
+    cursor: pointer;
+  }
+  
+  
