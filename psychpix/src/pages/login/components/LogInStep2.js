@@ -134,7 +134,7 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
     if (!audio) return;
 
     let fadeInterval = setInterval(() => {
-      if (audio.volume > 0.05) {
+      if (audio.volume > 0.02) {
         audio.volume = Math.max(0, audio.volume - 0.01);
       } else {
         audio.volume = 0;
