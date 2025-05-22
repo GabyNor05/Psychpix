@@ -31,4 +31,21 @@ newUser.save()
   .then(doc => console.log('User saved:', doc))
   .catch(err => console.error('Error saving user:', err));
 
+// LOGIN ROUTE
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+    if (user.password !== password) {
+      return res.status(401).json({ message: "Incorrect password" });
+    }
+    res.status(200).json({ message: "Login successful", user });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router; // ✅ exports a router function

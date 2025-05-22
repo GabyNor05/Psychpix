@@ -31,14 +31,15 @@ const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            username: formData.username, // or name: formData.username, if your backend expects 'name'
+            username: formData.username,
             email: formData.email,
             password: formData.password
           })
         });
         if (response.ok) {
           alert("Sign up successful!");
-          setIsLogin(true);
+          // Redirect to SignUpStep2 page after successful signup
+          navigate("/signupstep2");
         } else {
           const data = await response.json();
           alert("Sign up failed: " + (data.message || "Unknown error"));
@@ -47,7 +48,29 @@ const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
         alert("Sign up failed: " + err.message);
       }
     } else {
-      if (onSignUp) onSignUp();
+      // Log In: check credentials
+      try {
+        const response = await fetch("http://localhost:5000/api/users/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username: formData.username,
+            password: formData.password
+          })
+        });
+        if (response.ok) {
+          const data = await response.json();
+          alert("Login successful! Welcome, " + data.user.username);
+          // Optionally: navigate or set user state here
+        } else {
+          const data = await response.json();
+          alert("Login failed: " + (data.message || "Unknown error"));
+        }
+      } catch (err) {
+        alert("Login failed: " + err.message);
+      }
     }
   };
 

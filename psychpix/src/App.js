@@ -8,22 +8,26 @@ import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
 import SingleItem from './pages/singleView/SingleView';
 import AdminForm from './pages/admin/adminForm';
+import SignUpStep2 from './pages/SignUpStep2/SignUpSteo2';
 
 function AppContent() {
   const location = useLocation();
 
+  // Hide Navbar on /login and /signupstep2
+  const hideNavbar = location.pathname === "/login" || location.pathname === "/signupstep2";
+
   return (
     <>
-      {/* Render Navbar only if the current path is not "/login" */}
-      {location.pathname !== "/login" && <Navbar />}
+      {!hideNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/about" element={<About />} />
-        <Route path="/login/*" element={<Login />} /> {/* Use wildcard for nested routes */}
+        <Route path="/login/*" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/singleItem" element={<SingleItem />} />
         <Route path="/adminForm" element={<AdminForm />} />
+        <Route path="/signupstep2" element={<SignUpStep2 />} />
         {/* Add more routes as needed */}
       </Routes>
     </>

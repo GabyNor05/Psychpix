@@ -1,0 +1,198 @@
+.login-piano-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+
+.logo-piano-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.auth-piano-box {
+  position: relative;
+  transform: translateZ(0);
+  width: 1600px;
+  height: 750px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f6f6f6;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.piano-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.piano-sheet-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.piano {
+  display: flex;
+  position: relative;
+}
+
+.pressed-keys-display {
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.music-sheet-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.info-button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s, transform 0.2s ease-in-out;
+}
+
+.info-button:hover {
+  background: #135ba1;
+  transform: scale(1.05);
+}
+
+.submit-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
+  color: black;
+  transition: 0.3s;
+  width: 200px;
+}
+
+.clear-button {
+  margin-left: 20px;
+  height: 40px;
+  padding: 8px 16px;
+  margin-top: 0px;
+}
+
+.key {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  height: calc(var(--width) * 4);
+  width: var(--width);
+}
+
+.white {
+  --width: 100px;
+  background-color: white;
+  border: 1px solid #333;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  margin: 0 0.4px;
+}
+
+.white.active {
+  background: linear-gradient(45deg,  #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);
+}
+
+.black {
+  --width: 60px;
+  background-color: black;
+  margin-left: calc(var(--width) / -2);
+  margin-right: calc(var(--width) / -2);
+  z-index: 2;
+  color: white;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.black.active {
+  background: linear-gradient(45deg,  #C813E3 0%, #B00F42 50%, #DB51F1 75%, #3BD6F5 100%);
+}
+
+.note-label {
+  padding: 4px;
+  pointer-events: none;
+}
+
+.back-arrow-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: #ddd;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.back-arrow-button:hover {
+  background: #ccc;
+}
+
+.info-dropdown-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.info-dropdown {
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 12px 18px;
+  font-size: 1rem;
+  color: #222;
+  white-space: pre;
+}
+
+.info-dropdown-container.info-open .info-button {
+  display: none;
+}
+
+

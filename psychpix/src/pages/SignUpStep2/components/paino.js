@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../css/Login.css"; // Import CSS styles
+import "../css/SignUpStep2.css"; // Import CSS styles
 import LongLogo from "../../../pages/LongLogo.png"; // Logo image
 
 // Import piano note audio files
@@ -34,18 +34,18 @@ const audioMap = {
 
 // Keyboard key to note mapping
 const KEYBOARD_NOTE_MAP = {
-  z: "C",
-  s: "Db",
-  x: "D",
-  d: "Eb",
-  c: "E",
-  v: "F",
-  g: "Gb",
-  b: "G",
-  h: "Ab",
-  n: "A",
-  j: "Bb",
-  m: "B",
+  z: "C", Z: "C",
+  s: "Db", S: "Db",
+  x: "D", X: "D",
+  d: "Eb", D: "Eb",
+  c: "E", C: "E",
+  v: "F", V: "F",
+  g: "Gb", G: "Gb",
+  b: "G", B: "G",
+  h: "Ab", H: "Ab",
+  n: "A", N: "A",
+  j: "Bb", J: "Bb",
+  m: "B", M: "B",
 };
 
 // Y-positions of notes on the music staff
@@ -78,7 +78,7 @@ n: A
 j: Bb
 m: B`;
 
-const LogInStep2 = ({ onBack, onSubmit }) => {
+function Paino({ onBack, onSubmit }) {
   const NOTES = Object.keys(audioMap); // List of all notes
   const [pressedKeys, setPressedKeys] = useState([]); // Track currently pressed keys
   const [displayedNotes, setDisplayedNotes] = useState([]); // Track displayed notes (max 7)
@@ -87,20 +87,23 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
   // Handle keyboard input
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.repeat) return; // Ignore holding key
+      if (e.repeat) return;
       const note = KEYBOARD_NOTE_MAP[e.key];
-      if (note) playNote(note); // Play if mapped
+      if (note) playNote(note);
     };
 
     const handleKeyUp = (e) => {
       if (e.repeat) return;
       const note = KEYBOARD_NOTE_MAP[e.key];
-      if (note) stopNote(note); // Stop sound
+      if (note) stopNote(note);
     };
 
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
   }, []);
 
   // Play a note (mouse or keyboard)
@@ -134,7 +137,7 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
     if (!audio) return;
 
     let fadeInterval = setInterval(() => {
-      if (audio.volume > 0.02) {
+      if (audio.volume > 0.05) {
         audio.volume = Math.max(0, audio.volume - 0.01);
       } else {
         audio.volume = 0;
@@ -152,19 +155,13 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
 
   return (
     <div className="login-piano-container">
-      <div className="logo-container">
-        <img src={LongLogo} alt="Logo" className="logo" />
-      </div>
+                  <div className="logo-container">
+              <img src={LongLogo} alt="Logo" className="logo" />
+            </div>
       <div className="auth-piano-box">
-        {/* Arrow Back Button */}
-        <button
-          className="back-arrow-button"
-          onClick={onBack}
-          aria-label="Back to Login"
-        >
-          ←
-        </button>
-        {/* Info Button (absolute, but relative to auth-piano-box) */}
+
+
+        {/* Info Button with Dropdown */}
         <div className={`info-dropdown-container${infoOpen ? " info-open" : ""}`}>
           {!infoOpen && (
             <button
@@ -197,12 +194,11 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
             </div>
           )}
         </div>
-        {/* Piano and keys */}
         <div className="piano-wrapper">
           <div className="music-sheet-container">
             {/* Music Sheet SVG */}
             <svg width="800" height="150" className="music-sheet">
-              <text x="10" y="85" fontSize="60" fontFamily="serif">
+              <text x="50" y="85" fontSize="60" fontFamily="serif">
                 𝄞
               </text>
               {[0, 1, 2, 3, 4].map((line) => (
@@ -219,15 +215,15 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
               {displayedNotes.map((note, idx) => (
                 <g key={idx}>
                   <circle
-                    cx={70 + idx * 40}
+                    cx={110 + idx * 40}
                     cy={NOTE_POSITIONS[note]}
                     r="6"
                     fill="black"
                   />
                   <text
-                    x={66 + idx * 40}
+                    x={106 + idx * 40}
                     y={NOTE_POSITIONS[note] + 20}
-                    fontSize="12"
+                    fontSize="14"
                     fontWeight="bold"
                   >
                     {note}
@@ -241,6 +237,8 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
               Clear
             </button>
           </div>
+
+          {/* Piano Keys */}
           <div className="piano">
             {NOTES.map((note) => (
               <div
@@ -256,7 +254,7 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
         </div>
         <button
           className="auth-button submit-button"
-          onClick={onSubmit}
+          onClick={onSubmit} // <-- Make sure this calls the prop
         >
           Submit
         </button>
@@ -265,4 +263,9 @@ const LogInStep2 = ({ onBack, onSubmit }) => {
   );
 };
 
-export default LogInStep2;
+export default Paino;
+
+
+
+
+
