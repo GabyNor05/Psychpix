@@ -20,34 +20,22 @@ const upload = multer({ storage });
 router.post('/', upload.single('image'), async (req, res) => {
   console.log('BODY:', req.body);
   console.log('FILE:', req.file);
-    try {
-    const {
-      serialNumber,
-      title,
-      creator,
-      price,
-      description,
-      stock,
-      year,
-      discount
-    } = req.body;
-
+  try {
+    // Always ensure tags is an array
     let tags = req.body['tags[]'] || req.body.tags || [];
     if (typeof tags === 'string') tags = [tags];
 
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
-
     const item = new Item({
-      serialNumber,
-      title,
-      creator,
-      price,
-      description,
-      tags,
-      stock,
-      year,
-      discount,
-      imageUrl
+      serialNumber: req.body.serialNumber,
+      title: req.body.title,
+      creator: req.body.creator,
+      price: Number(req.body.price),
+      description: req.body.description,
+      tags: tags,
+      stock: Number(req.body.stock),
+      year: Number(req.body.year),
+      discount: req.body.discount ? Number(req.body.discount) : undefined,
+      imageUrl: req.file ? `/uploads/${req.file.filename}` : ''
     });
 
     await item.save();
