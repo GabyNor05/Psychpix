@@ -48,7 +48,7 @@ const AdminForm = () => {
 
         // Example POST request to your backend
         try {
-            const response = await fetch('/api/items', {
+            const response = await fetch('http://localhost:5000/api/items', {
                 method: 'POST',
                 body: data
             });
@@ -56,7 +56,7 @@ const AdminForm = () => {
                 alert('Item saved!');
                 // Optionally reset form here
             } else {
-                console.log(data)
+                console.log(formData)
                 alert('Error saving item');
             }
         } catch (err) {
