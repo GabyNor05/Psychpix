@@ -16,6 +16,8 @@ const AdminForm = () => {
         image: null
     });
 
+    const [preview, setPreview] = useState(null);
+
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;
         if (type === 'checkbox') {
@@ -27,20 +29,46 @@ const AdminForm = () => {
             });
         } else if (type === 'file') {
             setFormData({ ...formData, image: files[0] });
+            setPreview(URL.createObjectURL(files[0]));
         } else {
             setFormData({ ...formData, [name]: value });
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-    };
+        const data = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+        if (key === 'tags') {
+            value.forEach(tag => data.append('tags[]', tag));
+        } else if (value) {
+            data.append(key, value);
+        }
+        });
+
+        // Example POST request to your backend
+        try {
+            const response = await fetch('/api/items', {
+                method: 'POST',
+                body: data
+            });
+            if (response.ok) {
+                alert('Item saved!');
+                // Optionally reset form here
+            } else {
+                console.log(data)
+                alert('Error saving item');
+            }
+        } catch (err) {
+            alert('Network error');
+        }
+        };
 
     return (
         <div>
             <form className="admin-form-container" onSubmit={handleSubmit}>
-            <div>
+                {/* ...all your fields... */}
+                <div>
                 <label>Serial Number:</label>
                 <input type="text" name="serialNumber" value={formData.serialNumber} onChange={handleChange} required />
             </div>
@@ -62,9 +90,9 @@ const AdminForm = () => {
             </div>
             <div>
                 <label>Tags:</label>
-                <div className="tags-group">
-                    {['Digital Artworks', 'Scultures', 'Paintings', 'Pottery'].map(tag => (
-                        <label key={tag}>
+                <div>
+                    {['Digital Artworks', 'Scultures', 'Paintings'].map(tag => (
+                        <div key={tag}>
                             <input
                                 type="checkbox"
                                 name="tags"
@@ -72,8 +100,8 @@ const AdminForm = () => {
                                 checked={formData.tags.includes(tag)}
                                 onChange={handleChange}
                             />
-                            {tag}
-                        </label>
+                            <label>{tag}</label>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -89,14 +117,14 @@ const AdminForm = () => {
                 <label>Discount:</label>
                 <input type="number" name="discount" value={formData.discount} onChange={handleChange} />
             </div>
-            <div>
-                <label>Upload Image:</label>
-                <input type="file" name="image" accept="image/*" onChange={handleChange} />
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+                <div>
+                    <label>Upload Image:</label>
+                    <input type="file" name="image" accept="image/*" onChange={handleChange} />
+                </div>
+                <button type="submit">Submit</button>
+            </form>
 
-        <AdminStockCard />
+            <AdminStockCard {...formData} image={preview || formData.image} />
         </div>
     );
 };
