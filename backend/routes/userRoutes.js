@@ -2,16 +2,19 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-router.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
+router.post('/users', async (req, res) => {
+  console.log('Received body:', req.body); // Log the incoming data
 
-    try {
-        const user = new User({ name, email, password });
-        await user.save();
-        res.status(201).json(user);
-    } catch(err){
-        res.status(400).json({ error: err.message })
-    }
+  try {
+    const { username, email, password } = req.body;
+    // Or use { name, email, password } if your schema expects 'name'
+    const newUser = new User({ username, email, password });
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
+  } catch (err) {
+    console.error('Validation error:', err.message); // Log validation errors
+    res.status(400).json({ message: err.message });
+  }
 });
 
 router.get('/', (req, res) => {
@@ -19,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 const newUser = new User({
-  name: 'Leela',
+  username: 'Leela',
   email: 'leela@futurama.com',
   password: 'qwerty123'
 });

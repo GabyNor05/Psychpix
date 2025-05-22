@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import LongLogo from "../../../pages/LongLogo.png";
 
@@ -10,7 +10,7 @@ const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
     password: ''
   });
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,14 +20,39 @@ const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (onSignUp) onSignUp();
+    if (!isLogin) {
+      // Sign Up: send data to backend
+      try {
+        const response = await fetch("http://localhost:5000/api/users/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username: formData.username, // or name: formData.username, if your backend expects 'name'
+            email: formData.email,
+            password: formData.password
+          })
+        });
+        if (response.ok) {
+          alert("Sign up successful!");
+          setIsLogin(true);
+        } else {
+          const data = await response.json();
+          alert("Sign up failed: " + (data.message || "Unknown error"));
+        }
+      } catch (err) {
+        alert("Sign up failed: " + err.message);
+      }
+    } else {
+      if (onSignUp) onSignUp();
+    }
   };
 
   return (
     <div className="login-container">
-      
       <div className="auth-box">
         <div className="auth-left">
           <h2 style={{ fontSize: '28px', marginBottom: '20px', fontWeight: 'bold' }}>
