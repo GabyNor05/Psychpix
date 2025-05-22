@@ -18,4 +18,14 @@ router.get('/', (req, res) => {
   res.send('User route works!');
 });
 
+const newUser = new User({
+  name: 'Leela',
+  email: 'leela@futurama.com',
+  password: 'qwerty123'
+});
+
+newUser.save()
+  .then(doc => console.log('User saved:', doc))
+  .catch(err => console.error('Error saving user:', err));
+
 module.exports = router; // ✅ exports a router function
