@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
-import LongLogo from "../../../pages/LongLogo.png";
 
-const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
+const LoginForm = ({ isLogin, setIsLogin }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
 
   const navigate = useNavigate();
@@ -23,50 +23,29 @@ const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isLogin) {
-      // Sign Up: send data to backend
-      try {
-        const response = await fetch("http://localhost:5000/api/users/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            username: formData.username,
-            email: formData.email,
-            password: formData.password
-          })
-        });
-        if (response.ok) {
-          alert("Sign up successful!");
-          // Redirect to SignUpStep2 page after successful signup
-          navigate("/signupstep2");
-        } else {
-          const data = await response.json();
-          alert("Sign up failed: " + (data.message || "Unknown error"));
-        }
-      } catch (err) {
-        alert("Sign up failed: " + err.message);
+      // Sign Up: check passwords and go to signupstep2
+      if (formData.password !== formData.confirmPassword) {
+        alert("Passwords do not match!");
+        return;
       }
+      navigate("/signupstep2", { state: { ...formData } });
     } else {
-      // Log In: check credentials
+      // Login: check username & password with backend
       try {
-        const response = await fetch("http://localhost:5000/api/users/login", {
+        const response = await fetch("http://localhost:5000/api/users/check", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             username: formData.username,
             password: formData.password
           })
         });
         if (response.ok) {
-          const data = await response.json();
-          alert("Login successful! Welcome, " + data.user.username);
-          // Optionally: navigate or set user state here
+          // Credentials correct, go to 2-factor step
+          navigate("/loginstep2", { state: { username: formData.username, password: formData.password } });
         } else {
           const data = await response.json();
-          alert("Login failed: " + (data.message || "Unknown error"));
+          alert(data.message || "Login failed.");
         }
       } catch (err) {
         alert("Login failed: " + err.message);
@@ -130,6 +109,18 @@ const LoginForm = ({ onSignUp, isLogin, setIsLogin }) => {
                   required 
                 />
               </div>
+              {!isLogin && (
+                <div className="input-group">
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              )}
               <button type="submit" className="auth-button">
                 {isLogin ? "Log In" : "Sign Up"}
               </button>

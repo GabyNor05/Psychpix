@@ -9,6 +9,7 @@ import Cart from './pages/cart/Cart';
 import SingleItem from './pages/singleView/SingleView';
 import AdminForm from './pages/admin/adminForm';
 import SignUpStep2 from './pages/SignUpStep2/SignUpSteo2';
+import LogInStep2 from './pages/loginstep2/LogInStep2';
 
 function AppContent() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function AppContent() {
         <Route path="/singleItem" element={<SingleItem />} />
         <Route path="/adminForm" element={<AdminForm />} />
         <Route path="/signupstep2" element={<SignUpStep2 />} />
+        <Route path="/loginstep2" element={<LogInStep2 />} />
         {/* Add more routes as needed */}
       </Routes>
     </>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../css/SignUpStep2.css"; // Import CSS styles
+import "../css/LogInStep2.css"; // Import CSS styles
 import LongLogo from "../../../pages/LongLogo.png"; // Logo image
 
 // Import piano note audio files
@@ -264,8 +264,3 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
 };
 
 export default Paino;
-
-
-
-
-
