@@ -23,7 +23,7 @@ https://github.com/andrevanheerden/formative-one-Monaware.git](https://github.co
 
 #### Step 2:
 
-open monaware backend in terminal:
+open psychpix backend in terminal:
 
 ```
 cd backend
@@ -36,16 +36,19 @@ Run Backend:
 ```
 npm start
 ```
-
 #### Step 4:
 
-open monaware frontend in terminal:
+Open a new terminal:
+
+#### Step 5:
+
+open psychpix frontend in terminal:
 
 ```
 cd psychpix
 ```
 
-#### Step 5:
+#### Step 6:
 
 Run Frontend:
 
