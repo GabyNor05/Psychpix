@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+
+
 // POST route to handle form data and file upload
 router.post('/', upload.single('image'), async (req, res) => {
   console.log('BODY:', req.body);
@@ -47,9 +49,14 @@ router.post('/', upload.single('image'), async (req, res) => {
 });
 
 // (Optional) GET route to fetch items
-router.get('/', async (req, res) => {
-  const items = await Item.find();
-  res.json(items);
+router.get('/:id', async (req, res) => {
+  try {
+    const item = await Item.findById(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 module.exports = router;

@@ -62,7 +62,7 @@ const AdminForm = () => {
         } catch (err) {
             alert('Network error');
         }
-        };
+    };
 
     return (
         <div>

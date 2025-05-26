@@ -12,37 +12,40 @@
     position: relative;
     width: 800px;
     height: 800px;
-    background-image: url('../home/images/bento/bento2.jpg');
+    /* background-image: url('../home/images/bento/bento2.jpg'); */
     background-size: cover;
     border-radius: 24px;
-    box-shadow: 0px 0px 20px 4px inset rgb(0, 0, 0);
+    /* box-shadow: 0px 0px 20px 4px inset rgb(0, 0, 0); */
+}
+
+#itemImage{
+    box-shadow: inset 0px 0px 20px 4px rgb(0, 0, 0);
+    width: 95%;
+    height: 100%;
+    border-radius: 24px;
+    object-fit: cover;
+    display: block;
+}
+
+#imageBlock{
+    display: flex;
+    height: 100%;
 }
 
 .ItemDisplayContainer{
     width: fit-content;
     height: fit-content;
     border-radius: 24px;
-    margin-left: 100px;
-    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.493);
-}
-
-.ItemDisplay::before{
-    content: '';
-    position: absolute;
-    width: 832px;
-    height: 832px;
-    translate: -16px -16px;
-    background-image: url('./images/woodFrame.jpg');
-    border-radius: inherit;
-    z-index: -1;
+    /* box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.493); */
 }
 
 .catagoryText{
-    position: absolute;
-    transform: rotate(-90deg);
-    left: 0;
+    transform: rotate(-90deg) translate(-128px, -64px);
+    width: 0px;
+    padding-right: 80px;
     transform-origin: top left;
     white-space: nowrap;
+    align-self: flex-end;
 }
 
 .catagoryText h1{
@@ -415,10 +418,10 @@
     display: flex;
     justify-content: space-evenly;
     width: 200px;
-    height: 80px;
     text-align: center;
     align-items: center;
     height: 80px;
+    padding: 8px;
 }
 
 .AddItemWrapper{
@@ -430,8 +433,12 @@
     color: white;
     border-radius: 8px;
     font-size: 48px;
-    padding: 16px;
+    padding: 8px;
     height: 80px;
+}
+
+.AddToCart h1{
+    font-size: 48px;
 }
 
 .woodItem{
