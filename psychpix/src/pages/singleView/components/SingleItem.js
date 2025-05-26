@@ -1,6 +1,8 @@
 import dummyItem from '../../home/images/bento/bento2.jpg';
+import { GetItemsData } from '../../../ItemsData';
+import { useState, useEffect } from 'react';
 
-const itemId = '682ee1974674f8a65182d6bf';
+const itemId = '6834983793492582714b934d';
 let data = '';
 
 try {
@@ -16,15 +18,26 @@ try {
   console.error('Fetch failed:', err);
 }
 
-
 function SingleItemSelection()
 {
+    const [ItemData, setItemData] = useState(null);
+
+    useEffect(() => {
+        GetItemsData().then(data => setItemData(data));
+    }, [])
+
+    if(!ItemData){
+        return <p>Loading...</p>;
+    }
+
+    console.log(ItemData);
     return(
     <>
         <div className="singleItemOverlay">
         
         </div>
         <div className="gridSingleItem">
+
             <div className="ItemDisplayContainer" style={{gridArea: 'ItemDisplay'}}>
                 <div className="ItemDisplay">
                     <div id='imageBlock'>
@@ -37,61 +50,65 @@ function SingleItemSelection()
             </div>
             
             <div className="artInfo" style={{gridArea: 'ItemInfo'}}>
-                <div className="ItemTitle">
-                    
-                    <h1>{data.title}</h1>
-                    <h1>{data.creator}</h1>
-                </div>
-                
-                <div className="ItemDetails">
-                    <h1>R {data.price}</h1>
-                    <h1>69 reviews</h1>
-                </div>
-
-                <div className="userSelect">
-                    <div className="selectBoxWrapper">
-                        <h5>Wood Frame</h5>
-                        <div className="selectBox">
-                            <div className="woodItem" />
-                            <div className="woodItem" />
-                            <div className="woodItem" />
-                        </div>
+                <div >
+                    <div className="ItemTitle">
+                        <h1>{data.title}</h1>
+                        <h1>{data.creator}</h1>
                     </div>
                     
-                    <div className="selectBoxWrapper">
-                        <h5>Orientation</h5>
-                        <div className="selectBox">
-
-                        </div>
+                    <div className="ItemDetails">
+                        <h1>R {data.price}</h1>
+                        <h1>69 reviews</h1>
                     </div>
 
-                    <div className="selectBoxWrapper">
-                        <h5>Size</h5>
-                        <div className="selectBox">
-                            <div className="sizeSelection">
-                                <h1>XL</h1>
-                                <h1 id="SelectedSize">L</h1>
-                                <h1>M</h1>
-                                <h1>S</h1>
+                    <div className="userSelect">
+                        <div className="selectBoxWrapper">
+                            <h5>Wood Frame</h5>
+                            <div className="selectBox">
+                                <div className="woodItem" />
+                                <div className="woodItem" />
+                                <div className="woodItem" />
+                            </div>
+                        </div>
+                        
+                        <div className="selectBoxWrapper">
+                            <h5>Orientation</h5>
+                            <div className="selectBox">
+
+                            </div>
+                        </div>
+
+                        <div className="selectBoxWrapper">
+                            <h5>Size</h5>
+                            <div className="selectBox">
+                                <div className="sizeSelection">
+                                    <h1>XL</h1>
+                                    <h1 id="SelectedSize">L</h1>
+                                    <h1>M</h1>
+                                    <h1>S</h1>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="checkoutSection">
-                    <div className="AddItemWrapper">
-                        <h4 style={{ padding: '8px'}}>{data.stock} Copy Left</h4>
-                        <div className="AddItem">
-                            <span>-</span>
-                            <span>0</span>
-                            <span>+</span>
+                <div style={{ alignSelf: 'flex-end'}}>
+                    <div className="checkoutSection">
+                        <div className="AddItemWrapper">
+                            <h4 style={{ padding: '8px'}}>{data.stock} Copies Left</h4>
+                            <div className="AddItem">
+                                <span>-</span>
+                                <span>0</span>
+                                <span>+</span>
+                            </div>
+                        </div>
+
+                        <div className="AddToCart">
+                            <h1>Add To Cart</h1>
                         </div>
                     </div>
-
-                    <div className="AddToCart">
-                        <h1>Add To Cart</h1>
-                    </div>
                 </div>
+                
             </div>
         </div>
     </>
