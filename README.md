@@ -18,7 +18,7 @@
 
 Clone the repo:
 ```
-https://github.com/andrevanheerden/formative-one-Monaware.git](https://github.com/GabyNor05/Psychpix.git
+https://github.com/GabyNor05/Psychpix.git
 ```
 
 #### Step 2:
