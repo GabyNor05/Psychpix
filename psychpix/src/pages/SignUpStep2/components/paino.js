@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "../css/SignUpStep2.css"; // Import CSS styles
 import LongLogo from "../../../pages/LongLogo.png"; // Logo image
 
@@ -83,30 +83,18 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
   const [pressedKeys, setPressedKeys] = useState([]); // Track currently pressed keys
   const [infoOpen, setInfoOpen] = useState(false);
 
-  // Handle keyboard input
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.repeat) return;
-      const note = KEYBOARD_NOTE_MAP[e.key];
-      if (note) playNote(note);
-    };
-
-    const handleKeyUp = (e) => {
-      if (e.repeat) return;
-      const note = KEYBOARD_NOTE_MAP[e.key];
-      if (note) stopNote(note);
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyUp);
-    };
-  }, []);
+  // Instead of local displayedNotes, use factorKeys/setFactorKeys
+  const handleKey = useCallback((note) => {
+    setFactorKeys(prev => {
+      if (prev.length < 7) {
+        return [...prev, note];
+      }
+      return prev;
+    });
+  }, [setFactorKeys]);
 
   // Play a note (mouse or keyboard)
-  const playNote = (note) => {
+  const playNote = useCallback((note) => {
     const audio = audioMap[note];
     if (!audio) return;
 
@@ -122,10 +110,10 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
       keyEl.classList.add("active");
       setTimeout(() => keyEl.classList.remove("active"), 200);
     }
-  };
+  }, []);
 
   // Stop a note with fade out
-  const stopNote = (note) => {
+  const stopNote = useCallback((note) => {
     const audio = audioMap[note];
     if (!audio) return;
 
@@ -139,14 +127,32 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
         clearInterval(fadeInterval);
       }
     }, 20);
-  };
+  }, []);
 
-  // Instead of local displayedNotes, use factorKeys/setFactorKeys
-  const handleKey = (note) => {
-    if (factorKeys.length < 7) {
-      setFactorKeys([...factorKeys, note]);
-    }
-  };
+  // Handle keyboard input
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.repeat) return;
+      const note = KEYBOARD_NOTE_MAP[e.key];
+      if (note) {
+        playNote(note);
+        handleKey(note);
+      }
+    };
+
+    const handleKeyUp = (e) => {
+      if (e.repeat) return;
+      const note = KEYBOARD_NOTE_MAP[e.key];
+      if (note) stopNote(note);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [playNote, handleKey, stopNote]);
 
   // Add this function:
   const clearNotes = () => {
@@ -245,7 +251,10 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
                 key={note}
                 data-note={note}
                 className={`key ${note.length === 1 ? "white" : "black"}`}
-                onClick={() => handleKey(note)}
+                onClick={() => {
+                  playNote(note);      // Play the note sound
+                  handleKey(note);     // Register the note on the music sheet
+                }}
               >
                 <span className="note-label">{note}</span>
               </div>
