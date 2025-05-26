@@ -88,7 +88,10 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
     const handleKeyDown = (e) => {
       if (e.repeat) return;
       const note = KEYBOARD_NOTE_MAP[e.key];
-      if (note) playNote(note);
+      if (note) {
+        playNote(note);
+        handleKey(note); // <-- Add this line
+      }
     };
 
     const handleKeyUp = (e) => {
@@ -245,7 +248,10 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
                 key={note}
                 data-note={note}
                 className={`key ${note.length === 1 ? "white" : "black"}`}
-                onClick={() => handleKey(note)}
+                onClick={() => {
+                  playNote(note);      // Play the note sound
+                  handleKey(note);     // Register the note on the music sheet
+                }}
               >
                 <span className="note-label">{note}</span>
               </div>
