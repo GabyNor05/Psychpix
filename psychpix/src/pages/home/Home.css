@@ -36,7 +36,7 @@ footer{
     justify-content: center;
     min-height: 100vh;
     padding: 64px;
-    background: url('../home/images/Home1.jpeg');
+    /* background: url('../home/images/Home1.jpeg'); */
     background-size: cover;
 }
 

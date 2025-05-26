@@ -452,4 +452,5 @@
 
 .artInfo{
     display: grid;
+    justify-content: space-between;
 }

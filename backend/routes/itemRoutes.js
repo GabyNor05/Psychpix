@@ -48,6 +48,15 @@ router.post('/', upload.single('image'), async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const items = await Item.find(); // Gets all items
+        res.json(items);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 // (Optional) GET route to fetch items
 router.get('/:id', async (req, res) => {
   try {
