@@ -66,7 +66,7 @@ npm start
 
 ## Demo Vidio
 
-[Link to the Demo Vidio](https://drive.google.com/file/d/1IYq-TGkVZ1KIcWjcZCgO6fOWaFrIwBxk/view?usp=sharing](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
+[Link to the Demo Vidio](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
 
 ## Creaters
 
