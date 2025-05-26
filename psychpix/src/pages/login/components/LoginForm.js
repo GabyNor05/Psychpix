@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 
+// LoginForm component handles both login and signup forms
 const LoginForm = ({ isLogin, setIsLogin }) => {
+  // State for form fields
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -10,8 +12,10 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     confirmPassword: ''
   });
 
+  // React Router navigation hook
   const navigate = useNavigate();
 
+  // Handles input changes for all form fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -20,17 +24,19 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     }));
   };
 
+  // Handles form submission for login or signup
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isLogin) {
-      // Sign Up: check passwords and go to signupstep2
+      // Sign Up: check if passwords match, then go to signupstep2
       if (formData.password !== formData.confirmPassword) {
         alert("Passwords do not match!");
         return;
       }
+      // Pass form data to signup step 2
       navigate("/signupstep2", { state: { ...formData } });
     } else {
-      // Login: check username & password with backend
+      // Login: send username & password to backend for verification
       try {
         const response = await fetch("http://localhost:5000/api/users/check", {
           method: "POST",
@@ -41,9 +47,10 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
           })
         });
         if (response.ok) {
-          // Credentials correct, go to 2-factor step
+          // Credentials correct, go to 2-factor login step
           navigate("/loginstep2", { state: { username: formData.username, password: formData.password } });
         } else {
+          // Show error message from backend
           const data = await response.json();
           alert(data.message || "Login failed.");
         }
@@ -57,9 +64,11 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     <div className="login-container">
       <div className="auth-box">
         <div className="auth-left">
+          {/* Title changes based on login/signup */}
           <h2 style={{ fontSize: '28px', marginBottom: '20px', fontWeight: 'bold' }}>
             {isLogin ? "Log in" : "Sign up"}
           </h2>
+          {/* Tabs to switch between login and signup */}
           <div className="auth-tabs">
             <button
               className={`tab ${!isLogin ? 'active' : ''}`}
@@ -76,6 +85,7 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
           </div>
 
           <div className="auth-content">
+            {/* Main form for login/signup */}
             <form onSubmit={handleSubmit}>
               <div className="input-group">
                 <label>Username</label>
@@ -87,6 +97,7 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
                   required 
                 />
               </div>
+              {/* Email field only for signup */}
               {!isLogin && (
                 <div className="input-group">
                   <label>Email</label>
@@ -109,6 +120,7 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
                   required 
                 />
               </div>
+              {/* Confirm password only for signup */}
               {!isLogin && (
                 <div className="input-group">
                   <label>Confirm Password</label>
@@ -121,12 +133,14 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
                   />
                 </div>
               )}
+              {/* Submit button changes text based on mode */}
               <button type="submit" className="auth-button">
                 {isLogin ? "Log In" : "Sign Up"}
               </button>
             </form>
           </div>
         </div>
+        {/* Right side can be used for images or additional info */}
         <div className="auth-right"></div>
       </div>
     </div>

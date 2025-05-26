@@ -16,7 +16,7 @@ import A from "./notes/A.mp3";
 import Bb from "./notes/Bb.mp3";
 import B from "./notes/B.mp3";
 
-// Map notes to audio objects
+// Map notes to audio objects for playback
 const audioMap = {
   C: new Audio(C),
   Db: new Audio(Db),
@@ -32,7 +32,7 @@ const audioMap = {
   B: new Audio(B),
 };
 
-// Keyboard key to note mapping
+// Map keyboard keys to piano notes
 const KEYBOARD_NOTE_MAP = {
   z: "C", Z: "C",
   s: "Db", S: "Db",
@@ -48,7 +48,7 @@ const KEYBOARD_NOTE_MAP = {
   m: "B", M: "B",
 };
 
-// Y-positions of notes on the music staff
+// Y-positions for each note on the SVG music staff
 const NOTE_POSITIONS = {
   C: 90,
   Db: 87,
@@ -64,6 +64,7 @@ const NOTE_POSITIONS = {
   B: 45,
 };
 
+// Info text for keyboard-to-note mapping
 const INFO_TEXT = `Keyboard to Note:
 z: C
 s: Db
@@ -78,12 +79,13 @@ n: A
 j: Bb
 m: B`;
 
+// Main Paino component
 function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
   const NOTES = Object.keys(audioMap); // List of all notes
-  const [pressedKeys, setPressedKeys] = useState([]); // Track currently pressed keys
-  const [infoOpen, setInfoOpen] = useState(false);
+  const [pressedKeys, setPressedKeys] = useState([]); // Track currently pressed keys for UI highlight
+  const [infoOpen, setInfoOpen] = useState(false); // Show/hide info dropdown
 
-  // Instead of local displayedNotes, use factorKeys/setFactorKeys
+  // Add a note to the factorKeys array (max 7 notes)
   const handleKey = useCallback((note) => {
     setFactorKeys(prev => {
       if (prev.length < 7) {
@@ -93,7 +95,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
     });
   }, [setFactorKeys]);
 
-  // Play a note (mouse or keyboard)
+  // Play a note sound and visually highlight the key
   const playNote = useCallback((note) => {
     const audio = audioMap[note];
     if (!audio) return;
@@ -104,7 +106,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
 
     setPressedKeys((prev) => [...prev, note]);
 
-    // Highlight the key
+    // Highlight the key in the UI
     const keyEl = document.querySelector(`[data-note="${note}"]`);
     if (keyEl) {
       keyEl.classList.add("active");
@@ -112,7 +114,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
     }
   }, []);
 
-  // Stop a note with fade out
+  // Fade out and stop a note sound
   const stopNote = useCallback((note) => {
     const audio = audioMap[note];
     if (!audio) return;
@@ -129,14 +131,14 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
     }, 20);
   }, []);
 
-  // Handle keyboard input
+  // Keyboard event listeners for playing and stopping notes
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.repeat) return;
       const note = KEYBOARD_NOTE_MAP[e.key];
       if (note) {
-        playNote(note);
-        handleKey(note);
+        playNote(note);   // Play sound and highlight
+        handleKey(note);  // Add note to music sheet
       }
     };
 
@@ -154,20 +156,20 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
     };
   }, [playNote, handleKey, stopNote]);
 
-  // Add this function:
+  // Clear all notes from the music sheet
   const clearNotes = () => {
     setFactorKeys([]);
   };
 
   return (
     <div className="login-piano-container">
-                  <div className="logo-container">
-              <img src={LongLogo} alt="Logo" className="logo" />
-            </div>
+      {/* Logo at the top */}
+      <div className="logo-container">
+        <img src={LongLogo} alt="Logo" className="logo" />
+      </div>
       <div className="auth-piano-box">
 
-
-        {/* Info Button with Dropdown */}
+        {/* Info Button with Dropdown for keyboard mapping */}
         <div className={`info-dropdown-container${infoOpen ? " info-open" : ""}`}>
           {!infoOpen && (
             <button
@@ -202,11 +204,13 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
         </div>
         <div className="piano-wrapper">
           <div className="music-sheet-container">
-            {/* Music Sheet SVG */}
+            {/* SVG Music Sheet with notes */}
             <svg width="800" height="150" className="music-sheet">
+              {/* Treble clef */}
               <text x="50" y="85" fontSize="60" fontFamily="serif">
                 𝄞
               </text>
+              {/* Staff lines */}
               {[0, 1, 2, 3, 4].map((line) => (
                 <line
                   key={line}
@@ -218,6 +222,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
                   strokeWidth="1"
                 />
               ))}
+              {/* Render each note as a circle and label */}
               {factorKeys.map((note, idx) => (
                 <g key={idx}>
                   <circle
@@ -244,7 +249,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
             </button>
           </div>
 
-          {/* Piano Keys */}
+          {/* Piano Keys UI */}
           <div className="piano">
             {NOTES.map((note) => (
               <div
@@ -261,6 +266,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
             ))}
           </div>
         </div>
+        {/* Submit button to continue */}
         <button
           className="auth-button submit-button"
           onClick={onSubmit}
