@@ -86,10 +86,10 @@
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  padding: 24px;
-  margin: 18px auto;
+  padding: 30px 40px 20px;
+  margin: auto;
   max-width: 1500px;
-  max-height: 300px;
+  max-height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -97,13 +97,22 @@
 }
 
 .admin-stock-card-img {
-  width: 100%;
-  max-width: 320px;
-  max-height: 250px;
-  height: auto;
+  width: 300px;
+  height: 300px;
   border-radius: 10px;
   object-fit: cover;
   background: #eee;
+}
+
+.admin-stock-card-img img {
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.admin-stock-card-content {
+  padding-right: 50px;
 }
 
 .admin-stock-card-content h3 {
@@ -115,4 +124,118 @@
   margin: 4px 0;
   color: #232b38;
   font-size: 16px;
+}
+
+.admin-stock-card-content p.description {
+  max-height: 6em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  transition: max-height 0.3s;
+}
+
+.admin-stock-card-content p.description.expanded {
+  max-height: none;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.ellipsis-overlay {
+  color: #888;
+  font-weight: 500;
+  margin-left: 4px;
+  background: #fff;
+  padding: 0 4px;
+  border-radius: 3px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  pointer-events: none; /* So the parent p handles the click */
+}
+
+.admin-stock-card-content p.description.expanded .ellipsis-overlay {
+  display: none;
+}
+
+.admin-edit-text-btn {
+  color: #181f2a;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 18px;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 20px 0;
+}
+
+.admin-edit-text-btn:hover {
+  text-decoration: underline;
+}
+
+.admin-delete-text-btn {
+  color: #e74c3c;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.admin-delete-text-btn:hover {
+  text-decoration: underline;
+}
+
+.admin-eye-btn {
+  cursor: pointer;
+  color: #181f2a;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.admin-eye-btn:hover {
+  text-decoration: underline;
+}
+
+.admin-accordion {
+  background: #f8f8f8;
+  border-radius: 8px;
+  margin-top: 18px;
+  padding: 18px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  animation: fadeIn 0.3s;
+  max-width: 1500px;
+  align-items: center;
+  margin: auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.userHearts{
+    color: rgba(255, 255, 255, 0.445);
+    width: fit-content;
+    cursor: pointer;
+}
+
+.userHearts h6{
+    text-align: center;
 }

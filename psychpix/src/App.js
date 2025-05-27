@@ -29,6 +29,7 @@ function AppContent() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/singleItem" element={<SingleItem />} />
         <Route path="/adminForm" element={<AdminForm />} />
+        <Route path="/stocklist" element={<Stocklist />} />
         {/* Add more routes as needed */}
       </Routes>
     </>
