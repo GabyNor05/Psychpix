@@ -52,4 +52,42 @@ router.get('/', async (req, res) => {
   res.json(items);
 });
 
+// DELETE route to delete an item by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    await Item.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Item deleted' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// PUT route to update an item by ID
+router.put('/:id', upload.single('image'), async (req, res) => {
+  try {
+    let tags = req.body['tags[]'] || req.body.tags || [];
+    if (typeof tags === 'string') tags = [tags];
+
+    const update = {
+      serialNumber: req.body.serialNumber,
+      title: req.body.title,
+      creator: req.body.creator,
+      price: Number(req.body.price),
+      description: req.body.description,
+      tags: tags,
+      stock: Number(req.body.stock),
+      year: Number(req.body.year),
+      discount: req.body.discount ? Number(req.body.discount) : undefined,
+    };
+    if (req.file) {
+      update.imageUrl = `/uploads/${req.file.filename}`;
+    }
+
+    const item = await Item.findByIdAndUpdate(req.params.id, update, { new: true });
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

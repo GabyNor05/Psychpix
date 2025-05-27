@@ -8,6 +8,7 @@ import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
 import SingleItem from './pages/singleView/SingleView';
 import AdminForm from './pages/admin/adminForm';
+import Stocklist from './pages/admin/Stocklist';
 
 function AppContent() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function AppContent() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/singleItem" element={<SingleItem />} />
         <Route path="/adminForm" element={<AdminForm />} />
+        <Route path="/stocklist" element={<Stocklist />} />
         {/* Add more routes as needed */}
       </Routes>
     </>

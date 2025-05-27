@@ -88,7 +88,8 @@
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   padding: 24px;
   margin: 18px auto;
-  max-width: 700px;
+  max-width: 1500px;
+  max-height: 300px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -98,9 +99,9 @@
 .admin-stock-card-img {
   width: 100%;
   max-width: 320px;
+  max-height: 250px;
   height: auto;
   border-radius: 10px;
-  
   object-fit: cover;
   background: #eee;
 }

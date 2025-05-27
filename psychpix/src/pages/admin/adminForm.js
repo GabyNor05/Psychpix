@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './admin.css';
-import AdminStockCard from './AdminStockCard';
+import { useNavigate } from 'react-router-dom';
+
 
 const AdminForm = () => {
     const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const AdminForm = () => {
     });
 
     const [preview, setPreview] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;
@@ -124,7 +126,13 @@ const AdminForm = () => {
                 <button type="submit">Submit</button>
             </form>
 
-            <AdminStockCard {...formData} image={preview || formData.image} />
+             <button
+                type="button"
+                style={{ marginBottom: '20px' }}
+                onClick={() => navigate('/stocklist')}
+            >
+                Go to Stocklist
+            </button>
         </div>
     );
 };
