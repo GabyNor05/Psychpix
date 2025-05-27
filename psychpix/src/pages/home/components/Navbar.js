@@ -14,7 +14,8 @@ function Navbar() {
         <Link to="/login" className="nav-link">Login</Link>
         <Link to="/cart" className="nav-link">Cart</Link>
         <Link to="/singleItem" className="nav-link">Single Item</Link> 
-        <Link to="/adminForm" className="nav-link">Admin Form</Link>  
+        <Link to="/adminForm" className="nav-link">Admin Form</Link> 
+        <Link to="/profile" className="nav-link">Profile</Link> 
       </div>    
     </nav>
   );
