@@ -123,3 +123,8 @@
   text-align: center;
   gap: 24px;
 }
+
+.Tags input{
+  width: 64px;
+  height: 64px;
+}

@@ -1,27 +1,13 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const Item = require('../models/Product'); // Create this model as shown earlier
-
 const router = express.Router();
-
-// Multer setup
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage });
-
+const Item = require('../models/Product'); // Create this model as shown earlier
+const multer = require('multer');
+const upload = multer(); // for memory storage; configure as needed
 
 
 // POST route to handle form data and file upload
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', async (req, res) => {
   console.log('BODY:', req.body);
-  console.log('FILE:', req.file);
   try {
     // Always ensure tags is an array
     let tags = req.body['tags[]'] || req.body.tags || [];
@@ -37,7 +23,7 @@ router.post('/', upload.single('image'), async (req, res) => {
       stock: Number(req.body.stock),
       year: Number(req.body.year),
       discount: req.body.discount ? Number(req.body.discount) : undefined,
-      imageUrl: req.file ? `/uploads/${req.file.filename}` : ''
+      imageUrl: req.body.imageUrl,
     });
 
     await item.save();

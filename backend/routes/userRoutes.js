@@ -16,14 +16,14 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.get('/', (req, res) => {
-  res.send('User route works!');
-});
-
-const newUser = new User({
-  username: 'Leela',
-  email: 'leela@futurama.com',
-  password: 'qwerty123'
+router.get('/', async (req, res) => {
+  try {
+        const items = await User.find(); // Gets all users
+        res.json(items);
+      } 
+    catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 module.exports = router; // ✅ exports a router function
