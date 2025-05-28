@@ -2,7 +2,7 @@ import dummyItem from '../../home/images/bento/bento2.jpg';
 import { GetItemsData } from '../../../ItemsData';
 import { useState, useEffect } from 'react';
 
-const itemId = '6834983793492582714b934d';
+const itemId = '68375774e727f8013ae6036f';
 let data = '';
 
 try {
