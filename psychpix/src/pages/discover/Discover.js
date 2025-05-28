@@ -1,5 +1,6 @@
 import React from "react";
 import Carousel from '../_GeneralComponents/Carousel';
+import Footer from '../home/components/Footer';
 import image1 from './exampleImages/ex1.jpeg';
 import image2 from './exampleImages/ex2.jpg';
 import image3 from './exampleImages/ex3.jpg';
@@ -37,8 +38,15 @@ const slides = {
 function Discover() {
   return (
    <div style={{ paddingTop: '32px'}}>
-    <Carousel slides={slides.african} Title={"African"}/>
-    <Carousel slides={slides.paintings} Title={"Paintings"}/>
+    <Carousel Title={"Psychedelic"}/>
+    <Carousel Title={"Galaxy"}/>
+    <Carousel Title={"African"}/>
+    <Carousel Title={"Digital Artworks"}/>
+    <Carousel Title={"Paintings"}/>
+    <Carousel Title={"Photography"}/>
+    <Carousel Title={"Sculptures"}/>
+    <Carousel Title={"Artificial Intelligence"}/>
+    <Footer />
    </div>
   );
 }

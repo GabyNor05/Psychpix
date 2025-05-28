@@ -35,6 +35,8 @@ const AdminForm = () => {
         }
     };
 
+    const tags = ['Digital Artworks', 'Scultures', 'Paintings', 'African', 'Psychedelic', 'Artificial Intelligence', 'Photography', 'Galaxy']
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
@@ -90,9 +92,10 @@ const AdminForm = () => {
             </div>
             <div>
                 <label>Tags:</label>
-                <div>
-                    {['Digital Artworks', 'Scultures', 'Paintings'].map(tag => (
+                <div className='Tags'>
+                    {tags.map(tag => (
                         <div key={tag}>
+                            <label>{tag}</label>
                             <input
                                 type="checkbox"
                                 name="tags"
@@ -100,7 +103,6 @@ const AdminForm = () => {
                                 checked={formData.tags.includes(tag)}
                                 onChange={handleChange}
                             />
-                            <label>{tag}</label>
                         </div>
                     ))}
                 </div>

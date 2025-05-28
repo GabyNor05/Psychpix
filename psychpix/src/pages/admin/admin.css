@@ -115,3 +115,11 @@
   color: #232b38;
   font-size: 16px;
 }
+
+.Tags{
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  justify-items: center;
+  text-align: center;
+  gap: 24px;
+}

@@ -91,8 +91,6 @@ function CommentSection()
             </div>
             <CommentInput callback={(item) => addItem(item)} />
         </div>
-
-        <Footer />
     </>
   );
 }

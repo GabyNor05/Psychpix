@@ -138,11 +138,12 @@
 }
 
 .CommentInputBlock{
-    width: 70%;
+    width: 80%;
     height: 320px;
     border-radius: 24px;
     margin: auto;
     background: #060C12;
+    margin: 32px auto;
 }
 
 .ProfileContainer{
@@ -167,10 +168,6 @@
     align-items: center;
     justify-content: start;
     gap: 16px;
-}
-
-.CommentInputBlock{
-    margin: 32px auto;
 }
 
 .commentInputContainer{
@@ -363,12 +360,12 @@
 
 .CommentScroll{
     height: 800px;
-    width: 70%;
+    width: 80%;
     margin: auto;
     overflow-y: scroll;
     overflow-x: hidden;
     border-radius: 24px;
-    background: #060c1236;
+    background: #060c12b2;
 }
 
 .UserReplyBlock .userComment{
