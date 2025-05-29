@@ -47,7 +47,7 @@ function SingleItemSelection()
                 <div className="ItemDisplay">
                     <div id='imageBlock'>
                         <div className="catagoryText"><h1>{ItemData.tags[0]}</h1></div>
-                        <img src={dummyItem} id='itemImage' />
+                        <img src={ItemData.imageUrl} id='itemImage' />
                     </div>
                     
                     <div className="yearDisplay"><h1>{ItemData.year}</h1></div>

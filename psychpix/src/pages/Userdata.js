@@ -1,11 +1,9 @@
-import ProfilePic from './singleView/images/pfp.webp';
 
 try {
   const response = await fetch(`http://localhost:5000/api/items`);
   if (response.ok) {
     const item = await response.json();
     console.log('Item data:', item);
-    data = item;
   } else {
     alert('Item not found');
   }

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import UserReplies from './CommentReplies';
 import { StarIcon, HeartIcon, ArrowUUpLeftIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
+import Rating from "./Rating";
 
-function UserComment( {userProfilePic, userName, userComment, userReplies, callback}){
+function UserComment( {data} ){
     const [inputText, setInputText] = useState('');
     const [currentUserData, SetUserData] = useState(null);
 
@@ -16,32 +17,27 @@ function UserComment( {userProfilePic, userName, userComment, userReplies, callb
             userName: currentUserData.userName,
             userComment: inputText
         };
-        callback(replyData);
         setInputText('');  // Clear the input after adding the reply
     };
 
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
-                <img className='CommentProfilePic' src={userProfilePic} style={{gridArea: 'userPic'}}/>
-                <h1 className='domine-Label m-0' style={{gridArea: 'userName'}}>{userName}</h1>
+                {/* <img className='CommentProfilePic' src={userProfilePic} style={{gridArea: 'userPic'}}/> */}
+                <h1 className='domine-Label m-0' style={{gridArea: 'userName'}}>Billy</h1>
                 <h5 className="jost-light userTimeStamp" style={{gridArea: 'userTimeStamp'}}>{Math.floor(Math.random() * 24)}h ago</h5>
                 <div className='StarRatingBlock' style={{gridArea: 'userRating', fontSize: 'clamp(20px, 4vw, 42px)'}}>
-                    <span><StarIcon weight="fill" /></span>
-                    <span><StarIcon weight="fill" /></span>
-                    <span><StarIcon weight="fill" /></span>
-                    <span><StarIcon weight="light" /></span>
-                    <span><StarIcon weight="light" /></span>
+                    <Rating canRate={false} userRating={data.rating} />
                 </div>
                 
                 <div className='userComment' style={{gridArea: 'userComment'}}>
                     <h4 className="jost-light">
-                        {userComment}
+                        {data.comment}
                     </h4>
                     <div className="userInteract">
                         <div className="userHearts">
                             <HeartIcon size={42} color="#FFFFFF55" weight="light" />
-                            <h6 className="jost-light">{Math.floor(Math.random() * 999)}</h6>
+                            <h6 className="jost-light">{data.likes}</h6>
                         </div>
                         <div>
                             <ArrowUUpLeftIcon size={42} color="#FFFFFF55" weight="light" />
@@ -54,7 +50,7 @@ function UserComment( {userProfilePic, userName, userComment, userReplies, callb
                             
                             </input>
                             <span>
-                                <div className='submitCommentButton' onClick={() => callback(handleAddReply)}>
+                                <div className='submitCommentButton'>
                                     <span id='iconElement'><PaperPlaneRightIcon size={48} weight="light" /></span>
                                 </div>
                             </span>
@@ -62,13 +58,13 @@ function UserComment( {userProfilePic, userName, userComment, userReplies, callb
                     </div>
                 </div>    
             </div> 
-            <div style={{gridArea: 'userReply', display: 'none'}}>
+            {/* <div style={{gridArea: 'userReply', display: 'none'}}>
                 {userReplies.map((item, index) => {
                     return(
                         <UserReplies key={index} userProfilePic={item.userProfilePic} userName={item.userName} userComment={item.userComment} />
                     );
                 })}
-            </div>
+            </div> */}
         </div>
     )
 }

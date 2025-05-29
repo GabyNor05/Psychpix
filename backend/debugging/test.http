@@ -1,4 +1,4 @@
-GET http://localhost:5000/api/comments
+GET http://localhost:5000/api/items
 Content-Type: application/json
 
 ###
