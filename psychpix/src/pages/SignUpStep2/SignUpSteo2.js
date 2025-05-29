@@ -9,7 +9,7 @@ function SignUpStep2() {
   const location = useLocation();
   const navigate = useNavigate();
   // Retrieve username, email, and password from previous signup step
-  const { username, email, password } = location.state || {};
+  const { username, email, password, role, adminToken } = location.state || {};
 
   // State to track which step the user is on (1: create, 2: confirm)
   const [step, setStep] = useState(1);
@@ -54,6 +54,8 @@ function SignUpStep2() {
           username,
           email,
           password,
+          role,
+          adminToken,
           twoFactor: firstKeys
         })
       });

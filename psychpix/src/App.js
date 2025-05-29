@@ -17,7 +17,10 @@ function AppContent() {
   const location = useLocation();
 
   // Hide Navbar on /login and /signupstep2
-  const hideNavbar = location.pathname === "/login" || location.pathname === "/signupstep2";
+  const hideNavbar =
+    location.pathname === "/login" ||
+    location.pathname === "/signupstep2" ||
+    location.pathname === "/loginstep2"; // <-- all lowercase
 
   return (
     <>

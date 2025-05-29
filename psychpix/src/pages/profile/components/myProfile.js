@@ -1,5 +1,24 @@
 import React, { useState, useEffect } from "react";
-import userPlaceholder from "../assets/userPlaceholder.jpg"; // Placeholder image for user profile
+import Profile1 from "../assets/userprofile/profile1.jpg";
+import Profile2 from "../assets/userprofile/profile2.png";
+import Profile3 from "../assets/userprofile/profile3.png";
+import Profile4 from "../assets/userprofile/profile4.webp";
+import Profile5 from "../assets/userprofile/profile5.jpg";
+import Profile6 from "../assets/userprofile/profile6.jpg";
+import Profile7 from "../assets/userprofile/profile7.webp";
+import Profile8 from "../assets/userprofile/profile8.jpg";
+import "../css/Profile.css";
+
+const profileImages = [
+  Profile1,
+  Profile2,
+  Profile3,
+  Profile4,
+  Profile5,
+  Profile6,
+  Profile7,
+  Profile8,
+];
 
 const MyProfile = () => {
   // State for user info
@@ -7,6 +26,7 @@ const MyProfile = () => {
     username: "",
     email: "",
     profilePic: "",
+    role: "", // Add role to state
   });
   // State for edit mode
   const [editMode, setEditMode] = useState(false);
@@ -21,27 +41,29 @@ const MyProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch user info on mount (replace with your auth/user context or API)
+  // Fetch user info on mount
   useEffect(() => {
-    // Example: fetch user info from backend
     const fetchUser = async () => {
       setLoading(true);
       try {
-        // Replace with your actual API endpoint and auth
-        const res = await fetch("http://localhost:5000/api/users/me", {
-          credentials: "include", // or send token in headers
+        const username = localStorage.getItem("username");
+        if (!username) throw new Error("No username found in localStorage");
+        const res = await fetch(`http://localhost:5000/api/users/me?username=${encodeURIComponent(username)}`, {
+          credentials: "include",
         });
         if (!res.ok) throw new Error("Failed to fetch user info");
         const data = await res.json();
-        setUser(data);
+        setUser(data); // Make sure data includes role
         setForm({ username: data.username, profilePic: null });
         setPreviewPic(data.profilePic || "");
       } catch (err) {
         setError("Could not load profile.");
+        console.error(err);
       }
       setLoading(false);
     };
     fetchUser();
+    // eslint-disable-next-line
   }, []);
 
   // Handle input changes
@@ -63,17 +85,17 @@ const MyProfile = () => {
   // Handle save profile
   const handleSave = async () => {
     setError("");
-    const formData = new FormData();
-    formData.append("username", form.username);
-    if (form.profilePic) {
-      formData.append("profilePic", form.profilePic);
-    }
     try {
-      // Replace with your actual API endpoint and auth
-      const res = await fetch("http://localhost:5000/api/users/me", {
+      const res = await fetch(`http://localhost:5000/api/users/me?username=${encodeURIComponent(user.username)}`, {
         method: "PUT",
-        body: formData,
-        credentials: "include", // or send token in headers
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newUsername: form.username,
+          profilePic: form.profilePic, // <-- send the selected image
+        }),
+        credentials: "include",
       });
       if (!res.ok) throw new Error("Failed to update profile");
       const data = await res.json();
@@ -82,22 +104,30 @@ const MyProfile = () => {
       setPreviewPic(data.profilePic || "");
     } catch (err) {
       setError("Could not save changes.");
+      console.error(err);
     }
   };
 
-  if (loading) return <div>Loading profile...</div>;
+  // Add this function inside your MyProfile component:
+  const handleCancel = () => {
+    setEditMode(false);
+    setForm({ username: user.username, profilePic: user.profilePic });
+    setPreviewPic(user.profilePic || "");
+  };
+
+  if (loading) return <div className="profile-loading">Loading profile...</div>;
 
   return (
-    <div className="profile-container" style={{ maxWidth: 500, margin: "40px auto", padding: 24, background: "#fff", borderRadius: 12, boxShadow: "0 2px 8px #0001" }}>
-      <h2 style={{ textAlign: "center" }}>My Profile</h2>
-      {error && <div style={{ color: "red", marginBottom: 12 }}>{error}</div>}
-      <div style={{ display: "flex", alignItems: "center", gap: 24, marginBottom: 24 }}>
+    <div className="profile-container">
+      <h2 className="profile-title">My Profile</h2>
+      {error && <div className="profile-error">{error}</div>}
+      <div className="profile-header">
         <img
-          src={previewPic || user.profilePic || userPlaceholder}
+          className="profile-avatar"
+          src={previewPic || user.profilePic || Profile1}
           alt="Profile"
-          style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", border: "2px solid #1976d2" }}
         />
-        <div>
+        <div className="profile-details">
           {editMode ? (
             <>
               <input
@@ -105,33 +135,53 @@ const MyProfile = () => {
                 name="username"
                 value={form.username}
                 onChange={handleChange}
-                style={{ fontSize: 20, marginBottom: 8, padding: 4 }}
+                className="profile-input"
+                placeholder="Username"
               />
               <br />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handlePicChange}
-                style={{ marginTop: 8 }}
-              />
-              <br />
-              <button className="auth-button" onClick={handleSave} style={{ marginTop: 10 }}>Save</button>
-              <button className="auth-button" onClick={() => setEditMode(false)} style={{ marginLeft: 8, marginTop: 10, background: "#aaa" }}>Cancel</button>
+              <div className="profile-pic-select">
+                <div>Select a profile image:</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, margin: "8px 0" }}>
+                  {profileImages.map((img, idx) => (
+                    <img
+                      key={idx}
+                      src={img}
+                      alt={`Profile option ${idx + 1}`}
+                      className={`profile-avatar${form.profilePic === img ? " selected" : ""}`}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        borderRadius: "50%",
+                        border: form.profilePic === img ? "2px solid #1976d2" : "2px solid #ccc",
+                        cursor: "pointer",
+                        objectFit: "cover",
+                      }}
+                      onClick={() => {
+                        setForm({ ...form, profilePic: img });
+                        setPreviewPic(img);
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <button className="auth-button" onClick={handleSave}>Save</button>
+              <button className="auth-button cancel" onClick={handleCancel}>Cancel</button>
             </>
           ) : (
             <>
-              <div style={{ fontSize: 22, fontWeight: "bold" }}>{user.username}</div>
-              <div style={{ color: "#555" }}>{user.email}</div>
-              <button className="auth-button" onClick={() => setEditMode(true)} style={{ marginTop: 10 }}>Edit Profile</button>
+              <div className="profile-username">{user.username}</div>
+              <div className="profile-email">{user.email}</div>
+              <div className="profile-userid">User ID: {user._id}</div>
+              <div className="profile-role">Role: {user.role || "customer"}</div>
+              <button className="auth-button" onClick={() => setEditMode(true)}>Edit Profile</button>
             </>
           )}
         </div>
       </div>
 
-      {/* Placeholder for comment history */}
-      <div style={{ marginTop: 32 }}>
+      <div className="profile-comments">
         <h3>Comment History</h3>
-        <div style={{ color: "#888", fontStyle: "italic" }}>
+        <div className="profile-comments-history">
           {/* Replace this with actual comment data when available */}
           No comments yet.
         </div>

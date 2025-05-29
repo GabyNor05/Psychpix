@@ -11,6 +11,8 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     password: '',
     confirmPassword: ''
   });
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminToken, setAdminToken] = useState("");
 
   // React Router navigation hook
   const navigate = useNavigate();
@@ -33,10 +35,18 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
         alert("Passwords do not match!");
         return;
       }
-      // Pass form data to signup step 2
-      navigate("/signupstep2", { state: { ...formData } });
+      const { username, email, password } = formData;
+      // Pass form data to signup step 2 (do NOT call /register here)
+      const signupData = {
+        username,
+        email,
+        password,
+        role: isAdmin ? 'admin' : 'customer',
+        adminToken: isAdmin ? adminToken : undefined
+      };
+      navigate("/signupstep2", { state: signupData });
     } else {
-      // Login: send username & password to backend for verification
+      // Login: send username & password to backend for verification (step 1)
       try {
         const response = await fetch("http://localhost:5000/api/users/check", {
           method: "POST",
@@ -48,9 +58,11 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
         });
         if (response.ok) {
           // Credentials correct, go to 2-factor login step
-          navigate("/loginstep2", { state: { username: formData.username, password: formData.password } });
+          const { username } = formData;
+          localStorage.setItem("username", username);
+          // Do NOT set userRole or token yet!
+          navigate("/loginstep2", { state: { username, password: formData.password } });
         } else {
-          // Show error message from backend
           const data = await response.json();
           alert(data.message || "Login failed.");
         }
@@ -59,6 +71,10 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
       }
     }
   };
+
+  if (!isAdmin) {
+    // Redirect or hide admin features
+  }
 
   return (
     <div className="login-container">
@@ -131,6 +147,28 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
                     onChange={handleChange}
                     required
                   />
+                </div>
+              )}
+              {/* Admin fields only for admin signup */}
+              {!isLogin && (
+                <div className="input-group">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={isAdmin}
+                      onChange={e => setIsAdmin(e.target.checked)}
+                    />
+                    I am an admin
+                  </label>
+                  {isAdmin && (
+                    <input
+                      type="text"
+                      placeholder="Enter admin invite token"
+                      value={adminToken}
+                      onChange={e => setAdminToken(e.target.value)}
+                      required
+                    />
+                  )}
                 </div>
               )}
               {/* Submit button changes text based on mode */}

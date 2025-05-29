@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './admin.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +19,15 @@ const AdminForm = () => {
 
     const [preview, setPreview] = useState(null);
     const navigate = useNavigate();
+
+    // Check admin role on mount
+    useEffect(() => {
+        const userRole = localStorage.getItem("userRole");
+        if (userRole !== "admin") {
+            // Redirect non-admins to home or login
+            navigate("/");
+        }
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;

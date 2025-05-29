@@ -1,0 +1,120 @@
+.profile-container {
+  width: 1300px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+}
+.profile-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.profile-error {
+  color: red;
+  margin-bottom: 12px;
+}
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  justify-content: center; /* Center the profile part horizontally */
+}
+.profile-avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #000000;
+}
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the details under the avatar */
+}
+.profile-username {
+  font-size: 30px;
+  font-weight: bold;
+}
+.profile-email {
+  color: #555;
+}
+.profile-userid {
+  color: #888;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.auth-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
+  color: black;
+  transition: 0.3s;
+  width: 200px;          /* Set a fixed width */
+  display: block;        /* Ensure it's block-level */
+  margin-left: auto;     /* Center horizontally */
+  margin-right: auto;
+}
+
+.auth-button:hover {
+  background-color: #ccc;
+}
+
+.auth-button.cancel {
+  background: #aaa;
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
+  color: black;
+  transition: 0.3s;
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.auth-button.cancel:hover {
+  background-color: #888;
+}
+.profile-comments {
+  margin-top: 32px;
+}
+.profile-comments-history {
+  color: #888;
+  font-style: italic;
+}
+.profile-loading {
+  text-align: center;
+  margin-top: 40px;
+}
+.profile-input {
+  width: 300px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  border: 1.5px solid #bbb;
+  border-radius: 10px;
+  font-size: 18px;
+  background: #fafafa;
+  transition: border-color 0.2s;
+  outline: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-input:focus {
+  border-color: #1976d2;
+  background: #fff;
+}
