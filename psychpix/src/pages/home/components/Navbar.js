@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../logo.png";
 
 
 function Navbar() {
-  const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
-
-  useEffect(() => {
-    const onStorage = () => setUserRole(localStorage.getItem("userRole"));
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
-
   return (
     <nav className="navbar">
       <div className="navlinks text-white fs-5">
@@ -22,9 +14,7 @@ function Navbar() {
         <Link to="/login" className="nav-link">Login</Link>
         <Link to="/cart" className="nav-link">Cart</Link>
         <Link to="/singleItem" className="nav-link">Single Item</Link> 
-        {userRole === "admin" && (
-          <Link to="/adminForm" className="nav-link">Admin Form</Link> 
-        )}
+        <Link to="/adminForm" className="nav-link">Admin Form</Link> 
         <Link to="/profile" className="nav-link">Profile</Link> 
       </div>    
     </nav>
