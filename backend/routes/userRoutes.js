@@ -1,23 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const { authenticateJWT, requireAdmin } = require('../middleware/auth');
+const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 // Route to register a new user
 router.post('/register', async (req, res) => {
-  console.log('Received body:', req.body); // Log the incoming data
+  console.log(req.body); // <-- Add this line
+  const { username, email, password, role, adminToken, twoFactor } = req.body;
+
+  let userRole = "customer";
+  if (role === "admin") {
+    if (adminToken === process.env.ADMIN_INVITE_TOKEN) {
+      userRole = "admin";
+    } else {
+      return res.status(403).json({ message: "Invalid admin invite token" });
+    }
+  }
 
   try {
-    // Destructure user info from request body, including twoFactor array
-    const { username, email, password, twoFactor } = req.body;
-    // Create a new User document
-    const newUser = new User({ username, email, password, twoFactor });
-    // Save the user to the database
+    const newUser = new User({ username, email, password, twoFactor, role: userRole });
     const savedUser = await newUser.save();
-    // Respond with the saved user
     res.status(201).json(savedUser);
   } catch (err) {
-    // Log and return validation errors
-    console.error('Validation error:', err.message);
     res.status(400).json({ message: err.message });
   }
 });
@@ -72,10 +78,59 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: "2-factor authentication failed" });
     }
     // If all checks pass, login is successful
-    res.status(200).json({ message: "Login successful", user });
+    const token = jwt.sign(
+      { id: user._id, username: user.username, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+    res.json({ token, user: { username: user.username, role: user.role } });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
 });
 
+// Route to get current user info
+router.get('/me', async (req, res) => {
+  const username = req.query.username || req.headers['x-username'];
+  if (!username) return res.status(400).json({ message: "Username required" });
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json({
+      _id: user._id, // Add this line
+      username: user.username,
+      email: user.email,
+      profilePic: user.profilePic,
+      role: user.role
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Route to update current user info
+router.put('/me', async (req, res) => {
+  const username = req.query.username || req.body.username;
+  if (!username) return res.status(400).json({ message: "Username required" });
+  try {
+    const update = {};
+    if (req.body.newUsername) update.username = req.body.newUsername;
+    if (req.body.email) update.email = req.body.email;
+    if (req.body.profilePic) update.profilePic = req.body.profilePic; // <-- ADD THIS LINE
+    const user = await User.findOneAndUpdate({ username }, update, { new: true });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Protect a route for admins only
+router.get('/admin/some-data', authenticateJWT, requireAdmin, (req, res) => {
+  // Only admins can access this
+  res.json({ secret: "admin stuff" });
+});
+
 module.exports = router; // Export the router for use in the main app
+
+
