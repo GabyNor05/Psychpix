@@ -5,6 +5,8 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const itemRoutes = require('./routes/itemRoutes');
 const commentRoutes = require('./routes/commentRoutes');
+const cartRoutes = require('./routes/cartRoutes'); // Import cartRoutes
+
 // To serve uploaded images
 
 //const MONGO_URI = 'mongodb+srv://241299:<db_password>@cluster0.dxar4cf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -23,6 +25,7 @@ app.use('/api/items', itemRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/api/users', userRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/cart', cartRoutes); // Use cartRoutes
 
 console.log(`Connecting to MongoDB with URI: ${process.env.MONGO_URI}`);
 
