@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaInfoCircle, FaShoppingCart, FaSignInAlt, FaSearch } from "react-icons/fa";
 import { UserCircleIcon,ShoppingCartIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 import Logo from "../../logo.png";
 
