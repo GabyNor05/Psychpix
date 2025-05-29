@@ -174,6 +174,18 @@ const MyProfile = () => {
               <div className="profile-userid">User ID: {user._id}</div>
               <div className="profile-role">Role: {user.role || "customer"}</div>
               <button className="auth-button" onClick={() => setEditMode(true)}>Edit Profile</button>
+              <button
+                className="auth-button cancel"
+                style={{ marginTop: 12 }}
+                onClick={() => {
+                  localStorage.removeItem("userRole");
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("username");
+                  window.location.href = "/login";
+                }}
+              >
+                Log out
+              </button>
             </>
           )}
         </div>

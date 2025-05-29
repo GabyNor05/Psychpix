@@ -54,7 +54,7 @@ function Navbar() {
           <Link to="/cart" className="nav-link-icon" title="Cart">
             <ShoppingCartIcon size={48} weight="fill"/>
           </Link>
-          <Link to="/login" className="nav-link-icon" title="Login">
+          <Link to="/profile" className="nav-link-icon" title="profile">
             <UserCircleIcon size={48} weight="fill"/>
           </Link>
         </div>
