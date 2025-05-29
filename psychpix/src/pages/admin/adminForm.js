@@ -36,7 +36,7 @@ const AdminForm = () => {
         }
     };
 
-    const tags = ['Digital Artworks', 'Scultures', 'Paintings', 'African', 'Psychedelic', 'Artificial Intelligence', 'Photography', 'Galaxy'];
+    const tags = ['Digital Artworks', 'Sculptures', 'Paintings', 'African', 'Psychedelic', 'Artificial Intelligence', 'Photography', 'Galaxy'];
 
     const handleSubmit = async (e) => {
         e.preventDefault();

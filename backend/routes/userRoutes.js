@@ -16,6 +16,16 @@ router.post('/register', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+        const item = await User.findById(req.params.id); // Gets all users
+        res.json(item);
+      } 
+    catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 router.get('/', async (req, res) => {
   try {
         const items = await User.find(); // Gets all users
