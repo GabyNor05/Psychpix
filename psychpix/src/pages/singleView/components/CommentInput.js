@@ -3,9 +3,11 @@ import { Star, PaperPlaneRight } from "@phosphor-icons/react";
 import UserComment from './UserComments';
 import { useState } from 'react';
 import Rating from './Rating';
+import { useLocation } from 'react-router-dom';
 
 function CommentInput(){
-    
+    const location = useLocation();
+    const { selectedItem } = location.state || {};
     const [inputText, setInputText] = useState('');
     const [rating, setRating] = useState(1);
 
@@ -28,7 +30,18 @@ function CommentInput(){
             body: JSON.stringify(payload),
         });
 
-        if (response.ok) {
+        const currentComment = await response.json();
+        const idBody = {
+            commentId: currentComment._id
+        }
+
+        const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(idBody)
+        })
+
+        if (ItemResponse.ok) {
             alert('Item saved!');
         } else {
             alert('Error saving item');
@@ -36,9 +49,7 @@ function CommentInput(){
         } catch (err) {
             console.error('Fetch failed:', err);
         }
-    }
-
-    
+    } 
 
     return(
         <>

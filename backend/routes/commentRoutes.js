@@ -18,7 +18,16 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const items = await Comment.find(); // Gets all items
+        const items = await Comment.find(); 
+        res.json(items);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const items = await Comment.findById(req.params.id);
         res.json(items);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
@@ -27,7 +36,7 @@ router.get('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const items = await Comment.findByIdAndDelete(req.params.id); // Gets all items
+        const items = await Comment.findByIdAndDelete(req.params.id); 
         res.json(items);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });

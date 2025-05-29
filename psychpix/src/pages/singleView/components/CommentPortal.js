@@ -8,21 +8,30 @@ import user1pfp from '../images/user1.jpg';
 import user2pfp from '../images/user2.jpg';
 import user3pfp from '../images/user3.jpg';
 import user4pfp from '../images/user4.jpg';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
 
 
 function CommentSection()
 {
+    const location = useLocation();
+    const { selectedItem } = location.state || {};
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
         async function fetchComments() {
             try {
-                const response = await fetch('http://localhost:5000/api/comments');
-                const data = await response.json();
-                setComments(data);
-                console.log(data);
+                const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
+                if(ItemResponse.ok){
+                  const ItemJSON = await ItemResponse.json();
+                  const commentIds = ItemJSON.commentsID;
+                  const commentFetches = commentIds.map(id =>
+                    fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
+                  );
+                  const commentsData = await Promise.all(commentFetches);
+                  setComments(commentsData);
+                  console.log(commentsData);
+                }
             } catch (err) {
                 console.error("Couldn't fetch comments:", err);
             }

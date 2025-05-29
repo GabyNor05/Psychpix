@@ -64,6 +64,7 @@ function SingleItemSelection()
                     <div className="ItemDetails">
                         <h1>R {ItemData.price}</h1>
                         <h1>69 reviews</h1>
+                        <h4>{ItemData.description}</h4>
                     </div>
 
                     <div className="userSelect">
@@ -76,12 +77,12 @@ function SingleItemSelection()
                             </div>
                         </div>
                         
-                        <div className="selectBoxWrapper">
+                        {/* <div className="selectBoxWrapper">
                             <h5>Orientation</h5>
                             <div className="selectBox">
 
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="selectBoxWrapper">
                             <h5>Size</h5>
