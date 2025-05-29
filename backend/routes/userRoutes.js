@@ -42,10 +42,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-newUser.save()
-  .then(doc => console.log('User saved:', doc))
-  .catch(err => console.error('Error saving user:', err));
-
 // Route to check username & password only (step 1 of login)
 router.post('/check', async (req, res) => {
   const { username, password } = req.body;
