@@ -24,13 +24,25 @@ function CommentSection()
                 const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
                 if(ItemResponse.ok){
                   const ItemJSON = await ItemResponse.json();
-                  const commentIds = ItemJSON.commentsID;
+                  const commentIds = ItemJSON.commentsId;
                   const commentFetches = commentIds.map(id =>
                     fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
                   );
+
                   const commentsData = await Promise.all(commentFetches);
-                  setComments(commentsData);
-                  console.log(commentsData);
+                  const userDataFetches = commentsData.map((item) => 
+                    fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json())
+                  );
+
+                  const userDataComments = await Promise.all(userDataFetches);
+
+                  const userComments = commentsData.map((item, index) => ({
+                        commentData: item,
+                        userData: userDataComments[index]
+                    }));
+
+                  setComments(userComments);
+                  console.log(userComments);
                 }
             } catch (err) {
                 console.error("Couldn't fetch comments:", err);

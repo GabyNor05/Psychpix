@@ -38,6 +38,7 @@ router.put('/:id', async (req, res) => {
   try {
       const item = await Item.findById(req.params.id);
       if (!item) {
+        console.log('Item not found');
         return res.status(404).json({ message: 'Item not found' });
       }
 
@@ -46,7 +47,7 @@ router.put('/:id', async (req, res) => {
         return res.status(400).json({ message: 'Missing commentId in body' });
       }
 
-      item.commentsID.push(newCommentId);
+      item.commentsId.push(newCommentId);
       await item.save();
       res.status(201).json({ message: 'Comment added on item!', item });
     } catch (err) {

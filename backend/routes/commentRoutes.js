@@ -6,8 +6,8 @@ router.post('/', async (req, res) => {
   console.log('Received body:', req.body);
 
   try {
-    const { comment, rating} = req.body; 
-    const newComment = new Comment({ comment, rating, likes: 0, timestamp: new Date(), });
+    const { comment, rating, userId } = req.body; 
+    const newComment = new Comment({ userId, comment, rating, likes: 0, timestamp: new Date(), });
     const savedComment = await newComment.save();
     res.status(201).json(savedComment);
   } catch (err) {

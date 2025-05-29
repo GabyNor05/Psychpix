@@ -22,13 +22,13 @@ const AdminForm = () => {
     const navigate = useNavigate();
 
     // Check admin role on mount
-    useEffect(() => {
-        const userRole = localStorage.getItem("userRole");
-        if (userRole !== "admin") {
-            // Redirect non-admins to home or login
-            navigate("/");
-        }
-    }, [navigate]);
+    // useEffect(() => {
+    //     const userRole = localStorage.getItem("userRole");
+    //     if (userRole !== "admin") {
+    //         // Redirect non-admins to home or login
+    //         navigate("/");
+    //     }
+    // }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;

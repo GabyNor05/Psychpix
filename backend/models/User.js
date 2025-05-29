@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   password:   { type: String, required: true },
   twoFactor:  { type: [String], required: true },
   profilePic: { type: String },
+  commentsId: { type: [String] },
   role:       { type: String, enum: ['customer', 'admin'], default: 'customer' },
   cart: [CartItemSchema]
 });

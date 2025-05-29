@@ -21,7 +21,8 @@ function CommentInput(){
         const payload = {
             comment: commentText,
             likes: 0,
-            rating: userRating
+            rating: userRating,
+            userId: '6838c46ed8607af2f8846e9c',
         };
 
         const response = await fetch('http://localhost:5000/api/comments', {
@@ -44,7 +45,8 @@ function CommentInput(){
         if (ItemResponse.ok) {
             alert('Item saved!');
         } else {
-            alert('Error saving item');
+            const errorText = await ItemResponse.text(); // Or use .json() if server returns JSON
+            alert(errorText);
         }
         } catch (err) {
             console.error('Fetch failed:', err);
