@@ -84,7 +84,6 @@ const AdminForm = () => {
                 alert('Item saved!');
                 // Optionally reset form here
             } else {
-                console.log(formData)
                 alert('Error saving item');
             }
         } catch (err) {
