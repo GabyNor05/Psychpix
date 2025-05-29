@@ -2,6 +2,7 @@ import React from "react";
 import SingleItemSelection from "./components/SingleItem";
 import Carousel from "../_GeneralComponents/Carousel";
 import CommentSection from './components/CommentPortal';
+import Footer from "../home/components/Footer";
 import './SingleView.css';
 
 import image1 from '../home/images/bento/bento1.jpg';
@@ -30,6 +31,7 @@ function SingleView() {
       <Carousel slides={slides} Title={"Related"} />
       <Carousel slides={slides} Title={"Recommended"} />
       <CommentSection />
+      <Footer />
    </>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import Carousel from '../_GeneralComponents/Carousel';
+import Footer from '../home/components/Footer';
 import image1 from './exampleImages/ex1.jpeg';
 import image2 from './exampleImages/ex2.jpg';
 import image3 from './exampleImages/ex3.jpg';
@@ -12,33 +13,54 @@ import image8 from './exampleImages/static/af3.jpg';
 import image9 from './exampleImages/static/af4.jpg';
 import image10 from './exampleImages/static/af5.jpg';
 
-const slides = {
-  paintings: [
-    image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image1,
-  image2,
-  image3
-  ],
-
-  african: [
-    image6,
-    image7,
-    image8,
-    image9,
-    image10
-  ]
-  
+let data = '';
+try {
+  const response = await fetch(`http://localhost:5000/api/items`);
+  if (response.ok) {
+    const item = await response.json();
+    console.log('Item data:', item);
+    data = item;
+  } else {
+    alert('Item not found');
+  }
+} catch (err) {
+  console.error('Fetch failed:', err);
 }
+
+function getImagesByTag(data, tag){
+  const filtered = data.filter(item => item.tags.includes(tag));
+  if (filtered.length === 0) return [];
+
+  const slides = filtered.map(item => ({
+    imageUrl: item.imageUrl,
+    id: item._id
+  }));
+
+  console.log(slides);
+  return slides;
+}
+
+const PsychedelicImages = getImagesByTag(data, 'Psychedelic');
+const GalaxyImages = getImagesByTag(data, 'Galaxy');
+const AfricanImages = getImagesByTag(data, 'African');
+const DigitalImages = getImagesByTag(data, 'Digital Artworks');
+const PaintingImages = getImagesByTag(data, 'Paintings');
+const PhotoImages = getImagesByTag(data, 'Photography');
+const SculptImages = getImagesByTag(data, 'Sculptures');
+const AI_Images = getImagesByTag(data, 'Artificial Intelligence');
 
 function Discover() {
   return (
    <div style={{ paddingTop: '32px'}}>
-    <Carousel slides={slides.african} Title={"African"}/>
-    <Carousel slides={slides.paintings} Title={"Paintings"}/>
+    <Carousel slides={PsychedelicImages} Title={"Psychedelic"}/>
+    <Carousel slides={GalaxyImages} Title={"Galaxy"}/>
+    <Carousel slides={AfricanImages} Title={"African"}/>
+    <Carousel slides={DigitalImages} Title={"Digital Artworks"}/>
+    <Carousel slides={PaintingImages} Title={"Paintings"}/>
+    <Carousel slides={PhotoImages} Title={"Photography"}/>
+    <Carousel slides={SculptImages} Title={"Sculptures"}/>
+    <Carousel slides={AI_Images} Title={"Artificial Intelligence"}/>
+    <Footer />
    </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import lineSquare from './icons/lilsquare.png';
 import './Carousel.css';
 
@@ -94,6 +94,13 @@ export default function Carousel({ slides = [], Title}) {
             progressBar
         )
     }
+    
+    const navigate = useNavigate();
+
+    const handleSelect = (item) => {
+        console.log(item);
+        navigate('/singleItem', { state: { selectedItem: item } });
+    };
 
     return (
         <>
@@ -114,10 +121,8 @@ export default function Carousel({ slides = [], Title}) {
                 <div className="GeneralCarousel carousel-scroll" ref={scrollRef}>
                 
                     <div className="flex carousel-track">
-                        {slides.map((src, i) => (
-                        <Link to="/singleItem" className="carouselLink">
-                            <img key={i} src={src} className="carousel-image" alt={`Slide ${i}`}/>
-                        </Link> 
+                        {slides.map((item, i) => (
+                            <img key={i} src={item.imageUrl} className="carousel-image" alt={`Slide ${i}`} onClick={() => handleSelect(item.id)}/>
                         ))}
                     </div>
 

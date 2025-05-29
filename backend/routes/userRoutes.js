@@ -22,16 +22,24 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Simple test route to check if user route works
-router.get('/', (req, res) => {
-  res.send('User route works!');
+router.get('/:id', async (req, res) => {
+  try {
+        const item = await User.findById(req.params.id); // Gets all users
+        res.json(item);
+      } 
+    catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
-// Example: Create and save a user (for testing/demo purposes)
-const newUser = new User({
-  username: 'Leela',
-  email: 'leela@futurama.com',
-  password: 'qwerty123'
+router.get('/', async (req, res) => {
+  try {
+        const items = await User.find(); // Gets all users
+        res.json(items);
+      } 
+    catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 newUser.save()

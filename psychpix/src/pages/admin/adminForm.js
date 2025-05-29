@@ -14,8 +14,9 @@ const AdminForm = () => {
         stock: '',
         year: '',
         discount: '',
-        image: null
     });
+
+     const [imageFile, setFile] = useState(null); 
 
     const [preview, setPreview] = useState(null);
     const navigate = useNavigate();
@@ -30,29 +31,45 @@ const AdminForm = () => {
                 return { ...prevData, tags };
             });
         } else if (type === 'file') {
-            setFormData({ ...formData, image: files[0] });
             setPreview(URL.createObjectURL(files[0]));
+            setFile(files[0]);
         } else {
             setFormData({ ...formData, [name]: value });
         }
     };
 
+    const tags = ['Digital Artworks', 'Sculptures', 'Paintings', 'African', 'Psychedelic', 'Artificial Intelligence', 'Photography', 'Galaxy'];
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = new FormData();
-        Object.entries(formData).forEach(([key, value]) => {
-        if (key === 'tags') {
-            value.forEach(tag => data.append('tags[]', tag));
-        } else if (value) {
-            data.append(key, value);
-        }
+
+        //uploading image to cloudinary
+        const cloudName = 'dgf9sqcdy';
+        const baseURL = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+        let imageData = new FormData();
+        console.log(imageFile);
+        imageData.append("file", imageFile);
+        imageData.append("upload_preset", "Psychpix");
+        imageData.append("cloud_name", cloudName);
+        
+        const res = await fetch(baseURL, {
+            method: "POST",
+            body: imageData
         });
+
+        const imageResult = await res.json();
+
+        const payload = {
+            ...formData,
+            imageUrl: imageResult.url,
+        };
 
         // Example POST request to your backend
         try {
             const response = await fetch('http://localhost:5000/api/items', {
                 method: 'POST',
-                body: data
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
             });
             if (response.ok) {
                 alert('Item saved!');
@@ -92,9 +109,10 @@ const AdminForm = () => {
             </div>
             <div>
                 <label>Tags:</label>
-                <div>
-                    {['Digital Artworks', 'Scultures', 'Paintings'].map(tag => (
+                <div className='Tags'>
+                    {tags.map(tag => (
                         <div key={tag}>
+                            <label>{tag}</label>
                             <input
                                 type="checkbox"
                                 name="tags"
@@ -102,7 +120,6 @@ const AdminForm = () => {
                                 checked={formData.tags.includes(tag)}
                                 onChange={handleChange}
                             />
-                            <label>{tag}</label>
                         </div>
                     ))}
                 </div>
