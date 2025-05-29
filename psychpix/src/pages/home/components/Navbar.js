@@ -1,20 +1,64 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaInfoCircle, FaShoppingCart, FaSignInAlt, FaSearch } from "react-icons/fa";
+import { UserCircleIcon,ShoppingCartIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 import Logo from "../../logo.png";
 
 
 function Navbar() {
+  const [showSearch, setShowSearch] = useState(false);
+  const searchRef = useRef(null);
+
+  // Focus the input when search bar is expanded
+  useEffect(() => {
+    if (showSearch && searchRef.current) {
+      searchRef.current.focus();
+    }
+  }, [showSearch]);
+
   return (
     <nav className="navbar">
-      <div className="navlinks text-white fs-5">
-        <img className="logo" src={Logo} alt="PyschPixels"/>
+      <div className="navlinks text-white fs-5" style={{ display: 'flex', alignItems: 'center', width: '100%'}}>
+        <img className="nav-logo" src={Logo} alt="PsychPixels" />
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/discover" className="nav-link">Discover</Link>
-        <Link to="/about" className="nav-link">About</Link>
-        <Link to="/login" className="nav-link">Login</Link>
-        <Link to="/cart" className="nav-link">Cart</Link>
-        <Link to="/singleItem" className="nav-link">Single Item</Link> 
-        <Link to="/adminForm" className="nav-link">Admin Form</Link>  
+        <Link to="/about" className="nav-link" >About</Link>
+        <div style={{ marginRight: '50px', marginLeft: 'auto', display: 'flex', gap: '24px', alignItems: 'left' }}>
+          {/* Collapsible Search */}
+          <div className="nav-search-container" style={{ position: 'relative' }}>
+            {showSearch ? (
+              <input
+                ref={searchRef}
+                type="text"
+                className="nav-search-input"
+                placeholder="Search..."
+                onBlur={() => setShowSearch(false)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    // Handle search logic here
+                    console.log('Searching for:', e.target.value);
+                    setShowSearch(false);
+                  }
+                }}
+              />
+            ) : (
+              <MagnifyingGlassIcon
+                weight="bold"
+                size={48}
+                className="nav-link-icon"
+                style={{ cursor: 'pointer' }}
+                onClick={() => setShowSearch(true)}
+                title="Search"
+              />
+            )}
+          </div>
+          <Link to="/cart" className="nav-link-icon" title="Cart">
+            <ShoppingCartIcon size={48} weight="fill"/>
+          </Link>
+          <Link to="/login" className="nav-link-icon" title="Login">
+            <UserCircleIcon size={48} weight="fill"/>
+          </Link>
+        </div>
       </div>    
     </nav>
   );
