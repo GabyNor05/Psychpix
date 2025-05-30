@@ -34,6 +34,27 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  try {
+      const item = await Item.findById(req.params.id);
+      if (!item) {
+        console.log('Item not found');
+        return res.status(404).json({ message: 'Item not found' });
+      }
+
+      const newCommentId = req.body.commentId;
+      if (!newCommentId) {
+        return res.status(400).json({ message: 'Missing commentId in body' });
+      }
+
+      item.commentsId.push(newCommentId);
+      await item.save();
+      res.status(201).json({ message: 'Comment added on item!', item });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+})
+
 router.get('/', async (req, res) => {
     try {
         const items = await Item.find(); // Gets all items

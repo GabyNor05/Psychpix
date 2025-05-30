@@ -61,6 +61,7 @@ function SignUpStep2() {
       });
       if (response.ok) {
         alert("Sign up complete!");
+        console.log(response);
         navigate("/"); // Go to home page after successful signup
       } else {
         const data = await response.json();

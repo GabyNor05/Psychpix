@@ -25,7 +25,7 @@ function SingleView() {
   return (
    <>
       <SingleItemSelection />
-      <div style={{margin: '900px'}}>
+      <div style={{margin: '256px'}}>
 
       </div>
       <Carousel slides={slides} Title={"Related"} />

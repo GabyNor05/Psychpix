@@ -6,8 +6,8 @@ router.post('/', async (req, res) => {
   console.log('Received body:', req.body);
 
   try {
-    const { comment, rating, replies, timestamps, likes } = req.body; 
-    const newComment = new Comment({ comment, rating, replies, likes, timestamp: new Date(), });
+    const { comment, rating, userId } = req.body; 
+    const newComment = new Comment({ userId, comment, rating, likes: 0, timestamp: new Date(), });
     const savedComment = await newComment.save();
     res.status(201).json(savedComment);
   } catch (err) {
@@ -18,7 +18,16 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const items = await Comment.find(); // Gets all items
+        const items = await Comment.find(); 
+        res.json(items);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const items = await Comment.findById(req.params.id);
         res.json(items);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
@@ -27,7 +36,7 @@ router.get('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const items = await Comment.findByIdAndDelete(req.params.id); // Gets all items
+        const items = await Comment.findByIdAndDelete(req.params.id); 
         res.json(items);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });

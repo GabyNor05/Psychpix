@@ -1,4 +1,4 @@
-GET http://localhost:5000/api/comments
+GET http://localhost:5000/api/items
 Content-Type: application/json
 
 ###
@@ -15,4 +15,9 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/api/comments/683736f4b8175aa9f535a064
+PUT http://localhost:5000/api/items/683809d4516e159ec44dd24d
+Content-Type: application/json
+
+{
+  "commentId": "6838239cc0cec85643ff64ea"
+}

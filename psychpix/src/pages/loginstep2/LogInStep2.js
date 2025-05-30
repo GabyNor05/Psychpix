@@ -39,6 +39,7 @@ function LogInStep2() {
         // Login successful, show welcome and go to home page
         const data = await response.json();
         alert("Login successful! Welcome, " + data.user.username);
+        console.log(response);
         navigate("/"); // Go to home page
       } else {
         // Show error from backend
