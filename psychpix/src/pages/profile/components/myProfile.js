@@ -186,6 +186,16 @@ const MyProfile = () => {
               >
                 Log out
               </button>
+                            <button
+                className="auth-button cancel"
+                style={{ marginTop: 12 }}
+                onClick={() => {
+
+                  window.location.href = "/adminForm";
+                }}
+              >
+                admin form
+              </button>
             </>
           )}
         </div>
