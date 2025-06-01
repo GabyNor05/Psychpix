@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Rating from './Rating';
 import { useLocation } from 'react-router-dom';
 
-function CommentInput(){
+function CommentInput( callback ){
     const location = useLocation();
     const { selectedItem } = location.state || {};
     const [inputText, setInputText] = useState('');
@@ -44,6 +44,7 @@ function CommentInput(){
 
         if (ItemResponse.ok) {
             alert('Item saved!');
+            callback();
         } else {
             const errorText = await ItemResponse.text(); // Or use .json() if server returns JSON
             alert(errorText);

@@ -18,8 +18,7 @@ function CommentSection()
     const { selectedItem } = location.state || {};
     const [comments, setComments] = useState([]);
 
-    useEffect(() => {
-        async function fetchComments() {
+    async function fetchComments() {
             try {
                 const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
                 if(ItemResponse.ok){
@@ -49,15 +48,20 @@ function CommentSection()
             }
         }
 
+    useEffect(() => {
         fetchComments();
     }, []);
 
     const handleNewComment = (newComment) => {
         setComments(prev => [...prev, newComment]);
+        fetchComments();
     };
 
     return (
         <div className="CommentSection">
+            <div className='CommentTitle'>
+                <h2 className='domine-Label'>Comment Section</h2>
+            </div>
             <div className='CommentScroll'>
                 {comments.length === 0 ? (
                     <DefaultCommentState />

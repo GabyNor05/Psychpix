@@ -16,6 +16,13 @@
   font-style: normal;
 }
 
+.jost-bold{
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
 .domine-Label{
   font-family: "Domine", serif;
   font-optical-sizing: auto;
@@ -254,14 +261,17 @@ h6{
 
 ::-webkit-scrollbar {
   width: 8px;
+  
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
+  
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.219);
+  background-color: rgba(136, 136, 136, 0.815);
   border-radius: 9999px;
+  
 }
 
