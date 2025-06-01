@@ -1,11 +1,7 @@
-import lineSquare from '../../_GeneralComponents/icons/lilsquare.png';
-import { XIcon } from '@phosphor-icons/react';
+import dummyItem from '../../home/images/bento/bento2.jpg';
 import { GetItemsData } from '../../../ItemsData';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import WoodFrame from '../images/woodFrame.jpg';
-import WoodFrame2 from '../images/WoodFrame5.jpeg';
-import WoodFrame3 from '../images/WoodFrame8.jpeg';
 
 async function GetSelectedItem(ItemID){
     try {
@@ -31,86 +27,27 @@ function SingleItemSelection()
 
     const [ItemData, setItemData] = useState(null);
 
-    const[CurrentWoodFrame, setWoodFrame] = useState(WoodFrame);
-
-    const[currentFrameSize, setFrameSize] = useState(0);
-
-    const[showItemDesc, toggleItemDescription] = useState(0);
-    const descRef = useRef(null);
-
-    let frameSizes = ['XL', 'L', 'M', 'S', 'XS'];
-
     useEffect(() => {
-        GetSelectedItem(selectedItem).then(data => setItemData(data)); 
-    }, []);
-
-    useEffect(() => {
-        const el = document.querySelector('.woodFrame');
-        if (el) {
-            el.style.backgroundSize = '50%';
-        }
-    }, [CurrentWoodFrame]);
-
-    useEffect(() => {
-        if (descRef.current) {
-            descRef.current.style.pointerEvents = showItemDesc == 1 ? 'all' : 'none';
-        }
-    }, [showItemDesc]);
+        GetSelectedItem(selectedItem).then(data => setItemData(data));
+    }, [])
 
     if(!ItemData){
         return <p>Loading...</p>;
     }
 
-    function FormatPrice(price){
-        let result = '';
-        let stringPrice = String(Math.floor(price));
-        for (let index = stringPrice.length - 1; index >= 0; index--) {
-            result += stringPrice[stringPrice.length - index - 1];
-            if(index % 3 == 0 && index != 0){
-                result += ',';
-            }
-        }
-        return result;
-    }
-
-    function expandDescription(description){
-        let shortDescription = '';
-        for (let index = 0; index < description.length; index++) {
-            if(index <= 254){
-                shortDescription += description[index]; 
-            }else{
-                return(<>{shortDescription} <h5 onClick={() => toggleItemDescription(1)} style={{ cursor: 'pointer', color: '#1b548d'}}>...Read More</h5></>);
-            }
-        }
-        return(shortDescription);
-    }
-
+    console.log(ItemData);
     return(
     <>
         <div className="singleItemOverlay">
         
         </div>
-
-        <div className='DescriptionModal' style={{ opacity: showItemDesc}}>
-            <div className='DescriptionModalContent' ref={descRef}>
-                <div className='DesciptionBlock'>
-                    <XIcon onClick={() => toggleItemDescription(0)} size={48} id='xIcon' />
-                    <h2 className='domine-Label' style={{ textAlign: 'center', paddingTop: '32px'}}>Description</h2>
-                    <div className='DesciptionBlockContent'>
-                        <img src={ItemData.imageUrl} style={{ width: '300px', height: '300px', objectFit: 'cover', borderRadius: '16px'}} />
-                        <h4 className='DescriptionBlockText'>{ItemData.description}</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div className="gridSingleItem">
+
             <div className="ItemDisplayContainer" style={{gridArea: 'ItemDisplay'}}>
                 <div className="ItemDisplay">
                     <div id='imageBlock'>
                         <div className="catagoryText"><h1>{ItemData.tags[0]}</h1></div>
-                        <div className='woodFrame' style={{background: `url('${CurrentWoodFrame}')`}}>
-                            <img src={ItemData.imageUrl} id='itemImage' />
-                        </div>
+                        <img src={ItemData.imageUrl} id='itemImage' />
                     </div>
                     
                     <div className="yearDisplay"><h1>{ItemData.year}</h1></div>
@@ -120,15 +57,12 @@ function SingleItemSelection()
             <div className="artInfo" style={{gridArea: 'ItemInfo'}}>
                 <div >
                     <div className="ItemTitle">
-                        <h1 className='domine-Label' style={{ letterSpacing: '8px'}}>{ItemData.title}</h1>
-                        <div style={{ position: 'relative', width: 'fit-content'}}>
-                            <h3 className='jost-bold ItemCreaterTitle' style={{ letterSpacing: '4px'}}>{ItemData.creator}</h3>
-                            <img className='lineSquareBR' src={lineSquare} alt='lilSquare' style={{ paddingBottom: '5px', width: '17px', height: '17px'}}/>
-                        </div>
-                        
+                        <h1>{ItemData.title}</h1>
+                        <h1>{ItemData.creator}</h1>
                     </div>
                     
                     <div className="ItemDetails">
+<<<<<<< HEAD
                         {ItemData.discount > 0? (
                             <div style={{ display: 'flex'}}>
                                 <h1 style={{ paddingRight: '32px'}} className='jost-light discountedPrice'><strike>R {FormatPrice(ItemData.price)}</strike></h1>
@@ -142,15 +76,20 @@ function SingleItemSelection()
                                 {expandDescription(ItemData.description)}
                             </h4>
                         </div>
+=======
+                        <h1>R {ItemData.price}</h1>
+                        <h1>69 reviews</h1>
+                        <h4>{ItemData.description}</h4>
+>>>>>>> parent of a71beb4 (Item Page touch ups)
                     </div>
 
                     <div className="userSelect">
                         <div className="selectBoxWrapper">
                             <h5>Wood Frame</h5>
                             <div className="selectBox">
-                                <span data-text="Oak Wood" className="woodItem" onClick={() => setWoodFrame(WoodFrame)} style={{ background: `url('${WoodFrame}')`, '--accent-color': '#FFAA00'}} />
-                                <span data-text="Black Walnut" className="woodItem" onClick={() => setWoodFrame(WoodFrame2)} style={{ background: `url('${WoodFrame2}')`, backgroundSize: 'cover', '--accent-color': '#442000'}}/>
-                                <span data-text="Bloodwood" className="woodItem" onClick={() => setWoodFrame(WoodFrame3)} style={{ background: `url('${WoodFrame3}')`, backgroundSize: 'cover', '--accent-color': '#880000'}}/>
+                                <div className="woodItem" />
+                                <div className="woodItem" />
+                                <div className="woodItem" />
                             </div>
                         </div>
                         
@@ -165,18 +104,10 @@ function SingleItemSelection()
                             <h5>Size</h5>
                             <div className="selectBox">
                                 <div className="sizeSelection">
-                                    {
-                                        frameSizes.map((item, index) => {
-                                            function compare(x){
-                                                if(x == currentFrameSize){
-                                                    return 1;
-                                                }else{
-                                                    return 0;
-                                                }
-                                            }
-                                            return(<h1 onClick={() => setFrameSize(index)} style={{ '--selected-color': compare(index), cursor: 'pointer' }}>{item}</h1>);
-                                        })
-                                    }
+                                    <h1>XL</h1>
+                                    <h1 id="SelectedSize">L</h1>
+                                    <h1>M</h1>
+                                    <h1>S</h1>
                                 </div>
                             </div>
                         </div>
@@ -186,16 +117,16 @@ function SingleItemSelection()
                 <div style={{ alignSelf: 'flex-end'}}>
                     <div className="checkoutSection">
                         <div className="AddItemWrapper">
-                            <h3 style={{ padding: '8px'}}>{ItemData.stock} Copies Left</h3>
+                            <h4 style={{ padding: '8px'}}>{ItemData.stock} Copies Left</h4>
                             <div className="AddItem">
-                                <button>-</button>
+                                <span>-</span>
                                 <span>0</span>
-                                <button>+</button>
+                                <span>+</span>
                             </div>
                         </div>
 
                         <div className="AddToCart">
-                            <h3 className='jost-regular' style={{ letterSpacing: '4px'}}>Add To Cart</h3>
+                            <h1>Add To Cart</h1>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ function CommentSection()
     const { selectedItem } = location.state || {};
     const [comments, setComments] = useState([]);
 
+<<<<<<< HEAD
     async function fetchComments() {
         try {
             const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
@@ -27,6 +28,18 @@ function CommentSection()
                 const commentFetches = commentIds.map(id =>
                 fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
                 );
+=======
+    useEffect(() => {
+        async function fetchComments() {
+            try {
+                const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
+                if(ItemResponse.ok){
+                  const ItemJSON = await ItemResponse.json();
+                  const commentIds = ItemJSON.commentsId;
+                  const commentFetches = commentIds.map(id =>
+                    fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
+                  );
+>>>>>>> parent of a71beb4 (Item Page touch ups)
 
                 const commentsData = await Promise.all(commentFetches);
                 const userDataFetches = commentsData.map((item) => 
@@ -49,20 +62,21 @@ function CommentSection()
         }
     }
 
-    useEffect(() => {
         fetchComments();
     }, []);
 
     const handleNewComment = (newComment) => {
         setComments(prev => [...prev, newComment]);
-        fetchComments();
     };
 
     return (
         <div className="CommentSection">
+<<<<<<< HEAD
             <div className='CommentTitle'>
                 <h2 className='domine-Label'>Reviews</h2>
             </div>
+=======
+>>>>>>> parent of a71beb4 (Item Page touch ups)
             <div className='CommentScroll'>
                 {comments.length === 0 ? (
                     <DefaultCommentState />

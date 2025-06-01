@@ -7,7 +7,7 @@ import DockIcons from './DockIcons';
 
 function Footer() {
   return (
-    <footer className="footer"  style={{ color: 'white'}}>
+    <footer className="footer">
         <div className="footerLinks">
             <Link to="/" className="nav-link"><h5>Home</h5></Link>
             <Link to="/discover" className="nav-link"><h5>Discover</h5></Link>
