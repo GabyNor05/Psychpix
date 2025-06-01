@@ -19,34 +19,35 @@ function CommentSection()
     const [comments, setComments] = useState([]);
 
     async function fetchComments() {
-            try {
-                const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
-                if(ItemResponse.ok){
-                  const ItemJSON = await ItemResponse.json();
-                  const commentIds = ItemJSON.commentsId;
-                  const commentFetches = commentIds.map(id =>
-                    fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
-                  );
+        try {
+            const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
+            if(ItemResponse.ok){
+                const ItemJSON = await ItemResponse.json();
+                const commentIds = ItemJSON.commentsId;
+                const commentFetches = commentIds.map(id =>
+                fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
+                );
 
-                  const commentsData = await Promise.all(commentFetches);
-                  const userDataFetches = commentsData.map((item) => 
-                    fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json())
-                  );
+                const commentsData = await Promise.all(commentFetches);
+                const userDataFetches = commentsData.map((item) => 
+                fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json())
+                );
 
-                  const userDataComments = await Promise.all(userDataFetches);
+                const userDataComments = await Promise.all(userDataFetches);
 
-                  const userComments = commentsData.map((item, index) => ({
-                        commentData: item,
-                        userData: userDataComments[index]
-                    }));
+                const userComments = commentsData.map((item, index) => ({
+                    commentData: item,
+                    userData: userDataComments[index]
+                }));
 
-                  setComments(userComments);
-                  console.log(userComments);
-                }
-            } catch (err) {
-                console.error("Couldn't fetch comments:", err);
+                setComments(userComments);
+                console.log(userComments)
+                return userComments;
             }
+        } catch (err) {
+            console.error("Couldn't fetch comments:", err);
         }
+    }
 
     useEffect(() => {
         fetchComments();
@@ -60,7 +61,7 @@ function CommentSection()
     return (
         <div className="CommentSection">
             <div className='CommentTitle'>
-                <h2 className='domine-Label'>Comment Section</h2>
+                <h2 className='domine-Label'>Reviews</h2>
             </div>
             <div className='CommentScroll'>
                 {comments.length === 0 ? (

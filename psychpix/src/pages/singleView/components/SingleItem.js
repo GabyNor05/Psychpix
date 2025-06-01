@@ -134,7 +134,7 @@ function SingleItemSelection()
                                 <h1 style={{ paddingRight: '32px'}} className='jost-light discountedPrice'><strike>R {FormatPrice(ItemData.price)}</strike></h1>
                                 <h1 className='jost-light'>R {FormatPrice(ItemData.price * (1 - (ItemData.discount / 100)))}</h1>
                             </div>
-                            ) : (<h1>R {FormatPrice(ItemData.price)}</h1>)}
+                            ) : (<h1 className='jost-light'>R {FormatPrice(ItemData.price)}</h1>)}
                         <h5 className='jost-light'>{ItemData.commentsId.length} reviews</h5>
                         
                         <div id='quoteUD'>

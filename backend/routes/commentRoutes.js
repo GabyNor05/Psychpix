@@ -34,10 +34,11 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+
 router.delete('/:id', async (req, res) => {
     try {
-        const items = await Comment.findByIdAndDelete(req.params.id); 
-        res.json(items);
+        const item = await Comment.findByIdAndDelete(req.params.id); 
+        res.json(item);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
     }

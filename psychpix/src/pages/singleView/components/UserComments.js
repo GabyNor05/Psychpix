@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UserReplies from './CommentReplies';
 import { StarIcon, HeartIcon, ArrowUUpLeftIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
 import Rating from "./Rating";
+import { json } from "express";
 
 function UserComment( {data} ){
     const [inputText, setInputText] = useState('');
@@ -23,6 +24,21 @@ function UserComment( {data} ){
     let commentData = data.commentData;
     let userData = data.userData;
 
+    async function ToggleLike(addLike, id){
+        try {
+            const ItemResponse = await fetch(`http://localhost:5000/api/comments/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(addLike),
+            });
+            if(ItemResponse.ok){
+                alert("Like Added!");
+            }
+        } catch (err) {
+            console.error("Couldn't fetch comments:", err);
+        }
+    }
+
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
@@ -39,7 +55,7 @@ function UserComment( {data} ){
                     </h4>
                     <div className="userInteract">
                         <div className="userHearts">
-                            <HeartIcon size={42} color="#FFFFFF55" weight="light" />
+                            <HeartIcon  size={42} color="#FFFFFF55" weight="light" />
                             <h6 className="jost-light">{commentData.likes}</h6>
                         </div>
                         <div>
