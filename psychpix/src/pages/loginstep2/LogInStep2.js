@@ -38,6 +38,14 @@ function LogInStep2() {
       if (response.ok) {
         // Login successful, show welcome and go to home page
         const data = await response.json();
+        // Save user info in sessionStorage
+        sessionStorage.setItem("user", JSON.stringify({
+          username: data.user.username,
+          role: data.user.role,
+          email: data.user.email,
+          id: data.user.id || data.user._id,
+          profilePic: data.user.profilePic || ""
+        }));
         alert("Login successful! Welcome, " + data.user.username);
         navigate("/"); // Go to home page
       } else {

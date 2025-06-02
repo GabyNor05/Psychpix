@@ -22,12 +22,7 @@ const profileImages = [
 
 const MyProfile = () => {
   // State for user info
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    profilePic: "",
-    role: "", // Add role to state
-  });
+  const [user, setUser] = useState(null);
   // State for edit mode
   const [editMode, setEditMode] = useState(false);
   // State for form fields
@@ -64,6 +59,14 @@ const MyProfile = () => {
     };
     fetchUser();
     // eslint-disable-next-line
+  }, []);
+
+  // Get user data from sessionStorage
+  useEffect(() => {
+    const userData = sessionStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
   }, []);
 
   // Handle input changes
@@ -115,7 +118,7 @@ const MyProfile = () => {
     setPreviewPic(user.profilePic || "");
   };
 
-  if (loading) return <div className="profile-loading">Loading profile...</div>;
+  if (!user) return <div className="profile-loading">Loading profile...</div>;
 
   return (
     <div className="profile-container">
