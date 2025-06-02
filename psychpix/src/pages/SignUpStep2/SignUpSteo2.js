@@ -60,8 +60,16 @@ function SignUpStep2() {
         })
       });
       if (response.ok) {
-        alert("Sign up complete!");
-        console.log(response);
+        const data = await response.json();
+        // Save user info in sessionStorage
+        sessionStorage.setItem("user", JSON.stringify({
+          username: data.user.username,
+          role: data.user.role,
+          email: data.user.email,
+          id: data.user.id || data.user._id,
+          profilePic: data.user.profilePic || ""
+        }));
+        alert("Signup successful! Welcome, " + data.user.username);
         navigate("/"); // Go to home page after successful signup
       } else {
         const data = await response.json();

@@ -61,7 +61,7 @@ const MyProfile = () => {
     // eslint-disable-next-line
   }, []);
 
-  // Get user data from sessionStorage
+  // Only use sessionStorage for user data
   useEffect(() => {
     const userData = sessionStorage.getItem("user");
     if (userData) {
@@ -123,7 +123,7 @@ const MyProfile = () => {
   return (
     <div className="profile-container">
       <h2 className="profile-title">My Profile</h2>
-      {error && <div className="profile-error">{error}</div>}
+      {/* {error && <div className="profile-error">{error}</div>} */}
       <div className="profile-header">
         <img
           className="profile-avatar"
@@ -189,16 +189,18 @@ const MyProfile = () => {
               >
                 Log out
               </button>
-                            <button
-                className="auth-button cancel"
-                style={{ marginTop: 12 }}
-                onClick={() => {
-
-                  window.location.href = "/adminForm";
-                }}
-              >
-                admin form
-              </button>
+              {/* Only show admin form button if user is admin */}
+              {user.role === "admin" && (
+                <button
+                  className="auth-button cancel"
+                  style={{ marginTop: 12 }}
+                  onClick={() => {
+                    window.location.href = "/adminForm";
+                  }}
+                >
+                  admin form
+                </button>
+              )}
             </>
           )}
         </div>
