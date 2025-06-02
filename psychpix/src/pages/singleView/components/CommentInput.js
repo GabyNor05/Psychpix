@@ -23,6 +23,7 @@ function CommentInput( callback ){
             likes: 0,
             rating: userRating,
             userId: '6838c46ed8607af2f8846e9c',
+            itemId: selectedItem,
         };
 
         const response = await fetch('http://localhost:5000/api/comments', {
