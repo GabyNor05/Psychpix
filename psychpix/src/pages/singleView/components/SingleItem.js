@@ -38,7 +38,11 @@ function SingleItemSelection()
     const[showItemDesc, toggleItemDescription] = useState(0);
     const descRef = useRef(null);
 
+    const[CopiesLeft, setCopiesLeft] = useState(0);
+    const[CopiesAdded, setCopies] = useState(0);
+
     let frameSizes = ['XL', 'L', 'M', 'S', 'XS'];
+    let frameDimensions = ['72 x 102 cm', '41 x 51 cm', '25 x 30 cm', '13 x 13 cm', '5 x 5 cm'];
 
     useEffect(() => {
         GetSelectedItem(selectedItem).then(data => setItemData(data)); 
@@ -57,8 +61,25 @@ function SingleItemSelection()
         }
     }, [showItemDesc]);
 
+    useEffect(() => {
+        if(ItemData)
+            setCopiesLeft(ItemData.stock);
+    }, [ItemData])
+
     if(!ItemData){
         return <p>Loading...</p>;
+    }
+
+    function handleCopies(dir){
+        if(dir > 0 && CopiesLeft > 0){
+            setCopies(CopiesAdded + dir);
+            setCopiesLeft(CopiesLeft - dir);
+        }
+
+        if(dir < 0 && CopiesAdded > 0){
+            setCopies(CopiesAdded + dir);
+            setCopiesLeft(CopiesLeft - dir);
+        }
     }
 
     function FormatPrice(price){
@@ -76,10 +97,10 @@ function SingleItemSelection()
     function expandDescription(description){
         let shortDescription = '';
         for (let index = 0; index < description.length; index++) {
-            if(index <= 254){
+            if(index <= 195){
                 shortDescription += description[index]; 
             }else{
-                return(<>{shortDescription} <h5 onClick={() => toggleItemDescription(1)} style={{ cursor: 'pointer', color: '#1b548d'}}>...Read More</h5></>);
+                return(<>{shortDescription + '-'} <h5 onClick={() => toggleItemDescription(1)} style={{ cursor: 'pointer', color: '#1b548d'}}>...Read More</h5></>);
             }
         }
         return(shortDescription);
@@ -134,23 +155,27 @@ function SingleItemSelection()
                                 <h1 style={{ paddingRight: '32px'}} className='jost-light discountedPrice'><strike>R {FormatPrice(ItemData.price)}</strike></h1>
                                 <h1 className='jost-light'>R {FormatPrice(ItemData.price * (1 - (ItemData.discount / 100)))}</h1>
                             </div>
-                            ) : (<h1>R {FormatPrice(ItemData.price)}</h1>)}
+                            ) : (<h1 className='jost-light'>R {FormatPrice(ItemData.price)}</h1>)}
                         <h5 className='jost-light'>{ItemData.commentsId.length} reviews</h5>
                         
-                        <div id='quoteUD'>
-                            <h4>
-                                {expandDescription(ItemData.description)}
-                            </h4>
+                        <div style={{ position: 'relative', borderBottom: '4px solid', marginBottom: '16px'}}>
+                            <div id='quoteUD'>
+                                <h4>
+                                    {expandDescription(ItemData.description)}
+                                </h4>
+                            </div>
+                            <img className='lineSquareBR' src={lineSquare} alt='lilSquare' style={{ paddingBottom: '5px', width: '17px', height: '17px', bottom: '-15px'}}/>
                         </div>
+                        
                     </div>
 
                     <div className="userSelect">
                         <div className="selectBoxWrapper">
                             <h5>Wood Frame</h5>
                             <div className="selectBox">
-                                <span data-text="Oak Wood" className="woodItem" onClick={() => setWoodFrame(WoodFrame)} style={{ background: `url('${WoodFrame}')`, '--accent-color': '#FFAA00'}} />
-                                <span data-text="Black Walnut" className="woodItem" onClick={() => setWoodFrame(WoodFrame2)} style={{ background: `url('${WoodFrame2}')`, backgroundSize: 'cover', '--accent-color': '#442000'}}/>
-                                <span data-text="Bloodwood" className="woodItem" onClick={() => setWoodFrame(WoodFrame3)} style={{ background: `url('${WoodFrame3}')`, backgroundSize: 'cover', '--accent-color': '#880000'}}/>
+                                <span data-text="Oak Wood" onClick={() => setWoodFrame(WoodFrame)} style={{ '--accent-color': '#FFAA44'}}><div className="woodItem" style={{ background: `url('${WoodFrame}')`, backgroundSize: 'cover', border: CurrentWoodFrame == WoodFrame? '2px solid white': '2px solid transparent'}}></div></span>
+                                <span data-text="Black Walnut" onClick={() => setWoodFrame(WoodFrame2)} style={{'--accent-color': '#442000'}}><div className="woodItem" style={{ background: `url('${WoodFrame2}')`, backgroundSize: 'cover', border: CurrentWoodFrame == WoodFrame2? '2px solid white': '2px solid transparent' }}></div></span>
+                                <span data-text="Bloodwood" onClick={() => setWoodFrame(WoodFrame3)} style={{ '--accent-color': '#880000'}}><div className="woodItem" style={{ background: `url('${WoodFrame3}')`, backgroundSize: 'cover', border: CurrentWoodFrame == WoodFrame3? '2px solid white': '2px solid transparent' }}></div></span>
                             </div>
                         </div>
                         
@@ -174,7 +199,7 @@ function SingleItemSelection()
                                                     return 0;
                                                 }
                                             }
-                                            return(<h1 onClick={() => setFrameSize(index)} style={{ '--selected-color': compare(index), cursor: 'pointer' }}>{item}</h1>);
+                                            return(<span data-text={frameDimensions[index]} style={{ '--accent-color': '#000000'}}><div><h1 onClick={() => setFrameSize(index)} style={{ '--selected-color': compare(index), cursor: 'pointer' }}>{item}</h1></div></span>);
                                         })
                                     }
                                 </div>
@@ -186,11 +211,11 @@ function SingleItemSelection()
                 <div style={{ alignSelf: 'flex-end'}}>
                     <div className="checkoutSection">
                         <div className="AddItemWrapper">
-                            <h3 style={{ padding: '8px'}}>{ItemData.stock} Copies Left</h3>
+                            <h3 style={{ padding: '8px'}}>{CopiesLeft} Copies Left</h3>
                             <div className="AddItem">
-                                <button>-</button>
-                                <span>0</span>
-                                <button>+</button>
+                                <button onClick={() => handleCopies(-1)}>-</button>
+                                <span>{CopiesAdded}</span>
+                                <button onClick={() => handleCopies(1)}>+</button>
                             </div>
                         </div>
 

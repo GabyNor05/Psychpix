@@ -6,7 +6,17 @@
     color: rgba(255, 255, 255, 0.158);
     width: 700px;
     z-index: -1;
-    border-bottom-right-radius: 24px;
+    border-bottom-right-radius: 8px;
+}
+
+.AddItem button{
+    font-size: 48px;
+    background: linear-gradient(120deg, rgb(49, 49, 49), black);
+    stroke: none;
+    box-shadow: none;
+    border-radius: 5px;
+    color: white;
+    width: 48px;
 }
 
 .CommentSection{
@@ -26,13 +36,6 @@
     background-size: cover;
     border-radius: 24px;
     /* box-shadow: 0px 0px 20px 4px inset rgb(0, 0, 0); */
-}
-
-.woodFrame{
-    background-size: 50%;
-    width: fit-content;
-    height: fit-content;
-    border-radius: 8px;
 }
 
 #quoteUD h4{
@@ -57,12 +60,25 @@
 }
 
 #itemImage{
-    box-shadow: 0px 0px 24px 4px rgba(0, 0, 0, 0.562), 0px 4px 4px rgba(0, 0, 0, 0.329);
+    box-shadow: 0px 0px 32px 4px rgba(0, 0, 0, 0.425), 0px 4px 12px rgba(0, 0, 0, 0.562);
     border-radius: inherit;
     object-fit: cover;
     display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.woodFrame{
+    background-size: 50%;
+    width: 100%;
+    height: 100%;
     padding: 16px;
-    width: 770px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.woodFrame:hover{
+    border: 1px solid rgb(255, 255, 255);
 }
 
 #imageBlock{
@@ -172,7 +188,7 @@
     width: 90%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
-    gap: 128px;
+    gap: 32px;
     margin-top: 96px;
     grid-template-areas:
     "ItemDisplay ItemInfo";
@@ -462,7 +478,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     border-radius: 24px;
-    background: linear-gradient(120deg, rgb(97, 97, 97), #060C12);
+    background: linear-gradient(120deg, rgb(59, 59, 59), #060C12);
 }
 
 .CommentTitle{
@@ -537,7 +553,7 @@
     border-radius: 100px;
     transform: translate(-50%, -30px) rotate(30deg);
     opacity: 1;
-    transition: 200ms cubic-bezier(0.54, 0, 0.5, 1.41);
+    transition: 250ms cubic-bezier(0.54, 0, 0.5, 1.7);
 }
 
 .selectBox span::after{
@@ -554,7 +570,7 @@
 }
 
 .selectBox span:hover::before{
-    transform: translate(-50%, -86px) rotate(0);
+    transform: translate(-50%, -70px) rotate(0);
     height: fit-content;
     width: fit-content;
     font-size: 16px;
@@ -562,7 +578,7 @@
 }
 
 .selectBox span:hover::after{
-    transform: translate(-50%, -50px) rotate(0);
+    transform: translate(-50%, -100px) rotate(0);
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-top: 10px solid var(--accent-color);

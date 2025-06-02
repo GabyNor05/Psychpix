@@ -60,7 +60,7 @@ function CommentSection()
     return (
         <div className="CommentSection">
             <div className='CommentTitle'>
-                <h2 className='domine-Label'>Comment Section</h2>
+                <h2 className='domine-Label'>Reviews</h2>
             </div>
             <div className='CommentScroll'>
                 {comments.length === 0 ? (
