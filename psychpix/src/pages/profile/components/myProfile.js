@@ -96,7 +96,7 @@ const MyProfile = () => {
         },
         body: JSON.stringify({
           newUsername: form.username,
-          profilePic: form.profilePic, // <-- send the selected image
+          profilePic: form.profilePic,
         }),
         credentials: "include",
       });
@@ -105,6 +105,17 @@ const MyProfile = () => {
       setUser(data);
       setEditMode(false);
       setPreviewPic(data.profilePic || "");
+      // Update sessionStorage and localStorage with new user data
+      sessionStorage.setItem("user", JSON.stringify({
+        username: data.username,
+        role: data.role,
+        email: data.email,
+        id: data._id || data.id,
+        profilePic: data.profilePic || ""
+      }));
+      localStorage.setItem("username", data.username);
+      // Notify other components (like Navbar) that user data changed
+      window.dispatchEvent(new Event("user-profile-updated"));
     } catch (err) {
       setError("Could not save changes.");
       console.error(err);
@@ -177,30 +188,7 @@ const MyProfile = () => {
               <div className="profile-userid">User ID: {user._id}</div>
               <div className="profile-role">Role: {user.role || "customer"}</div>
               <button className="auth-button" onClick={() => setEditMode(true)}>Edit Profile</button>
-              <button
-                className="auth-button cancel"
-                style={{ marginTop: 12 }}
-                onClick={() => {
-                  localStorage.removeItem("userRole");
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("username");
-                  window.location.href = "/login";
-                }}
-              >
-                Log out
-              </button>
-              {/* Only show admin form button if user is admin */}
-              {user.role === "admin" && (
-                <button
-                  className="auth-button cancel"
-                  style={{ marginTop: 12 }}
-                  onClick={() => {
-                    window.location.href = "/adminForm";
-                  }}
-                >
-                  admin form
-                </button>
-              )}
+              {/* Removed Log out and Admin Form buttons */}
             </>
           )}
         </div>
