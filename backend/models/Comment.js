@@ -9,6 +9,9 @@ const CommentSchema = new mongoose.Schema({
   replies: { type: String, sparse: true},
   userId: { type: String },
   itemId: { type: String },
+  username: { type: String },    // Added field
+  profilePic: { type: String },  // Added field
+  timestamp: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);

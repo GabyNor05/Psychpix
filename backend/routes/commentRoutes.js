@@ -6,13 +6,22 @@ router.post('/', async (req, res) => {
   console.log('Received body:', req.body);
 
   try {
-    const { comment, rating, userId, itemId } = req.body; 
-    const newComment = new Comment({ userId, itemId, comment, rating, likes: 0, flags: 0, timestamp: new Date(), });
+    // Add timestamp here
+    const { comment, likes, rating, userId, itemId, username, profilePic, timestamp } = req.body;
+    const newComment = new Comment({
+      comment,
+      likes,
+      rating,
+      userId,
+      itemId,
+      username,
+      profilePic,
+      timestamp, // Now this will be defined
+    });
     const savedComment = await newComment.save();
-    res.status(201).json(savedComment);
+    res.json(savedComment);
   } catch (err) {
-    console.error('Validation error:', err.message);
-    res.status(400).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -87,4 +96,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = router; 
+module.exports = router;

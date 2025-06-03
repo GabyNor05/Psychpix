@@ -35,6 +35,7 @@ const MyProfile = () => {
   // State for loading and error
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [userComments, setUserComments] = useState([]);
 
   // Fetch user info on mount
   useEffect(() => {
@@ -68,6 +69,26 @@ const MyProfile = () => {
       setUser(JSON.parse(userData));
     }
   }, []);
+
+  // Fetch user comments when user is loaded
+  useEffect(() => {
+    if (!user || !(user.id || user._id)) return;
+    const fetchComments = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/comments");
+        if (!res.ok) throw new Error("Failed to fetch comments");
+        const allComments = await res.json();
+        // Filter comments by userId (either id or _id)
+        const filtered = allComments.filter(
+          (c) => c.userId === (user.id || user._id)
+        );
+        setUserComments(filtered);
+      } catch (err) {
+        setUserComments([]);
+      }
+    };
+    fetchComments();
+  }, [user]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -185,7 +206,7 @@ const MyProfile = () => {
             <>
               <div className="profile-username">{user.username}</div>
               <div className="profile-email">{user.email}</div>
-              <div className="profile-userid">User ID: {user._id}</div>
+              <div className="profile-userid">User ID: {user.id || user._id}</div>
               <div className="profile-role">Role: {user.role || "customer"}</div>
               <button className="auth-button" onClick={() => setEditMode(true)}>Edit Profile</button>
               {/* Removed Log out and Admin Form buttons */}
@@ -197,8 +218,29 @@ const MyProfile = () => {
       <div className="profile-comments">
         <h3>Comment History</h3>
         <div className="profile-comments-history">
-          {/* Replace this with actual comment data when available */}
-          No comments yet.
+          {userComments.length === 0 ? (
+            <>No comments yet.</>
+          ) : (
+            userComments.map((comment) => (
+              <div key={comment._id} className="profile-comment-item">
+                <img
+                  className="CommentProfilePic"
+                  src={comment.profilePic || Profile1}
+                  alt="Profile"
+                />
+                <div className="profile-comment-item-details">
+                  <div className="comment-username">{comment.username || "Unknown"}</div>
+                  <div>{comment.comment}</div>
+                  <div className="comment-timestamp">
+                    {comment.timestamp ? new Date(comment.timestamp).toLocaleString() : ""}
+                  </div>
+                  <div className="comment-rating">
+                    Rating: {comment.rating}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -118,3 +118,31 @@
   border-color: #1976d2;
   background: #fff;
 }
+.profile-comment-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.profile-comment-item .CommentProfilePic {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-comment-item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-comment-item-details .comment-username {
+  font-weight: bold;
+}
+
+.profile-comment-item-details .comment-timestamp,
+.profile-comment-item-details .comment-rating {
+  font-size: 0.9em;
+  color: #888;
+}

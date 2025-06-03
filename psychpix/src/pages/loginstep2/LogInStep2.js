@@ -43,7 +43,7 @@ function LogInStep2() {
           username: data.user.username,
           role: data.user.role,
           email: data.user.email,
-          id: data.user.id || data.user._id,
+          id: data.user.id || data.user._id, // <-- Always store as id
           profilePic: data.user.profilePic || ""
         }));
         alert("Login successful! Welcome, " + data.user.username);

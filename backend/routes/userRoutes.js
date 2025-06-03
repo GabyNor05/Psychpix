@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
         username: savedUser.username,
         role: savedUser.role,
         email: savedUser.email,
-        id: savedUser._id,
+        id: savedUser._id, // <-- This is correct!
         profilePic: savedUser.profilePic || ""
       }
     });
@@ -115,7 +115,7 @@ router.get('/me', async (req, res) => {
     const user = await User.findOne({ username });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.json({
-      _id: user._id, // Add this line
+      _id: user._id, // <-- This is correct!
       username: user.username,
       email: user.email,
       profilePic: user.profilePic,
