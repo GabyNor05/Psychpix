@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { UserCircleIcon,ShoppingCartIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserCircleIcon, ShoppingCartIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 import Logo from "../../logo.png";
 
 
 function Navbar() {
   const [showSearch, setShowSearch] = useState(false);
   const searchRef = useRef(null);
+  const navigate = useNavigate();
 
   // Focus the input when search bar is expanded
   useEffect(() => {
@@ -14,6 +15,15 @@ function Navbar() {
       searchRef.current.focus();
     }
   }, [showSearch]);
+
+  // Logout handler
+  const handleLogout = () => {
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    sessionStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
@@ -57,6 +67,21 @@ function Navbar() {
           <Link to="/profile" className="nav-link-icon" title="profile">
             <UserCircleIcon size={48} weight="fill"/>
           </Link>
+          <button
+            className="nav-link-icon"
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "inherit",
+              fontSize: 18,
+              marginLeft: 12
+            }}
+            onClick={handleLogout}
+            title="Log out"
+          >
+            Log out
+          </button>
         </div>
       </div>    
     </nav>

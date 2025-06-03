@@ -22,12 +22,7 @@ const profileImages = [
 
 const MyProfile = () => {
   // State for user info
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    profilePic: "",
-    role: "", // Add role to state
-  });
+  const [user, setUser] = useState(null);
   // State for edit mode
   const [editMode, setEditMode] = useState(false);
   // State for form fields
@@ -64,6 +59,14 @@ const MyProfile = () => {
     };
     fetchUser();
     // eslint-disable-next-line
+  }, []);
+
+  // Only use sessionStorage for user data
+  useEffect(() => {
+    const userData = sessionStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
   }, []);
 
   // Handle input changes
@@ -115,12 +118,12 @@ const MyProfile = () => {
     setPreviewPic(user.profilePic || "");
   };
 
-  if (loading) return <div className="profile-loading">Loading profile...</div>;
+  if (!user) return <div className="profile-loading">Loading profile...</div>;
 
   return (
     <div className="profile-container">
       <h2 className="profile-title">My Profile</h2>
-      {error && <div className="profile-error">{error}</div>}
+      {/* {error && <div className="profile-error">{error}</div>} */}
       <div className="profile-header">
         <img
           className="profile-avatar"
@@ -186,16 +189,18 @@ const MyProfile = () => {
               >
                 Log out
               </button>
-                            <button
-                className="auth-button cancel"
-                style={{ marginTop: 12 }}
-                onClick={() => {
-
-                  window.location.href = "/adminForm";
-                }}
-              >
-                admin form
-              </button>
+              {/* Only show admin form button if user is admin */}
+              {user.role === "admin" && (
+                <button
+                  className="auth-button cancel"
+                  style={{ marginTop: 12 }}
+                  onClick={() => {
+                    window.location.href = "/adminForm";
+                  }}
+                >
+                  admin form
+                </button>
+              )}
             </>
           )}
         </div>
