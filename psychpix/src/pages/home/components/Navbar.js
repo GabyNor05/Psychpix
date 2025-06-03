@@ -10,14 +10,27 @@ function Navbar() {
   const profileMenuRef = useRef(null);
   const navigate = useNavigate();
 
-  // Get user from sessionStorage
-  const user = (() => {
+  // Use state for user and update when sessionStorage changes
+  const [user, setUser] = useState(() => {
     try {
       return JSON.parse(sessionStorage.getItem("user"));
     } catch {
       return null;
     }
-  })();
+  });
+
+  // Listen for profile updates
+  useEffect(() => {
+    const handleUserUpdate = () => {
+      try {
+        setUser(JSON.parse(sessionStorage.getItem("user")));
+      } catch {
+        setUser(null);
+      }
+    };
+    window.addEventListener("user-profile-updated", handleUserUpdate);
+    return () => window.removeEventListener("user-profile-updated", handleUserUpdate);
+  }, []);
 
   // Focus the input when search bar is expanded
   useEffect(() => {
@@ -110,7 +123,7 @@ function Navbar() {
                     borderRadius: "50%",
                     objectFit: "cover",
                     marginRight: 4,
-                    border: "2px solid #1976d2"
+                    border: "2px rgb(39, 39, 39)"
                   }}
                 />
               ) : (
