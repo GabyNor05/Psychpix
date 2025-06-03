@@ -165,23 +165,42 @@ function Navbar() {
                   My Profile
                 </button>
                 {user && user.role === "admin" && (
-                  <button
-                    className="dropdown-item"
-                    style={{
-                      background: "none",
-                      border: "none",
-                      width: "100%",
-                      textAlign: "left",
-                      padding: "10px 20px",
-                      cursor: "pointer"
-                    }}
-                    onClick={() => {
-                      setShowProfileMenu(false);
-                      navigate("/adminForm");
-                    }}
-                  >
-                    Admin Form
-                  </button>
+                  <>
+                    <button
+                      className="dropdown-item"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        padding: "10px 20px",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => {
+                        setShowProfileMenu(false);
+                        navigate("/adminForm");
+                      }}
+                    >
+                      Admin Form
+                    </button>
+                    <button
+                      className="dropdown-item"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        padding: "10px 20px",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => {
+                        setShowProfileMenu(false);
+                        navigate("/stocklist");
+                      }}
+                    >
+                      Stocklist
+                    </button>
+                  </>
                 )}
                 <button
                   className="dropdown-item"

@@ -68,7 +68,7 @@ const Stocklist = () => {
           key={item._id}
           _id={item._id}
           {...item}
-          image={item.imageUrl ? `http://localhost:5000${item.imageUrl}` : undefined}
+          image={item.imageUrl }
           onDelete={() => handleDelete(item._id)}
           onSave={handleSave}
         />
