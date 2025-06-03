@@ -5,6 +5,7 @@ const CommentSchema = new mongoose.Schema({
   rating: { type: Number, required: true },
   timestamp: { type: Date, required: true }, 
   likes: { type: Number},
+  flags: { type: Number},
   replies: { type: String, sparse: true},
   userId: { type: String },
   itemId: { type: String },

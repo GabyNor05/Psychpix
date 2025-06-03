@@ -28,6 +28,8 @@
     color: #6b6b6b;
 }
 
+
+
 .ItemDisplay{
     position: relative;
     width: 800px;
@@ -355,9 +357,15 @@
 }
 
 .userHearts{
-    color: rgba(255, 255, 255, 0.445);
     width: fit-content;
-    cursor: pointer;
+}
+.commentIcon{
+    color: rgba(255, 255, 255, 0.445);
+    transition: color 200ms ease;
+}
+
+.commentIcon:hover{
+    color: var(--hover-color);
 }
 
 .userHearts h6{

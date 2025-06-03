@@ -91,10 +91,46 @@ const AdminForm = () => {
         }
     };
 
+    async function fetchFlaggedComments() {
+    try {
+        const response = await fetch('http://localhost:5000/api/comments', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+
+        const comments = await response.json(); 
+        let flaggedComments = comments.filter(item => item.flags > 0);
+
+        return flaggedComments; 
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        return [];
+    }
+}
+
+
+    const [flaggedComments, setComments] = useState([]);
+
+    useEffect(() => {
+        const getComments = async () => {
+            const comments = await fetchFlaggedComments();
+            setComments(comments);
+        };
+        getComments();
+    }, []);
+
+
     return (
         <div>
             <form className="admin-form-container" onSubmit={handleSubmit}>
-                {/* ...all your fields... */}
+                <div>
+                    <label>Upload Image:</label>
+                    <input type="file" name="image" accept="image/*" onChange={handleChange} />
+                </div>
                 <div>
                 <label>Serial Number:</label>
                 <input type="text" name="serialNumber" value={formData.serialNumber} onChange={handleChange} required />
@@ -144,12 +180,21 @@ const AdminForm = () => {
                 <label>Discount:</label>
                 <input type="number" name="discount" value={formData.discount} onChange={handleChange} />
             </div>
-                <div>
-                    <label>Upload Image:</label>
-                    <input type="file" name="image" accept="image/*" onChange={handleChange} />
-                </div>
+                
                 <button type="submit">Submit</button>
             </form>
+
+            <div>
+                <h3>Flagged Comments</h3>
+                {flaggedComments.map((item, index) => (
+                <div key={item._id || index}>
+                    <h4>{item.comment}</h4>
+                    <p>Rating: {item.rating}</p>
+                    <p>Likes: {item.likes}</p>
+                    <p>Flags: {item.flags}</p>
+                </div>
+                ))}
+            </div>
 
              <button
                 type="button"
