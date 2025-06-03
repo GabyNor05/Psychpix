@@ -271,5 +271,15 @@ footer{
     will-change: transform;
     cursor: pointer;
   }
-  
-  
+
+.profile-dropdown-menu {
+  animation: fadeIn 0.2s;
+}
+.profile-dropdown-menu .dropdown-item:hover {
+  background: #f0f0f0;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
