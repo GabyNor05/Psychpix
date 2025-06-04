@@ -119,7 +119,12 @@ function SingleItemSelection()
                     <h2 className='domine-Label' style={{ textAlign: 'center', paddingTop: '32px'}}>Description</h2>
                     <div className='DesciptionBlockContent'>
                         <img src={ItemData.imageUrl} style={{ width: '300px', height: '300px', objectFit: 'cover', borderRadius: '16px'}} />
-                        <h4 className='DescriptionBlockText'>{ItemData.description}</h4>
+                        <div className='DTextWrapper'>
+                            <div className='D-Block-Text'>
+                                <h4 className='DescriptionBlockText'>{ItemData.description}</h4>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -209,7 +214,7 @@ function SingleItemSelection()
                 </div>
 
                 <div style={{ alignSelf: 'flex-end'}}>
-                    <div className="checkoutSection">
+                    <div className="checkoutSection" style={{ columnCount: 1}}>
                         <div className="AddItemWrapper">
                             <h3 style={{ padding: '8px'}}>{CopiesLeft} Copies Left</h3>
                             <div className="AddItem">

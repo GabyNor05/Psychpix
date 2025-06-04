@@ -31,7 +31,11 @@ function CommentSection()
                   const commentsData = await Promise.all(commentFetches);
                   const userDataFetches = commentsData.map((item) => {
                         if(item != null){
-                            fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json())
+                            if (item != null) {
+                                return fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json());
+                            } else {
+                                return Promise.resolve(null); // fallback if item is null
+                            }
                         }
                     }
                   );
