@@ -25,12 +25,18 @@ function CommentSection()
                   const ItemJSON = await ItemResponse.json();
                   const commentIds = ItemJSON.commentsId;
                   const commentFetches = commentIds.map(id =>
-                    fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
+                    fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json()).catch(res => null)
                   );
 
                   const commentsData = await Promise.all(commentFetches);
                   const userDataFetches = commentsData.map((item) => 
-                    fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json())
+                    {
+                        if (item != null) {
+                            return fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json());
+                        } else {
+                            return Promise.resolve(null); // fallback if item is null
+                        }
+                    }  
                   );
 
                   const userDataComments = await Promise.all(userDataFetches);

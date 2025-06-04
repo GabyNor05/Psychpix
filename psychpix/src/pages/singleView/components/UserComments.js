@@ -23,6 +23,11 @@ function UserComment( {data} ){
 
     let commentData = data.commentData;
     let userData = data.userData;
+
+    if(commentData == null || !userData){
+        return('');
+    }
+
     let commentID = commentData._id;
 
     async function ToggleLike(){
