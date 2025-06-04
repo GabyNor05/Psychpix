@@ -127,10 +127,7 @@ const AdminForm = () => {
     return (
         <div>
             <form className="admin-form-container" onSubmit={handleSubmit}>
-                <div>
-                    <label>Upload Image:</label>
-                    <input type="file" name="image" accept="image/*" onChange={handleChange} />
-                </div>
+                
                 <div>
                 <label>Serial Number:</label>
                 <input type="text" name="serialNumber" value={formData.serialNumber} onChange={handleChange} required />
@@ -180,8 +177,11 @@ const AdminForm = () => {
                 <label>Discount:</label>
                 <input type="number" name="discount" value={formData.discount} onChange={handleChange} />
             </div>
-                
-                <button type="submit">Submit</button>
+                <div className='image-upload'>
+                    <label>Upload Image:</label>
+                    <input type="file" name="image" accept="image/*" onChange={handleChange} />
+                </div>
+                <button type="submit">Submit</button>   
             </form>
 
             <div>
