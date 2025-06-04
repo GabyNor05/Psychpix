@@ -125,7 +125,8 @@ const AdminStockCard = ({
                   Edit
                 </span>
                 <span
-                  className="admin-delete-text-btn"
+                  className="admin-delete-text-btn" style={{color:'#a83236', fontWeight: 'bold', marginLeft: 10}}
+                  
                   onClick={onDelete}
                 >
                   <FiTrash2 style={{ marginRight: 5, verticalAlign: 'middle' }} />
