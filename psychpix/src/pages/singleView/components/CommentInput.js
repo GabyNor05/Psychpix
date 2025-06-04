@@ -67,7 +67,7 @@ function CommentInput( callback ){
                 commentId: currentComment._id
             };
 
-            const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`, {
+            const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}/comments`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(idBody)
@@ -100,7 +100,7 @@ function CommentInput( callback ){
                         PostComment(inputText, rating);
                         setInputText('');
                         }}>
-                        <input className='CommentInput' placeholder="I like this piece because.. " name="Comment" value={inputText} onChange={handleChange}>
+                        <input className='CommentInput jost-regular' placeholder="I like this piece because.. " name="Comment" value={inputText} onChange={handleChange}>
                         
                         </input>
                         <span>

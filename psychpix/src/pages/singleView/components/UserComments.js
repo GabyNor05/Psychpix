@@ -7,7 +7,7 @@ function UserComment( {data} ){
     const [inputText, setInputText] = useState('');
     const [currentUserData, SetUserData] = useState(null);
     const [isLiked, toggleLikeState] = useState(false);
-
+    
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
     };
@@ -23,16 +23,41 @@ function UserComment( {data} ){
     
     let commentData = data.commentData;
     let userData = data.userData;
+    const [likes, updateLikes] = useState(0);
+
+    useEffect(() => {
+        if(commentData != null && commentData != undefined){
+            updateLikes(commentData.likes); 
+        }
+    }, []);
 
     if(commentData == null || !userData){
         return('');
     }
 
     let commentID = commentData._id;
+    let timeAgo = Date.parse(commentData.timestamp);
+    const timeNow = Date.now();
+    const timeDifference = timeNow - timeAgo;
 
+    function TimeAgo(msAgo) {
+        const seconds = Math.floor(msAgo / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (seconds < 60) return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+        if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+        if (hours < 24)   return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+        return `${days} day${days !== 1 ? 's' : ''} ago`;
+    }
+
+    let currentTimeAgo = TimeAgo(timeDifference);
+    
     async function ToggleLike(){
         toggleLikeState(!isLiked);
         let addLike = !isLiked? 1 : -1;
+        updateLikes(likes + addLike);
         const response = await fetch(`http://localhost:5000/api/comments/${commentID}/likes`, {
         method: 'PUT',
         headers: {
@@ -43,7 +68,6 @@ function UserComment( {data} ){
     }
 
     async function addReport(){
-        console.log("reported");
         const response = await fetch(`http://localhost:5000/api/comments/${commentID}/flags`, {
         method: 'PUT',
         headers: {
@@ -59,9 +83,9 @@ function UserComment( {data} ){
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
-                <img className='CommentProfilePic' src='https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg' style={{gridArea: 'userPic'}}/>
+                <img className='CommentProfilePic' src={userData.profilePic} style={{gridArea: 'userPic'}}/>
                 <h1 className='domine-Label m-0' style={{gridArea: 'userName'}}>{userData.username}</h1>
-                <h5 className="jost-light userTimeStamp" style={{gridArea: 'userTimeStamp'}}>{Math.floor(Math.random() * 24)}h ago</h5>
+                <h5 className="jost-light userTimeStamp" style={{gridArea: 'userTimeStamp'}}>{currentTimeAgo}</h5>
                 <div className='StarRatingBlock' style={{gridArea: 'userRating', fontSize: 'clamp(20px, 4vw, 42px)'}}>
                     <Rating canRate={false} userRating={commentData.rating} />
                 </div>
@@ -73,7 +97,7 @@ function UserComment( {data} ){
                     <div className="userInteract">
                         <div className="userHearts">
                             <HeartIcon onClick={() => ToggleLike(isLiked)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088'}} size={42} weight={isLiked? "fill": "light"} />
-                            <h6 className="jost-light">{commentData.likes}</h6>
+                            <h6 className="jost-light">{likes}</h6>
                         </div>
                         <div>
                             <ArrowUUpLeftIcon className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF'}} size={42} weight="light" />

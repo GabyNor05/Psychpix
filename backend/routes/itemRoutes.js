@@ -34,27 +34,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
-  try {
-      const item = await Item.findById(req.params.id);
-      if (!item) {
-        console.log('Item not found');
-        return res.status(404).json({ message: 'Item not found' });
-      }
-
-      const newCommentId = req.body.commentId;
-      if (!newCommentId) {
-        return res.status(400).json({ message: 'Missing commentId in body' });
-      }
-
-      item.commentsId.push(newCommentId);
-      await item.save();
-      res.status(201).json({ message: 'Comment added on item!', item });
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
-    }
-})
-
 router.get('/', async (req, res) => {
     try {
         const items = await Item.find(); // Gets all items
@@ -85,8 +64,30 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.put('/:id/comments', async (req, res) => {
+  try {
+      const item = await Item.findById(req.params.id);
+      if (!item) {
+        console.log('Item not found');
+        return res.status(404).json({ message: 'Item not found' });
+      }
+
+      const newCommentId = req.body.commentId;
+      if (!newCommentId) {
+        return res.status(400).json({ message: 'Missing commentId in body' });
+      }
+
+      item.commentsId.push(newCommentId);
+      await item.save();
+      res.status(201).json({ message: 'Comment added on item!', item });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 // PUT route to update an item by ID
 router.put('/:id', upload.single('image'), async (req, res) => {
+  console.log(req.body);
   try {
     let tags = req.body['tags[]'] || req.body.tags || [];
     if (typeof tags === 'string') tags = [tags];
@@ -102,9 +103,9 @@ router.put('/:id', upload.single('image'), async (req, res) => {
       year: Number(req.body.year),
       discount: req.body.discount ? Number(req.body.discount) : undefined,
     };
-    if (req.file) {
-      update.imageUrl = `/uploads/${req.file.filename}`;
-    }
+    // if (req.file) {
+    //   update.imageUrl = `/uploads/${req.file.filename}`;
+    // }
 
     const item = await Item.findByIdAndUpdate(req.params.id, update, { new: true });
     res.json(item);

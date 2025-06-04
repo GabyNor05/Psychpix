@@ -44,6 +44,8 @@ const Stocklist = () => {
       }
     });
 
+    console.log(formData);
+
     const res = await fetch(`http://localhost:5000/api/items/${updatedItem._id}`, {
       method: 'PUT',
       body: formData

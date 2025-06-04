@@ -97,7 +97,7 @@ function SingleItemSelection()
     function expandDescription(description){
         let shortDescription = '';
         for (let index = 0; index < description.length; index++) {
-            if(index <= 195){
+            if(index <= 190){
                 shortDescription += description[index]; 
             }else{
                 return(<>{shortDescription + '-'} <h5 onClick={() => toggleItemDescription(1)} style={{ cursor: 'pointer', color: '#1b548d'}}>...Read More</h5></>);
@@ -121,7 +121,7 @@ function SingleItemSelection()
                         <img src={ItemData.imageUrl} style={{ width: '300px', height: '300px', objectFit: 'cover', borderRadius: '16px'}} />
                         <div className='DTextWrapper'>
                             <div className='D-Block-Text'>
-                                <h4 className='DescriptionBlockText'>{ItemData.description}</h4>
+                                <h4 className='DescriptionBlockText jost-regular'>{ItemData.description}</h4>
                             </div>
                         </div>
                         
@@ -165,7 +165,7 @@ function SingleItemSelection()
                         
                         <div style={{ position: 'relative', borderBottom: '4px solid', marginBottom: '16px'}}>
                             <div id='quoteUD'>
-                                <h4>
+                                <h4 className='jost-regular'>
                                     {expandDescription(ItemData.description)}
                                 </h4>
                             </div>
@@ -213,10 +213,10 @@ function SingleItemSelection()
                     </div>
                 </div>
 
-                <div style={{ alignSelf: 'flex-end'}}>
+                <div className='jost-regular' style={{ alignSelf: 'flex-end'}}>
                     <div className="checkoutSection" style={{ columnCount: 1}}>
                         <div className="AddItemWrapper">
-                            <h3 style={{ padding: '8px'}}>{CopiesLeft} Copies Left</h3>
+                            <h3 className='' style={{ padding: '8px'}}>{CopiesLeft} Copies Left</h3>
                             <div className="AddItem">
                                 <button onClick={() => handleCopies(-1)}>-</button>
                                 <span>{CopiesAdded}</span>
@@ -225,7 +225,7 @@ function SingleItemSelection()
                         </div>
 
                         <div className="AddToCart">
-                            <h3 className='jost-regular' style={{ letterSpacing: '4px'}}>Add To Cart</h3>
+                            <h3 style={{ letterSpacing: '4px'}}>Add To Cart</h3>
                         </div>
                     </div>
                 </div>
