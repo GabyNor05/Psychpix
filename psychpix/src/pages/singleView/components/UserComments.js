@@ -20,7 +20,7 @@ function UserComment( {data} ){
         };
         setInputText('');  // Clear the input after adding the reply
     };
-
+    
     let commentData = data.commentData;
     let userData = data.userData;
 
@@ -28,6 +28,7 @@ function UserComment( {data} ){
         return('');
     }
 
+<<<<<<< Updated upstream
     let commentID = commentData._id;
 
     async function ToggleLike(){
@@ -55,6 +56,8 @@ function UserComment( {data} ){
         }
     }
 
+=======
+>>>>>>> Stashed changes
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
