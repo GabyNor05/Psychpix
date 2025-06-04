@@ -2,6 +2,7 @@ import dummyItem from '../../home/images/bento/bento2.jpg';
 import { GetItemsData } from '../../../ItemsData';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { XIcon, PaperPlaneRight } from "@phosphor-icons/react";
 
 async function GetSelectedItem(ItemID){
     try {
