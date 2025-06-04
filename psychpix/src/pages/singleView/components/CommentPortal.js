@@ -18,17 +18,6 @@ function CommentSection()
     const { selectedItem } = location.state || {};
     const [comments, setComments] = useState([]);
 
-<<<<<<< HEAD
-    async function fetchComments() {
-        try {
-            const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
-            if(ItemResponse.ok){
-                const ItemJSON = await ItemResponse.json();
-                const commentIds = ItemJSON.commentsId;
-                const commentFetches = commentIds.map(id =>
-                fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
-                );
-=======
     useEffect(() => {
         async function fetchComments() {
             try {
@@ -37,14 +26,16 @@ function CommentSection()
                   const ItemJSON = await ItemResponse.json();
                   const commentIds = ItemJSON.commentsId;
                   const commentFetches = commentIds.map(id =>
-                    fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json())
+                    fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json()).catch(res => null)
                   );
->>>>>>> parent of a71beb4 (Item Page touch ups)
 
-                const commentsData = await Promise.all(commentFetches);
-                const userDataFetches = commentsData.map((item) => 
-                fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json())
-                );
+                  const commentsData = await Promise.all(commentFetches);
+                  const userDataFetches = commentsData.map((item) => {
+                        if(item != null){
+                            fetch(`http://localhost:5000/api/users/${item.userId}`).then(res => res.json())
+                        }
+                    }
+                  );
 
                 const userDataComments = await Promise.all(userDataFetches);
 
@@ -71,12 +62,6 @@ function CommentSection()
 
     return (
         <div className="CommentSection">
-<<<<<<< HEAD
-            <div className='CommentTitle'>
-                <h2 className='domine-Label'>Reviews</h2>
-            </div>
-=======
->>>>>>> parent of a71beb4 (Item Page touch ups)
             <div className='CommentScroll'>
                 {comments.length === 0 ? (
                     <DefaultCommentState />

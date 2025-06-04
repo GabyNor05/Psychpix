@@ -62,25 +62,9 @@ function SingleItemSelection()
                     </div>
                     
                     <div className="ItemDetails">
-<<<<<<< HEAD
-                        {ItemData.discount > 0? (
-                            <div style={{ display: 'flex'}}>
-                                <h1 style={{ paddingRight: '32px'}} className='jost-light discountedPrice'><strike>R {FormatPrice(ItemData.price)}</strike></h1>
-                                <h1 className='jost-light'>R {FormatPrice(ItemData.price * (1 - (ItemData.discount / 100)))}</h1>
-                            </div>
-                            ) : (<h1 className='jost-light'>R {FormatPrice(ItemData.price)}</h1>)}
-                        <h5 className='jost-light'>{ItemData.commentsId.length} reviews</h5>
-                        
-                        <div id='quoteUD'>
-                            <h4>
-                                {expandDescription(ItemData.description)}
-                            </h4>
-                        </div>
-=======
                         <h1>R {ItemData.price}</h1>
                         <h1>69 reviews</h1>
                         <h4>{ItemData.description}</h4>
->>>>>>> parent of a71beb4 (Item Page touch ups)
                     </div>
 
                     <div className="userSelect">

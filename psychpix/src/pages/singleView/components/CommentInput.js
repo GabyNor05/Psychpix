@@ -1,53 +1,85 @@
-import ProfilePic from '../images/pfp.webp';
+import { useState } from 'react';
 import { Star, PaperPlaneRight } from "@phosphor-icons/react";
 import UserComment from './UserComments';
-import { useState } from 'react';
 import Rating from './Rating';
 import { useLocation } from 'react-router-dom';
 
-function CommentInput(){
+// Get default profile image if user is not logged in or has no profilePic
+import DefaultProfilePic from '../images/pfp.webp';
+
+function CommentInput( callback ){
     const location = useLocation();
     const { selectedItem } = location.state || {};
     const [inputText, setInputText] = useState('');
     const [rating, setRating] = useState(1);
+
+    // Get user info from sessionStorage ONCE
+    let username = "Guest";
+    let profilePic = DefaultProfilePic;
+    let userId = '6838c46ed8607af2f8846e9c'; // fallback
+    try {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        if (user) {
+            if (user.username) username = user.username;
+            if (user.profilePic) profilePic = user.profilePic;
+            if (user.id || user._id) userId = user.id || user._id;
+        }
+    } catch {
+        // keep defaults
+    }
 
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
     };
 
     async function PostComment(commentText, userRating) {
+        try {
+            const payload = {
+                comment: commentText,
+                likes: 0,
+                rating: userRating,
+                userId: userId, // always use the value from above
+                itemId: selectedItem,
+                username: username,
+                profilePic: profilePic,
+                timestamp: new Date().toISOString() 
+            };
 
-    try {
-        const payload = {
-            comment: commentText,
-            likes: 0,
-            rating: userRating,
-            userId: '6838c46ed8607af2f8846e9c',
-        };
+            const response = await fetch('http://localhost:5000/api/comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
 
-        const response = await fetch('http://localhost:5000/api/comments', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-        });
+            if (!response.ok) {
+                const errorText = await response.text();
+                alert("Failed to save comment: " + errorText);
+                return;
+            }
 
-        const currentComment = await response.json();
-        const idBody = {
-            commentId: currentComment._id
-        }
+            const currentComment = await response.json();
+            if (!currentComment._id) {
+                alert("Failed to save comment: No comment ID returned.");
+                return;
+            }
 
-        const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(idBody)
-        })
+            const idBody = {
+                commentId: currentComment._id
+            };
 
-        if (ItemResponse.ok) {
-            alert('Item saved!');
-        } else {
-            const errorText = await ItemResponse.text(); // Or use .json() if server returns JSON
-            alert(errorText);
-        }
+            const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(idBody)
+            });
+
+            if (ItemResponse.ok) {
+                alert('Item saved!');
+                callback();
+            } else {
+                const errorText = await ItemResponse.text();
+                alert(errorText);
+            }
         } catch (err) {
             console.error('Fetch failed:', err);
         }
@@ -57,8 +89,8 @@ function CommentInput(){
         <>
             <div className="CommentInputBlock">
                 <div className="ProfileContainer">
-                    <img className='CommentProfilePic' src={ProfilePic}/>
-                    <h1 className='domine-Label m-0'>{"Billy"}</h1>
+                    <img className='CommentProfilePic' src={profilePic} alt="Profile" />
+                    <h1 className='domine-Label m-0'>{username}</h1>
                     <Rating userRating={rating} setUserRating={setRating} />
                 </div>
 

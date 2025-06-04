@@ -174,7 +174,7 @@ h6{
 */
 .navbar{
   height: fit-content;
-  width: 1700px;
+  width: 90%;
   border-radius: 0px 0px 48px 48px;
   background-color: #121920;
   backdrop-filter: blur(2.5px);
@@ -204,7 +204,6 @@ h6{
   -webkit-text-fill-color: transparent;
   font-family: "Jost", sans-serif;
   font-style: normal;
-  font-weight: 700;
   line-height: normal;
   letter-spacing: 5.4px;
   flex-shrink: 2;

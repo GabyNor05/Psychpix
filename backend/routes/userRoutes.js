@@ -22,7 +22,15 @@ router.post('/register', async (req, res) => {
   try {
     const newUser = new User({ username, email, password, twoFactor, role: userRole });
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    res.status(201).json({
+      user: {
+        username: savedUser.username,
+        role: savedUser.role,
+        email: savedUser.email,
+        id: savedUser._id, // <-- This is correct!
+        profilePic: savedUser.profilePic || ""
+      }
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -84,7 +92,16 @@ router.post('/login', async (req, res) => {
       JWT_SECRET,
       { expiresIn: '1d' }
     );
-    res.json({ token, user: { username: user.username, role: user.role } });
+    res.json({
+      token,
+      user: {
+        username: user.username,
+        role: user.role,
+        email: user.email,
+        id: user._id,
+        profilePic: user.profilePic // <-- Add this line
+      }
+    });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
@@ -98,7 +115,7 @@ router.get('/me', async (req, res) => {
     const user = await User.findOne({ username });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.json({
-      _id: user._id, // Add this line
+      _id: user._id, // <-- This is correct!
       username: user.username,
       email: user.email,
       profilePic: user.profilePic,

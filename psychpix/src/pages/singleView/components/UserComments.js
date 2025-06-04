@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import UserReplies from './CommentReplies';
-import { StarIcon, HeartIcon, ArrowUUpLeftIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
+import { MegaphoneIcon, HeartIcon, ArrowUUpLeftIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
 import Rating from "./Rating";
-import { json } from "express";
 
 function UserComment( {data} ){
     const [inputText, setInputText] = useState('');
     const [currentUserData, SetUserData] = useState(null);
+    const [isLiked, toggleLikeState] = useState(false);
 
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
@@ -20,22 +20,42 @@ function UserComment( {data} ){
         };
         setInputText('');  // Clear the input after adding the reply
     };
-
+    
     let commentData = data.commentData;
     let userData = data.userData;
 
-    async function ToggleLike(addLike, id){
-        try {
-            const ItemResponse = await fetch(`http://localhost:5000/api/comments/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(addLike),
-            });
-            if(ItemResponse.ok){
-                alert("Like Added!");
-            }
-        } catch (err) {
-            console.error("Couldn't fetch comments:", err);
+    if(commentData == null || !userData){
+        return('');
+    }
+
+    if(commentData == null || !userData){
+        return('');
+    }
+
+    let commentID = commentData._id;
+
+    async function ToggleLike(){
+        toggleLikeState(!isLiked);
+        let addLike = !isLiked? 1 : -1;
+        const response = await fetch(`http://localhost:5000/api/comments/${commentID}/likes`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify({ likes: commentData.likes + addLike })
+        });
+    }
+
+    async function addReport(){
+        const response = await fetch(`http://localhost:5000/api/comments/${commentID}/flags`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify({ flags: commentData.flags + 1 })
+        });
+        if(response.ok){
+            alert('Comment Reported');
         }
     }
 
@@ -55,11 +75,14 @@ function UserComment( {data} ){
                     </h4>
                     <div className="userInteract">
                         <div className="userHearts">
-                            <HeartIcon  size={42} color="#FFFFFF55" weight="light" />
+                            <HeartIcon onClick={() => ToggleLike(isLiked)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088'}} size={42} weight={isLiked? "fill": "light"} />
                             <h6 className="jost-light">{commentData.likes}</h6>
                         </div>
                         <div>
-                            <ArrowUUpLeftIcon size={42} color="#FFFFFF55" weight="light" />
+                            <ArrowUUpLeftIcon className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF'}} size={42} weight="light" />
+                        </div>
+                        <div>
+                            <MegaphoneIcon onClick={() => addReport()} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0000'}} size={42} weight="light" />
                         </div>
                     </div>
 

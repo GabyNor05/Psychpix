@@ -122,7 +122,7 @@ export default function Carousel({ slides = [], Title}) {
                 
                     <div className="flex carousel-track">
                         {slides.map((item, i) => (
-                            <img key={i} src={item.imageUrl} className="carousel-image" alt={`Slide ${i}`} onClick={() => handleSelect(item.id)}/>
+                            <img key={i} src={item.imageUrl || item} className="carousel-image" alt={`Slide ${i}`} onClick={() => handleSelect(item.id)}/>
                         ))}
                     </div>
 
