@@ -145,14 +145,12 @@ const AdminStockCard = ({
         )}
       </div>
     </div>
-    {showAccordion && (
-        <div className="admin-accordion">
-          <p><strong>Andy Walhal:</strong> Psychedelic Pixels is a sleek, user-friendly art website showcasing diverse talent and stunning visual works. With artist profiles, insightful blogs, and a smooth buying experience, it’s perfect for art lovers seeking inspiration, discovery, or a meaningful connection to creativity.</p>
-          <p><strong>All Tags:</strong> {tags && tags.join(', ')}</p>
-          <p><strong>Rating:</strong> 5.5</p>
-          <p><strong>Likes:</strong> 658</p>
-        </div>
-      )}
+      <div className="admin-accordion">
+        <p><strong>Andy Walhal:</strong> Psychedelic Pixels is a sleek, user-friendly art website showcasing diverse talent and stunning visual works. With artist profiles, insightful blogs, and a smooth buying experience, it’s perfect for art lovers seeking inspiration, discovery, or a meaningful connection to creativity.</p>
+        <p><strong>All Tags:</strong> {tags && tags.join(', ')}</p>
+        <p><strong>Rating:</strong> 5.5</p>
+        <p><strong>Likes:</strong> 658</p>
+      </div>
     </>
   );
 };

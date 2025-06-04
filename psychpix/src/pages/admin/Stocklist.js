@@ -66,14 +66,16 @@ const Stocklist = () => {
       <h2>Stock List</h2>
       {items.length === 0 && <p>No items found.</p>}
       {items.map(item => (
-        <AdminStockCard
-          key={item._id}
-          _id={item._id}
-          {...item}
-          image={item.imageUrl }
-          onDelete={() => handleDelete(item._id)}
-          onSave={handleSave}
-        />
+        <div style={{ margin: '32px 0px'}}>
+            <AdminStockCard
+            key={item._id}
+            _id={item._id}
+            {...item}
+            image={item.imageUrl }
+            onDelete={() => handleDelete(item._id)}
+            onSave={handleSave}
+          />
+        </div>
       ))}
     </div>
   );

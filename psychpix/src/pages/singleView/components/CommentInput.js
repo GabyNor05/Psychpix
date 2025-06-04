@@ -21,7 +21,7 @@ function CommentInput( callback ){
         const user = JSON.parse(sessionStorage.getItem("user"));
         if (user) {
             if (user.username) username = user.username;
-            if (user.profilePic) profilePic = user.profilePic;
+            user.profilePic? (user.username == 'Guest'? profilePic = DefaultProfilePic : profilePic = user.profilePic) : profilePic = DefaultProfilePic;
             if (user.id || user._id) userId = user.id || user._id;
         }
     } catch {
