@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
       userId,
       itemId,
       username,
+      flags: 0,
       profilePic,
       timestamp, // Now this will be defined
     });

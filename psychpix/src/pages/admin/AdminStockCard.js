@@ -116,7 +116,7 @@ const AdminStockCard = ({
             <p><strong>Stock:</strong> {stock}</p>
             <p><strong>Year:</strong> {year}</p>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
+              <div style={{ display: 'flex', gap: '16px'}}>
                 <span
                   className="admin-edit-text-btn"
                   onClick={() => setEditMode(true)}

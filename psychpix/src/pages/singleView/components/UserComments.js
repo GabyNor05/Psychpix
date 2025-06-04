@@ -28,10 +28,6 @@ function UserComment( {data} ){
         return('');
     }
 
-    if(commentData == null || !userData){
-        return('');
-    }
-
     let commentID = commentData._id;
 
     async function ToggleLike(){
@@ -47,6 +43,7 @@ function UserComment( {data} ){
     }
 
     async function addReport(){
+        console.log("reported");
         const response = await fetch(`http://localhost:5000/api/comments/${commentID}/flags`, {
         method: 'PUT',
         headers: {
