@@ -1,22 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import placeholder from "../placeholder.png";
 import ItemCard from "./components/itemCard";
 import OrderSummary from "./components/OrderSummary";
-import CartModal from "./components/CartModal"; // If you want to use it
-
-const cartItems = [
-  { id: 1, product: "Sample Product 1", price: 120, quantity: 2, image: placeholder },
-  { id: 2, product: "Sample Product 2", price: 80, quantity: 1, image: placeholder },
-];
 
 function Cart() {
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(cart);
+  }, []);
+
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <div style={{ display: "flex", gap: 40, maxWidth: 1200, margin: "40px auto" }}>
-      {/* Cart Items (Left) */}
       <div style={{ flex: 2 }}>
         <h2>Your Cart</h2>
         <div style={{
@@ -24,7 +23,7 @@ function Cart() {
           gridTemplateColumns: "2fr 1fr 1fr 1fr 120px",
           fontWeight: "bold",
           borderBottom: "2px solid #eee",
-          padding: "12px 0",
+          padding: "16px",
           marginBottom: 12
         }}>
           <div>Product</div>
@@ -34,7 +33,7 @@ function Cart() {
           <div></div>
         </div>
         {cartItems.map(item => (
-          <ItemCard key={item.id} item={item} />
+          <ItemCard key={item._id} item={item} />
         ))}
         <button
           type="button"
@@ -44,11 +43,8 @@ function Cart() {
           Go to Stocklist
         </button>
       </div>
-
       {/* Order Summary (Right) */}
       <OrderSummary total={total} />
-
-      {/* Optionally render <CartModal /> here if needed */}
     </div>
   );
 }

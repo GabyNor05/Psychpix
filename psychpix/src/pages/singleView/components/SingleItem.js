@@ -106,6 +106,54 @@ function SingleItemSelection()
         return(shortDescription);
     }
 
+    function handleAddToCart() {
+        if (CopiesAdded < 1) {
+          alert("Please select at least one copy.");
+          return;
+        }
+        // Get existing cart or empty array
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        // Check if item already in cart
+        const existing = cart.find(item => item._id === ItemData._id);
+        if (existing) {
+          existing.quantity += CopiesAdded;
+        } else {
+          cart.push({
+            _id: ItemData._id,
+            product: ItemData.title,
+            price: ItemData.price,
+            quantity: CopiesAdded,
+            image: ItemData.imageUrl
+          });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Added to cart!");
+      }
+
+    function handleAddToCart() {
+        if (CopiesAdded < 1) {
+          alert("Please select at least one copy.");
+          return;
+        }
+        // Get existing cart or empty array
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        // Check if item already in cart
+        const existing = cart.find(item => item._id === ItemData._id);
+        if (existing) {
+          existing.quantity += CopiesAdded;
+        } else {
+          cart.push({
+            _id: ItemData._id,
+            product: ItemData.title,
+            price: ItemData.price,
+            quantity: CopiesAdded,
+            image: ItemData.imageUrl
+          });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Added to cart!");
+      }
+
     return(
     <>
         <div className="singleItemOverlay">
@@ -225,7 +273,13 @@ function SingleItemSelection()
                         </div>
 
                         <div className="AddToCart">
-                            <h3 style={{ letterSpacing: '4px'}}>Add To Cart</h3>
+                          <h3
+                            className='jost-regular'
+                            style={{ letterSpacing: '4px', cursor: 'pointer' }}
+                            onClick={handleAddToCart}
+                          >
+                            Add To Cart
+                          </h3>
                         </div>
                     </div>
                 </div>
