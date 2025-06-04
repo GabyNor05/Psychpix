@@ -1,8 +1,11 @@
-import dummyItem from '../../home/images/bento/bento2.jpg';
+import lineSquare from '../../_GeneralComponents/icons/lilsquare.png';
+import { XIcon } from '@phosphor-icons/react';
 import { GetItemsData } from '../../../ItemsData';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { XIcon, PaperPlaneRight } from "@phosphor-icons/react";
+import WoodFrame from '../images/woodFrame.jpg';
+import WoodFrame2 from '../images/WoodFrame5.jpeg';
+import WoodFrame3 from '../images/WoodFrame8.jpeg';
 
 async function GetSelectedItem(ItemID){
     try {
