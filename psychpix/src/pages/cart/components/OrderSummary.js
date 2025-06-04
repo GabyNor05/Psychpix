@@ -1,14 +1,8 @@
 import React from "react";
+import "../css/cart.css";
 
 const OrderSummary = ({ total }) => (
-  <div style={{
-    flex: 1,
-    background: "#fafafa",
-    borderRadius: 10,
-    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-    padding: "32px 24px",
-    height: "fit-content"
-  }}>
+  <div className = "orderSummary" >
     <h3>Order Summary</h3>
     <div style={{ margin: "18px 0", fontSize: 18 }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -25,17 +19,7 @@ const OrderSummary = ({ total }) => (
         <span>R {total}</span>
       </div>
     </div>
-    <button style={{
-      width: "100%",
-      padding: "12px",
-      background: "#56adc7",
-      color: "#fff",
-      border: "none",
-      borderRadius: 6,
-      fontSize: 18,
-      fontWeight: 600,
-      cursor: "pointer"
-    }}>
+    <button className = "checkout-button" >
       Checkout
     </button>
   </div>
