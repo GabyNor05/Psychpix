@@ -28,7 +28,6 @@ function UserComment( {data} ){
         return('');
     }
 
-<<<<<<< Updated upstream
     let commentID = commentData._id;
 
     async function ToggleLike(){
@@ -56,8 +55,6 @@ function UserComment( {data} ){
         }
     }
 
-=======
->>>>>>> Stashed changes
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
