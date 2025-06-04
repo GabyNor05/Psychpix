@@ -1,0 +1,82 @@
+.about-logo {
+  width: 100%;
+  max-width: 150px;
+  margin: 0 1.5rem 0 0;
+  display: block;
+}
+
+.about-section.about-right .about-logo {
+  margin: 0 0 0 1.5rem;
+}
+
+.about-section h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.about-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.about-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 90%;
+  margin: 2rem auto;
+  
+  padding: 40px 12px;
+  text-align: left;
+}
+
+.about-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.about-logo {
+  width: 100%;
+  max-width: 250px;
+  display: block;
+  margin: 0 1.5rem 0 0;
+}
+
+.about-row.reverse .about-logo {
+  margin: 0 0 0 1.5rem;
+}
+
+.about-row h1 {
+  font-size: 30px;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.about-row p {
+  font-size: 19px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Responsive: stack image on top for small screens */
+@media screen and (max-width: 700px) {
+  .about-section,
+  .about-section.about-left,
+  .about-section.about-right,
+  .about-row,
+  .about-row.reverse {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 1rem;
+  }
+  .about-logo {
+    margin: 0 auto 1rem auto !important;
+  }
+}
+
+/* Responsive grid for smaller screens */
+@media screen and (max-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+}
