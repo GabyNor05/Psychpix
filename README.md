@@ -68,8 +68,10 @@ npm start
 
 [Link to the Demo Vidio](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
 
-## Creaters
+## Authors
 
 <a href="https://github.com/GabyNor05/Psychpix/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=GabyNor05/Psychpix" />
 </a>
+
+## Acknolegments
