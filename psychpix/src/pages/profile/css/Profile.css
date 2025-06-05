@@ -118,7 +118,8 @@
   border-color: #1976d2;
   background: #fff;
 }
-.profile-comment-item {
+.profile-comments-history {
+  margin-top: 24px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -136,28 +137,63 @@
   border-radius: 12px;
   background: #cccccc;
   bottom: 0;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profile-comment-item {
+  background: #f9f9fb;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px #0001;
+  display: flex;
+  flex-direction: column;
+  border-left: 5px solid #ddd;
+  position: relative;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .profile-comment-item .CommentProfilePic {
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  position: absolute;
+  top: 16px;
+  left: -48px;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .profile-comment-item-details {
-  display: flex;
-  flex-direction: column;
+  margin-left: 0px; /* Remove avatar gap */
 }
 
 .profile-comment-item-details .comment-username {
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+  color: #444;
 }
 
-.profile-comment-item-details .comment-timestamp,
-.profile-comment-item-details .comment-rating {
-  font-size: 0.9em;
+.profile-comment-item-details .comment-timestamp {
+  font-size: 12px;
   color: #888;
+  margin-bottom: 8px;
 }
 
-/**/
+.profile-comment-item-details .comment-rating {
+  color: #e09840;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.profile-comment-item-details > div:nth-child(2) {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
