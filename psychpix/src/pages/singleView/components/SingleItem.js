@@ -2,7 +2,7 @@ import lineSquare from '../../_GeneralComponents/icons/lilsquare.png';
 import { XIcon } from '@phosphor-icons/react';
 import { GetItemsData } from '../../../ItemsData';
 import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,  useNavigate} from 'react-router-dom';
 import WoodFrame from '../images/woodFrame.jpg';
 import WoodFrame2 from '../images/WoodFrame5.jpeg';
 import WoodFrame3 from '../images/WoodFrame8.jpeg';
@@ -27,6 +27,7 @@ async function GetSelectedItem(ItemID){
 function SingleItemSelection()
 {
     const location = useLocation();
+    const navigate = useNavigate();
     const { selectedItem } = location.state || {};
 
     const [ItemData, setItemData] = useState(null);
@@ -106,29 +107,6 @@ function SingleItemSelection()
         return(shortDescription);
     }
 
-    function handleAddToCart() {
-        if (CopiesAdded < 1) {
-          alert("Please select at least one copy.");
-          return;
-        }
-        // Get existing cart or empty array
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        // Check if item already in cart
-        const existing = cart.find(item => item._id === ItemData._id);
-        if (existing) {
-          existing.quantity += CopiesAdded;
-        } else {
-          cart.push({
-            _id: ItemData._id,
-            product: ItemData.title,
-            price: ItemData.price,
-            quantity: CopiesAdded,
-            image: ItemData.imageUrl
-          });
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert("Added to cart!");
-      }
 
     function handleAddToCart() {
         if (CopiesAdded < 1) {
@@ -152,6 +130,7 @@ function SingleItemSelection()
         }
         localStorage.setItem("cart", JSON.stringify(cart));
         alert("Added to cart!");
+        navigate("/cart");
       }
 
     return(

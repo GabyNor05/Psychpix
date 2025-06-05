@@ -69,6 +69,7 @@ function SignUpStep2() {
           id: data.user.id || data.user._id, // <-- Always store as id
           profilePic: data.user.profilePic || ""
         }));
+        localStorage.setItem("token", data.token);
         alert("Signup successful! Welcome, " + data.user.username);
         navigate("/"); // Go to home page after successful signup
       } else {

@@ -65,9 +65,18 @@
   color: #000;
 }
 
+.admin-button-container {
+  display: grid;
+  grid-template-columns:  1fr 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .admin-form-container button[type="submit"] {
   background: linear-gradient(90deg, #56adc7 0%, #916FAA 100%);
   color: #fff;
+  width: 100%;
   border: none;
   padding: 10px 28px;
   border-radius: 8px;
@@ -79,6 +88,15 @@
 
 .admin-form-container button[type="submit"]:hover {
   background: linear-gradient(90deg, #A2479A 0%, #56adc7 100%);
+}
+
+.admin-eye-btn{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #2c3440;
+  font-size: 18px;
+  align-items: right;
 }
 
 /* Stock Card */

@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/cart.css";
 
-const OrderSummary = ({ total }) => (
+const OrderSummary = ({ total, onCheckout }) => (
   <div className = "orderSummary" >
     <h3>Order Summary</h3>
     <div style={{ margin: "18px 0", fontSize: 18 }}>
@@ -19,7 +19,7 @@ const OrderSummary = ({ total }) => (
         <span>R {total}</span>
       </div>
     </div>
-    <button className = "checkout-button" >
+    <button className = "checkout-button" onClick={onCheckout}>
       Checkout
     </button>
   </div>

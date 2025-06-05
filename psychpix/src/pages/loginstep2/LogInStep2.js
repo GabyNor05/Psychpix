@@ -46,6 +46,7 @@ function LogInStep2() {
           id: data.user.id || data.user._id, // <-- Always store as id
           profilePic: data.user.profilePic || ""
         }));
+        localStorage.setItem("token", data.token);
         alert("Login successful! Welcome, " + data.user.username);
         navigate("/"); // Go to home page
       } else {
