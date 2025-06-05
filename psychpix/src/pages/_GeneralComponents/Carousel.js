@@ -72,8 +72,6 @@ export default function Carousel({ slides = [], Title}) {
         }else{
             currentProgress = Math.floor(increments) + 1;
         }
-        
-        console.log(currentProgress);
 
         if(increments <= 1){
             return(<div className='carouselProgress'></div>);
@@ -103,7 +101,7 @@ export default function Carousel({ slides = [], Title}) {
     };
 
     return (
-        <>
+        <div style={{ display: slides.length == 0? 'none' : 'block'}}>
             <div className='carouselTitle domine-Label pb-3 me-2s'>
                 <h1 className='fw-bold'>{Title}</h1>
                 <img className='lineSquareBR' src={lineSquare} alt='lilSquare'/>
@@ -120,9 +118,13 @@ export default function Carousel({ slides = [], Title}) {
 
                 <div className="GeneralCarousel carousel-scroll" ref={scrollRef}>
                 
-                    <div className="flex carousel-track">
+                    <div className="carousel-track">
                         {slides.map((item, i) => (
-                            <img key={i} src={item.imageUrl || item} className="carousel-image" alt={`Slide ${i}`} onClick={() => handleSelect(item.id)}/>
+                            <div key={i}>
+                                <img src={item.imageUrl || item} className="carousel-image" alt={`Slide ${i}`} style={{ height: '350px'}} onClick={() => handleSelect(item.id)}/>
+                                <h5 className='jost-regular'>{item.name}</h5>
+                                <h4 className='jost-regular'>R{item.price}</h4>
+                            </div>
                         ))}
                     </div>
 
@@ -130,7 +132,7 @@ export default function Carousel({ slides = [], Title}) {
                 
                 {RightButton()}
             </div>
-        </>
+        </div>
         
     );
 }

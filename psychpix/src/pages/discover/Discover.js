@@ -27,16 +27,29 @@ try {
   console.error('Fetch failed:', err);
 }
 
+function FormatPrice(price){
+    let result = '';
+    let stringPrice = String(Math.floor(price));
+    for (let index = stringPrice.length - 1; index >= 0; index--) {
+        result += stringPrice[stringPrice.length - index - 1];
+        if(index % 3 == 0 && index != 0){
+            result += ',';
+        }
+    }
+    return result;
+}
+
 function getImagesByTag(data, tag){
   const filtered = data.filter(item => item.tags.includes(tag));
   if (filtered.length === 0) return [];
 
   const slides = filtered.map(item => ({
     imageUrl: item.imageUrl,
-    id: item._id
+    id: item._id,
+    name: item.title,
+    price: FormatPrice(item.price * (1 - (item.discount / 100))),
   }));
 
-  console.log(slides);
   return slides;
 }
 

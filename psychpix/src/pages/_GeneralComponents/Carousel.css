@@ -112,6 +112,18 @@
     gap: 16px;
     padding: 16px;
   }
+
+  .carousel-track img{
+    height: 380px;
+  }
+
+  .carousel-track h5{
+    color: #575757;
+  }
+
+    .carousel-track h4{
+    color: #303030;
+  }
   
   .carousel-image{
     border-radius: 8px;
