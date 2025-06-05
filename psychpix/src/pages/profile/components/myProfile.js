@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Profile1 from "../assets/userprofile/profile1.jpg";
 import Profile2 from "../assets/userprofile/profile2.png";
 import Profile3 from "../assets/userprofile/profile3.png";
@@ -20,9 +21,9 @@ const profileImages = [
   Profile8,
 ];
 
-const MyProfile = () => {
-  // State for user info
-  const [user, setUser] = useState(null);
+const MyProfile = ({ user, ...props }) => {
+  const navigate = useNavigate();
+  const [userState, setUser] = useState(user);
   // State for edit mode
   const [editMode, setEditMode] = useState(false);
   // State for form fields
@@ -72,7 +73,7 @@ const MyProfile = () => {
 
   // Fetch user comments when user is loaded
   useEffect(() => {
-    if (!user || !(user.id || user._id)) return;
+    if (!userState || !(userState.id || userState._id)) return;
     const fetchComments = async () => {
       try {
         const res = await fetch("http://localhost:5000/api/comments");
@@ -80,7 +81,7 @@ const MyProfile = () => {
         const allComments = await res.json();
         // Filter comments by userId (either id or _id)
         const filtered = allComments.filter(
-          (c) => c.userId === (user.id || user._id)
+          (c) => c.userId === (userState.id || userState._id)
         );
         setUserComments(filtered);
       } catch (err) {
@@ -88,7 +89,7 @@ const MyProfile = () => {
       }
     };
     fetchComments();
-  }, [user]);
+  }, [userState]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -110,7 +111,7 @@ const MyProfile = () => {
   const handleSave = async () => {
     setError("");
     try {
-      const res = await fetch(`http://localhost:5000/api/users/me?username=${encodeURIComponent(user.username)}`, {
+      const res = await fetch(`http://localhost:5000/api/users/me?username=${encodeURIComponent(userState.username)}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -146,11 +147,28 @@ const MyProfile = () => {
   // Add this function inside your MyProfile component:
   const handleCancel = () => {
     setEditMode(false);
-    setForm({ username: user.username, profilePic: user.profilePic });
-    setPreviewPic(user.profilePic || "");
+    setForm({ username: userState.username, profilePic: userState.profilePic });
+    setPreviewPic(userState.profilePic || "");
   };
 
-  if (!user) return <div className="profile-loading">Loading profile...</div>;
+  // If no user is logged in
+  if (!userState || !userState.username) {
+    return (
+      <div className="profile-container" style={{ textAlign: "center", padding: "60px 0" }}>
+        <h2>You are not logged in</h2>
+        <p>Please log in to view your profile.</p>
+        <button
+          className="auth-button"
+          style={{ marginTop: 20, padding: "10px 30px", fontSize: "18px" }}
+          onClick={() => navigate("/login")}
+        >
+          Log In
+        </button>
+      </div>
+    );
+  }
+
+  if (!userState) return <div className="profile-loading">Loading profile...</div>;
 
   return (
     <div className="profile-container">
@@ -159,7 +177,7 @@ const MyProfile = () => {
       <div className="profile-header">
         <img
           className="profile-avatar"
-          src={previewPic || user.profilePic || Profile1}
+          src={previewPic || userState.profilePic || Profile1}
           alt="Profile"
         />
         <div className="profile-details">
@@ -204,10 +222,10 @@ const MyProfile = () => {
             </>
           ) : (
             <>
-              <div className="profile-username">{user.username}</div>
-              <div className="profile-email">{user.email}</div>
-              <div className="profile-userid">User ID: {user.id || user._id}</div>
-              <div className="profile-role">Role: {user.role || "customer"}</div>
+              <div className="profile-username">{userState.username}</div>
+              <div className="profile-email">{userState.email}</div>
+              <div className="profile-userid">User ID: {userState.id || userState._id}</div>
+              <div className="profile-role">Role: {userState.role || "customer"}</div>
               <button className="auth-button" onClick={() => setEditMode(true)}>Edit Profile</button>
               {/* Removed Log out and Admin Form buttons */}
             </>
@@ -232,11 +250,28 @@ const MyProfile = () => {
                   <div className="comment-username">{comment.username || "Unknown"}</div>
                   <div>{comment.comment}</div>
                   <div className="comment-timestamp">
-                    {comment.timestamp ? new Date(comment.timestamp).toLocaleString() : ""}
+                    {comment.timestamp || ""}
                   </div>
                   <div className="comment-rating">
                     Rating: {comment.rating}
                   </div>
+                  {(comment.itemTitle || comment.itemImageUrl) && (
+                    <div className="comment-product-container">
+                      {comment.itemImageUrl && (
+                        <div className="comment-item-image">
+                          <img
+                            src={comment.itemImageUrl}
+                            alt={comment.itemTitle || "Product"}
+                          />
+                        </div>
+                      )}
+                      {comment.itemTitle && (
+                        <div className="comment-item-title">
+                          Product: {comment.itemTitle}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))
