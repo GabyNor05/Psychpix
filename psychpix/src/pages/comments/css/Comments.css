@@ -1,0 +1,14 @@
+.CommentsDisplaySection{
+    background: wheat;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.comment-item{
+    background: rgb(117, 117, 117);
+    width: 80%;
+    margin: 32px auto;
+    border-radius: 12px;
+    padding: 16px;
+}

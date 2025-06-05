@@ -12,6 +12,7 @@ import SignUpStep2 from './pages/SignUpStep2/SignUpSteo2';
 import LogInStep2 from './pages/loginstep2/LogInStep2';
 import Stocklist from './pages/admin/Stocklist';
 import Profile from './pages/profile/Profile';
+import Comments from './pages/comments/Comments';
 
 function AppContent() {
   const location = useLocation();
@@ -37,6 +38,7 @@ function AppContent() {
         <Route path="/signupstep2" element={<SignUpStep2 />} />
         <Route path="/loginstep2" element={<LogInStep2 />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/comments" element={<Comments />} />
         {/* Add more routes as needed */}
       </Routes>
     </>

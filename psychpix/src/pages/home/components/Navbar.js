@@ -200,6 +200,23 @@ function Navbar() {
                     >
                       Stocklist
                     </button>
+                    <button
+                      className="dropdown-item"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        padding: "10px 20px",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => {
+                        setShowProfileMenu(false);
+                        navigate("/comments");
+                      }}
+                    >
+                      Flagged Comments
+                    </button>
                   </>
                 )}
                 <button
