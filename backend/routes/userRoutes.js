@@ -149,6 +149,8 @@ router.get('/admin/some-data', authenticateJWT, requireAdmin, (req, res) => {
   res.json({ secret: "admin stuff" });
 });
 
+
+
 module.exports = router; // Export the router for use in the main app
 
 
