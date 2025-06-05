@@ -1,14 +1,19 @@
 import React from "react";
 import "../css/About.css";
-import logo from "../../logo.png";
-import choose from "./profile4.webp"; // Assuming you have a logo image
-import contact from "./profile7.webp"; // Assuming you have a contact image
+import psych from "./psych.jpg";
+import choose from "./choose.jpg";
+import contact from "./contact.jpg";
+import { Envelope } from "@phosphor-icons/react"; 
+import { InstagramLogo} from "@phosphor-icons/react"; 
+import { TiktokLogo } from "@phosphor-icons/react"; 
+import { YoutubeLogo } from "@phosphor-icons/react"; 
+import { XLogo } from "@phosphor-icons/react"; 
 
 function AboutInfo() {
   return (
     <div className="about-container">
       <div className="about-row">
-        <img src={logo} alt="Psychedelic Pixels Logo" className="about-logo" />
+        <img src={psych} alt="Psychedelic Pixels Logo" className="about-logo" />
         <div>
           <h1>About Psychedelic Pixels</h1>
           <p>
@@ -31,11 +36,13 @@ function AboutInfo() {
       <div className="about-row">
         <img src={contact} alt="Contact Icon" className="about-logo" />
         <div>
-          <h1>Our Location & Contact</h1>
+          <h1>Contact Us</h1>
           <p>
-            ✉️ Email us at: <a href="mailto:contact@psychedelicpixels.com">contact@psychedelicpixels.com</a><br />
-            📱 Follow us on Instagram: <a href="https://instagram.com/psychedelicpixels">@psychedelicpixels</a><br />
-            We're always here to connect and collaborate.
+            <Envelope className="about-icon" size={24} color="#030303" weight="light" /> Email us at: <a href="mailto:contact@psychedelicpixels.com">contact@psychedelicpixels.com</a><br />
+            <InstagramLogo className="about-icon" size={24} color="#030303" weight="light" /> Follow us on Instagram: <a href="https://instagram.com/psychedelicpixels">@psychedelicpixels</a><br />
+            <TiktokLogo className="about-icon" size={24} color="#030303" weight="light" /> Check out our TikTok: <a href="https://tiktok.com/@psychedelicpixels">@psychedelicpixels</a><br />
+            <YoutubeLogo className="about-icon" size={24} color="#030303" weight="light" /> Subscribe on YouTube: <a href="https://youtube.com/@psychedelicpixels">@psychedelicpixels</a><br />
+            <XLogo className="about-icon" size={24} color="#030303" weight="light" /> Follow us on X: <a href="https://x.com/psychedelicpixels">@psychedelicpixels</a><br />
           </p>
         </div>
       </div>
