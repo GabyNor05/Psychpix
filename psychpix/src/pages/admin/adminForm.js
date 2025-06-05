@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './admin.css';
 import { useNavigate } from 'react-router-dom';
+import { FiEye } from 'react-icons/fi';
 
 
 const AdminForm = () => {
@@ -181,7 +182,18 @@ const AdminForm = () => {
                     <label>Upload Image:</label>
                     <input type="file" name="image" accept="image/*" onChange={handleChange} />
                 </div>
-                <button type="submit">Submit</button>   
+                <div className='admin-button-container'>
+                    <div></div>
+                    <div><button type="submit">Submit</button> </div>
+                    <div><span className='admin-eye-btn'
+                    type="button"
+                    style={{ marginBottom: '20px' }}
+                    onClick={() => navigate('/stocklist')}>
+                    View Stocklist <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
+                    </span></div>
+                    
+                </div>
+                
             </form>
 
             <div>
@@ -196,15 +208,23 @@ const AdminForm = () => {
                 ))}
             </div>
 
-             <button
+             <span className='admin-eye-btn'
                 type="button"
                 style={{ marginBottom: '20px' }}
                 onClick={() => navigate('/stocklist')}
             >
-                Go to Stocklist
-            </button>
+                View Stocklist <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
+            </span>
         </div>
     );
 };
 
 export default AdminForm;
+
+/* <span
+                  className="admin-eye-btn"
+                  onClick={() => setShowAccordion(!showAccordion)}
+                  title={showAccordion ? "Hide details" : "Show details"}
+                >
+                Details <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
+              </span> */

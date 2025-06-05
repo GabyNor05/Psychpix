@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ItemCard from "./components/itemCard";
 import OrderSummary from "./components/OrderSummary";
+import "./css/cart.css";
 
 function Cart() {
   const navigate = useNavigate();
@@ -12,20 +13,47 @@ function Cart() {
     setCartItems(cart);
   }, []);
 
+  const handleRemove = (id) => {
+    const updatedCart = cartItems.filter(item => item._id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+  const handleClearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cart");
+  }
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const handleCheckout = async () => {
+    console.log("Checkout clicked");
+    try {
+      const response = await fetch("http://localhost:5000/api/cart/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ items: cartItems }),
+      });
+      if (response.ok) {
+        alert("Checkout successful! Stock updated.");
+        setCartItems([]);
+        localStorage.removeItem("cart");
+        // Optionally navigate to a success page
+      } else {
+        const data = await response.json();
+        alert("Checkout failed: " + (data.message || "Unknown error"));
+      }
+    } catch (err) {
+      alert("Checkout error: " + err.message);
+    }
+  };
+
   return (
-    <div style={{ display: "flex", gap: 40, maxWidth: 1200, margin: "40px auto" }}>
+    <div className = "cart-container" >
       <div style={{ flex: 2 }}>
-        <h2>Your Cart</h2>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr 120px",
-          fontWeight: "bold",
-          borderBottom: "2px solid #eee",
-          padding: "16px",
-          marginBottom: 12
-        }}>
+        <h2 className="domine-Label">Your Cart</h2>
+        <div className = "heading-row" >
           <div>Product</div>
           <div>Price</div>
           <div>Quantity</div>
@@ -33,18 +61,14 @@ function Cart() {
           <div></div>
         </div>
         {cartItems.map(item => (
-          <ItemCard key={item._id} item={item} />
+          <ItemCard key={item._id} item={item} onRemove={handleRemove} />
         ))}
-        <button
-          type="button"
-          style={{ marginTop: '20px' }}
-          onClick={() => navigate('/adminForm')}
-        >
-          Go to Stocklist
+        <button className="continue-shopping-button" type="button" onClick={() => navigate('/discover')}>
+          Continue Shopping
         </button>
       </div>
       {/* Order Summary (Right) */}
-      <OrderSummary total={total} />
+      <OrderSummary total={total} onCheckout={handleCheckout}/>
     </div>
   );
 }
