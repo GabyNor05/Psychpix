@@ -26,7 +26,6 @@
   gap: 2rem;
   width: 90%;
   margin: 2rem auto;
-  
   padding: 40px 12px;
   text-align: left;
 }
@@ -37,9 +36,10 @@
 
 .about-logo {
   width: 100%;
-  max-width: 250px;
+  max-width: 500px;
   display: block;
   margin: 0 1.5rem 0 0;
+  border-radius: 20px;
 }
 
 .about-row.reverse .about-logo {
@@ -56,6 +56,11 @@
   font-size: 19px;
   line-height: 1.6;
   text-align: center;
+}
+
+.about-icon {
+  vertical-align: middle;
+  margin-bottom: 3px;
 }
 
 /* Responsive: stack image on top for small screens */
