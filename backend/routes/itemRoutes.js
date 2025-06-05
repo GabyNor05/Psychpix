@@ -85,6 +85,32 @@ router.put('/:id/comments', async (req, res) => {
     }
 });
 
+router.put('/:id/commentsId', async (req, res) => {
+  try {
+      const item = await Item.findById(req.params.id);
+      if (!item) {
+        console.log('Item not found');
+        return res.status(404).json({ message: 'Item not found' });
+      }
+
+      const commentIdToRemove = req.body.commentId;
+      if (!commentIdToRemove) {
+        return res.status(400).json({ message: 'Missing commentId in body' });
+      }
+
+      const index = item.commentsId.indexOf(commentIdToRemove);
+      if (index > -1) {
+        item.commentsId.splice(index, 1);
+        await item.save();
+        res.status(200).json({ message: 'Comment removed from item!', item });
+    } else {
+      res.status(404).json({ message: 'CommentId not found in item' });
+    }
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 // PUT route to update an item by ID
 router.put('/:id', upload.single('image'), async (req, res) => {
   console.log(req.body);
