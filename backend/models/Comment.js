@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const UserReplySchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  timestamp: { type: Date },
+  comment: { type: String, required: true },
+  likes: { type: Number },
+  flags: { type: Number },
+});
+
 const CommentSchema = new mongoose.Schema({
   comment: { type: String, required: true },
   rating: { type: Number, required: true },

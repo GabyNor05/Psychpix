@@ -7,6 +7,19 @@ function UserComment( {data} ){
     const [inputText, setInputText] = useState('');
     const [currentUserData, SetUserData] = useState(null);
     const [isLiked, toggleLikeState] = useState(false);
+    const [showReply, toggleReplyState] = useState(false);
+
+    // useEffect(() => {
+    //     function handleClickOutside(event) {
+    //       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+    //         setShowProfileMenu(false);
+    //       }
+    //     }
+    //     if (showProfileMenu) {
+    //       document.addEventListener("mousedown", handleClickOutside);
+    //     }
+    //     return () => document.removeEventListener("mousedown", handleClickOutside);
+    //   }, [showProfileMenu]);
     
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
@@ -80,6 +93,12 @@ function UserComment( {data} ){
         }
     }
 
+    let repliesData = [{
+        userProfilePic: userData.profilePic,
+        userName: userData.username,
+        userComment: commentData.comment
+    }]
+
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
@@ -100,14 +119,14 @@ function UserComment( {data} ){
                             <h6 className="jost-light">{likes}</h6>
                         </div>
                         <div>
-                            <ArrowUUpLeftIcon className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF'}} size={42} weight="light" />
+                            <ArrowUUpLeftIcon onClick={() => toggleReplyState(!showReply)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF', color: showReply? '#5555FF' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight="light" />
                         </div>
                         <div>
                             <MegaphoneIcon onClick={() => addReport()} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0000'}} size={42} weight="light" />
                         </div>
                     </div>
 
-                    <div className='replyInputContainer' style={{ height: '0' }}>
+                    <div className='replyInputContainer' style={{ height: showReply? '100%' : 0 , paddingTop: '32px'}}>
                         <form id='commentForm'>
                             <input className='CommentInput' placeholder="My experience was.. " name="Comment" onChange={handleChange} value={inputText}>
                             
@@ -121,13 +140,13 @@ function UserComment( {data} ){
                     </div>
                 </div>    
             </div> 
-            {/* <div style={{gridArea: 'userReply', display: 'none'}}>
-                {userReplies.map((item, index) => {
+            <div style={{gridArea: 'userReply', display: 'block'}}>
+                {repliesData.map((item, index) => {
                     return(
-                        <UserReplies key={index} userProfilePic={item.userProfilePic} userName={item.userName} userComment={item.userComment} />
+                        <UserReplies key={index} data={repliesData[0]} />
                     );
                 })}
-            </div> */}
+            </div>
         </div>
     )
 }
