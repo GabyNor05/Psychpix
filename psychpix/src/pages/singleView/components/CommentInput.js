@@ -32,17 +32,44 @@ function CommentInput( callback ){
         setInputText(event.target.value); // stores the text in state
     };
 
+    function formatTimestamp(dateObj) {
+        const pad = n => n < 10 ? '0' + n : n;
+        const year = dateObj.getFullYear();
+        const month = pad(dateObj.getMonth() + 1);
+        const day = pad(dateObj.getDate());
+        let hour = dateObj.getHours();
+        const min = pad(dateObj.getMinutes());
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        hour = hour % 12;
+        hour = hour ? hour : 12; // 0 should be 12
+        return `${day}/${month}/${year} ${hour}:${min} ${ampm}`;
+    }
+
     async function PostComment(commentText, userRating) {
         try {
+            // Fetch item info
+            let itemTitle = "";
+            let itemImageUrl = "";
+            if (selectedItem) {
+                const itemRes = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
+                if (itemRes.ok) {
+                    const itemData = await itemRes.json();
+                    itemTitle = itemData.title || "";
+                    itemImageUrl = itemData.imageUrl || "";
+                }
+            }
+
             const payload = {
                 comment: commentText,
                 likes: 0,
                 rating: userRating,
-                userId: userId, // always use the value from above
+                userId: userId,
                 itemId: selectedItem,
                 username: username,
                 profilePic: profilePic,
-                timestamp: new Date().toISOString() 
+                timestamp: formatTimestamp(new Date()),
+                itemTitle: itemTitle,         // <-- Add this
+                itemImageUrl: itemImageUrl    // <-- Add this
             };
 
             const response = await fetch('http://localhost:5000/api/comments', {

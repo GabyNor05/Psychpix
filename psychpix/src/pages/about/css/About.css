@@ -1,30 +1,24 @@
 .about-logo {
-  width: 100%;
-  max-width: 150px;
+  width: 300px;
+  max-width: 300px;
   margin: 0 1.5rem 0 0;
   display: block;
+  border-radius: 20px;
 }
 
 .about-section.about-right .about-logo {
   margin: 0 0 0 1.5rem;
 }
 
-.about-section h1 {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-}
 
-.about-section p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
 
 .about-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  width: 90%;
+  width: 1200px;
+  max-width: 100%;
   margin: 2rem auto;
   padding: 40px 12px;
   text-align: left;
@@ -35,27 +29,53 @@
 }
 
 .about-logo {
-  width: 100%;
+  width: 500px;
   max-width: 500px;
-  display: block;
   margin: 0 1.5rem 0 0;
+  display: block;
   border-radius: 20px;
 }
+.about-logoMain {
+  width: 500px;
+  max-width: 500px;
+  margin: 0 1.5rem 0 0;
+  display: block;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+
 
 .about-row.reverse .about-logo {
   margin: 0 0 0 1.5rem;
 }
 
 .about-row h1 {
-  font-size: 30px;
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  text-align: left;
+  font-family: "Domine", serif;
+  letter-spacing: 6px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.411);
+}
+
+.about-container h2 {
+  font-size: 50px;
+  font-weight: 700;
   margin-bottom: 0.75rem;
   text-align: center;
+  font-family: "Domine", serif;
+  letter-spacing: 6px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.411);
+  padding-top: 50px;
 }
 
 .about-row p {
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.6;
-  text-align: center;
+  text-align: left;
+  font-family: 'jost-regular', sans-serif;
 }
 
 .about-icon {
@@ -64,18 +84,16 @@
 }
 
 /* Responsive: stack image on top for small screens */
-@media screen and (max-width: 700px) {
-  .about-section,
-  .about-section.about-left,
-  .about-section.about-right,
+@media screen and (max-width: 1050px) {
   .about-row,
   .about-row.reverse {
+    width: 98%;
     flex-direction: column !important;
-    text-align: center;
+    text-align: left;
     gap: 1rem;
   }
   .about-logo {
-    margin: 0 auto 1rem auto !important;
+    margin: 0 0 1rem 0 !important;
   }
 }
 

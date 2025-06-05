@@ -3,11 +3,8 @@ const router = express.Router();
 const Comment = require('../models/Comment');
 
 router.post('/', async (req, res) => {
-  console.log('Received body:', req.body);
-
   try {
-    // Add timestamp here
-    const { comment, likes, rating, userId, itemId, username, profilePic, timestamp } = req.body;
+    const { comment, likes, rating, userId, itemId, username, profilePic, timestamp, itemTitle, itemImageUrl } = req.body;
     const newComment = new Comment({
       comment,
       likes,
@@ -17,7 +14,9 @@ router.post('/', async (req, res) => {
       username,
       flags: 0,
       profilePic,
-      timestamp, // Now this will be defined
+      timestamp,
+      itemTitle,     
+      itemImageUrl    
     });
     const savedComment = await newComment.save();
     res.json(savedComment);

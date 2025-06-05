@@ -118,8 +118,8 @@ function Navbar() {
                   src={user.profilePic}
                   alt="Profile"
                   style={{
-                    width: 40,
-                    height: 40,
+                    width: 50, 
+                    height: 50, 
                     borderRadius: "50%",
                     objectFit: "cover",
                     marginRight: 4,
@@ -127,7 +127,7 @@ function Navbar() {
                   }}
                 />
               ) : (
-                <UserCircleIcon size={40} weight="fill" />
+                <UserCircleIcon size={50} weight="fill" /> 
               )}
             </div>
             {showProfileMenu && (

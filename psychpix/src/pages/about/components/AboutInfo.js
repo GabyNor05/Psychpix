@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/About.css";
-import psych from "./psych.jpg";
+import logo from "../../logoBlack.png";
 import choose from "./choose.jpg";
 import contact from "./contact.jpg";
 import { Envelope } from "@phosphor-icons/react"; 
@@ -12,12 +12,13 @@ import { XLogo } from "@phosphor-icons/react";
 function AboutInfo() {
   return (
     <div className="about-container">
+                  <h2>Welcome to Psychedelic Pixels!</h2>
       <div className="about-row">
-        <img src={psych} alt="Psychedelic Pixels Logo" className="about-logo" />
+        <img src={logo} alt="Psychedelic Pixels Logo" className="about-logoMain" />
         <div>
           <h1>About Psychedelic Pixels</h1>
           <p>
-            Welcome to Psychedelic Pixels!<br />
+
             Psychedelic Pixels is an e-commerce platform dedicated to showcasing and selling unconventional, surreal, and imaginative artwork. The website offers a curated selection of unique paintings, sculptures, and other artistic creations that fall outside the mainstream. Its primary purpose is to give art lovers, collectors, and curious minds a place to discover and purchase "weird art" works that are bold, thought-provoking, and unlike anything found in traditional galleries. By connecting eccentric artists with an audience that appreciates the bizarre and the extraordinary, Psychedelic Pixels celebrates creativity in its most unusual forms.
           </p>
         </div>
