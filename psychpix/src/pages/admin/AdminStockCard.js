@@ -61,91 +61,91 @@ const AdminStockCard = ({
 
   return (
     <>
-    <div className="admin-stock-card">
-      <img
-        src={imageSrc}
-        alt={title || "No Image"}
-        className="admin-stock-card-img"
-      />
-      <div className="admin-stock-card-content">
-        {editMode ? (
-          <>
-            <input name="title" value={editData.title} onChange={handleChange} />
-            <p><strong>Serial Number:</strong> <input name="serialNumber" value={editData.serialNumber} onChange={handleChange} /></p>
-            <p><strong>Creator:</strong> <input name="creator" value={editData.creator} onChange={handleChange} /></p>
-            <p><strong>Price:</strong> <input name="price" value={editData.price} onChange={handleChange} /></p>
-            <p><strong>Discount:</strong> <input name="discount" value={editData.discount} onChange={handleChange} /></p>
-            <p><strong>Description:</strong> <input name="description" value={editData.description} onChange={handleChange} /></p>
-            <p>
-              <strong>Tags:</strong>
-              {['Digital Artworks', 'Scultures', 'Paintings'].map(tag => (
-                <label key={tag} style={{ marginLeft: 8 }}>
-                  <input
-                    type="checkbox"
-                    checked={editData.tags.includes(tag)}
-                    onChange={() => handleTagChange(tag)}
-                  />
-                  {tag}
-                </label>
-              ))}
-            </p>
-            <p><strong>Stock:</strong> <input name="stock" value={editData.stock} onChange={handleChange} /></p>
-            <p><strong>Year:</strong> <input name="year" value={editData.year} onChange={handleChange} /></p>
-            <button className="admin-edit-btn" onClick={handleSave}>Save</button>
-            <button className="admin-delete-btn" onClick={() => setEditMode(false)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            <h3>{title}</h3>
-            <p><strong>Serial Number:</strong> {serialNumber}</p>
-            <p><strong>Creator:</strong> {creator}</p>
-            <p><strong>Price:</strong> R {price}</p>
-            {discount && <p><strong>Discount:</strong> {discount}%</p>}
-            <p
-              className={`description${expanded ? ' expanded' : ''}`}
-              onClick={() => setExpanded(!expanded)}
-              style={{ cursor: 'pointer', position: 'relative' }}
-              title={expanded ? "Click to collapse" : "Click to expand"}
-            >
-              <strong>Description:</strong> {description}
-              {!expanded && (
-                <span className="ellipsis-overlay">... more</span>
-              )}
-            </p>
-            <p><strong>Tags:</strong> {tags && tags.join(', ')}</p>
-            <p><strong>Stock:</strong> {stock}</p>
-            <p><strong>Year:</strong> {year}</p>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', gap: '16px'}}>
+      <div className="admin-stock-card">
+        <img
+          src={imageSrc}
+          alt={title || "No Image"}
+          className="admin-stock-card-img"
+        />
+        <div className="admin-stock-card-content">
+          {editMode ? (
+            <>
+              <input name="title" value={editData.title} onChange={handleChange} />
+              <p><strong>Serial Number:</strong> <input name="serialNumber" value={editData.serialNumber} onChange={handleChange} /></p>
+              <p><strong>Creator:</strong> <input name="creator" value={editData.creator} onChange={handleChange} /></p>
+              <p><strong>Price:</strong> <input name="price" value={editData.price} onChange={handleChange} /></p>
+              <p><strong>Discount:</strong> <input name="discount" value={editData.discount} onChange={handleChange} /></p>
+              <p><strong>Description:</strong> <input name="description" value={editData.description} onChange={handleChange} /></p>
+              <p>
+                <strong>Tags:</strong>
+                {['Digital Artworks', 'Sculptures', 'Paintings', 'African', 'Psychedelic', 'Artificial Intelligence', 'Photography', 'Galaxy'].map(tag => (
+                  <label key={tag} style={{ marginLeft: 8 }}>
+                    <input
+                      type="checkbox"
+                      checked={editData.tags.includes(tag)}
+                      onChange={() => handleTagChange(tag)}
+                    />
+                    {tag}
+                  </label>
+                ))}
+              </p>
+              <p><strong>Stock:</strong> <input name="stock" value={editData.stock} onChange={handleChange} /></p>
+              <p><strong>Year:</strong> <input name="year" value={editData.year} onChange={handleChange} /></p>
+              <button className="admin-edit-btn" onClick={handleSave}>Save</button>
+              <button className="admin-delete-btn" onClick={() => setEditMode(false)}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <h3>{title}</h3>
+              <p><strong>Serial Number:</strong> {serialNumber}</p>
+              <p><strong>Creator:</strong> {creator}</p>
+              <p><strong>Price:</strong> R {price}</p>
+              {discount && <p><strong>Discount:</strong> {discount}%</p>}
+              <p
+                className={`description${expanded ? ' expanded' : ''}`}
+                onClick={() => setExpanded(!expanded)}
+                style={{ cursor: 'pointer', position: 'relative' }}
+                title={expanded ? "Click to collapse" : "Click to expand"}
+              >
+                <strong>Description:</strong> {description}
+                {!expanded && (
+                  <span className="ellipsis-overlay">... more</span>
+                )}
+              </p>
+              <p><strong>Tags:</strong> {tags && tags.join(', ')}</p>
+              <p><strong>Stock:</strong> {stock}</p>
+              <p><strong>Year:</strong> {year}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '16px'}}>
+                  <span
+                    className="admin-edit-text-btn"
+                    onClick={() => setEditMode(true)}
+                  >
+                    <FiEdit2 style={{ marginRight: 5, verticalAlign: 'middle' }} />
+                    Edit
+                  </span>
+                  <span
+                    className="admin-delete-text-btn" style={{color:'#a83236', fontWeight: 'bold', marginLeft: 10}}
+                    
+                    onClick={onDelete}
+                  >
+                    <FiTrash2 style={{ marginRight: 5, verticalAlign: 'middle' }} />
+                    Delete
+                  </span>
+                </div>
                 <span
-                  className="admin-edit-text-btn"
-                  onClick={() => setEditMode(true)}
-                >
-                  <FiEdit2 style={{ marginRight: 5, verticalAlign: 'middle' }} />
-                  Edit
-                </span>
-                <span
-                  className="admin-delete-text-btn" style={{color:'#a83236', fontWeight: 'bold', marginLeft: 10}}
-                  
-                  onClick={onDelete}
-                >
-                  <FiTrash2 style={{ marginRight: 5, verticalAlign: 'middle' }} />
-                  Delete
+                    className="admin-eye-btn"
+                    onClick={() => setShowAccordion(!showAccordion)}
+                    title={showAccordion ? "Hide details" : "Show details"}
+                  >
+                  Details <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
                 </span>
               </div>
-              <span
-                  className="admin-eye-btn"
-                  onClick={() => setShowAccordion(!showAccordion)}
-                  title={showAccordion ? "Hide details" : "Show details"}
-                >
-                Details <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
-              </span>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
-      <div className="admin-accordion">
+      <div className="admin-accordion" style={{ height: showAccordion? '250px' : 0, padding: showAccordion? '30px 40px' : 0}}>
         <p><strong>Andy Walhal:</strong> Psychedelic Pixels is a sleek, user-friendly art website showcasing diverse talent and stunning visual works. With artist profiles, insightful blogs, and a smooth buying experience, it’s perfect for art lovers seeking inspiration, discovery, or a meaningful connection to creativity.</p>
         <p><strong>All Tags:</strong> {tags && tags.join(', ')}</p>
         <p><strong>Rating:</strong> 5.5</p>

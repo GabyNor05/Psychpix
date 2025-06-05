@@ -63,7 +63,7 @@ const Stocklist = () => {
 
   return (
     <div style={{marginTop:  '64px'}}>
-      <h2 className="domine-Label" style={{textAlign: "center"}}>Stock List</h2>
+      <h2 className="domine-Label adminPageTitle">Stock List</h2>
       {items.length === 0 && <p>No items found.</p>}
       {items.map(item => (
         <div style={{ margin: '32px 0px'}}>

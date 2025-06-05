@@ -145,14 +145,15 @@
 }
 
 .admin-accordion {
-  width: 100%;
-  max-width: 1450px;
+  width: 1500px;
   margin: auto;
-  padding: 20px;
+  padding: 30px 40px;
   background: #f8f8f8;
-  border-radius: 12px;
+  border-radius: 0px 0px 12px 12px;
   border: #91929317 solid 1px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: height 0.2s ease, padding 0.2s ease;
+  overflow: hidden;
 }
 
 .Tags{

@@ -96,7 +96,6 @@ export default function Carousel({ slides = [], Title}) {
     const navigate = useNavigate();
 
     const handleSelect = (item) => {
-        console.log(item);
         navigate('/singleItem', { state: { selectedItem: item } });
     };
 

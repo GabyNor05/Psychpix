@@ -96,7 +96,7 @@ function UserComment( {data} ){
                     </h4>
                     <div className="userInteract">
                         <div className="userHearts">
-                            <HeartIcon onClick={() => ToggleLike(isLiked)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088'}} size={42} weight={isLiked? "fill": "light"} />
+                            <HeartIcon onClick={() => ToggleLike(isLiked)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088', color: isLiked? '#FF0088' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight={isLiked? "fill": "light"} />
                             <h6 className="jost-light">{likes}</h6>
                         </div>
                         <div>

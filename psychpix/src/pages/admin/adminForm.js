@@ -94,8 +94,8 @@ const AdminForm = () => {
 
     return (
         <div>
+            <h1 className='domine-Label adminPageTitle' style={{ marginTop: '64px'}}>Admin Form</h1>
             <form className="admin-form-container" onSubmit={handleSubmit}>
-                
                 <div>
                 <label>Serial Number:</label>
                 <input type="text" name="serialNumber" value={formData.serialNumber} onChange={handleChange} required />
@@ -162,24 +162,8 @@ const AdminForm = () => {
                 </div>
                 
             </form>
-
-             <span className='admin-eye-btn'
-                type="button"
-                style={{ marginBottom: '20px' }}
-                onClick={() => navigate('/stocklist')}
-            >
-                View Stocklist <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
-            </span>
         </div>
     );
 };
 
 export default AdminForm;
-
-/* <span
-                  className="admin-eye-btn"
-                  onClick={() => setShowAccordion(!showAccordion)}
-                  title={showAccordion ? "Hide details" : "Show details"}
-                >
-                Details <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
-              </span> */

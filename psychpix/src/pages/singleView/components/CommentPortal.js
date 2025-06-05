@@ -49,7 +49,6 @@ function CommentSection()
                 }));
 
                 setComments(userComments);
-                console.log(userComments)
                 return userComments;
             }
         } catch (err) {
@@ -66,6 +65,7 @@ function CommentSection()
 
     return (
         <div className="CommentSection">
+            <h1 className='domine-Label CommentSectionTitle'>Reviews</h1>
             <div className='CommentScroll'>
                 {comments.length === 0 ? (
                     <DefaultCommentState />

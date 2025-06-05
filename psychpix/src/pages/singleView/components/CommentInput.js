@@ -102,7 +102,7 @@ function CommentInput( callback ){
 
             if (ItemResponse.ok) {
                 alert('Item saved!');
-                callback();
+                callback(ItemResponse);
             } else {
                 const errorText = await ItemResponse.text();
                 alert(errorText);

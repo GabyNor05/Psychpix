@@ -8,7 +8,6 @@ function DisplayFlaggedComments(){
     const navigate = useNavigate();
     const [TotalComments, setTotalComments] = useState(0);
     const handleSelect = (item) => {
-        console.log(item);
         navigate('/singleItem', { state: { selectedItem: item } });
     };
 
@@ -36,7 +35,6 @@ function DisplayFlaggedComments(){
             flaggedComments: flaggedComments,
             products: commentItems,
         }
-        console.log(payload);
 
         return payload; 
     } catch (error) {
@@ -68,7 +66,6 @@ function DisplayFlaggedComments(){
     useEffect(() => {
         const getComments = async () => {
             const comments = await fetchFlaggedComments();
-            console.log(comments);
             setComments(comments);
         };
         getComments();
@@ -98,13 +95,13 @@ function DisplayFlaggedComments(){
     return(
         <>
             <div className="CommentsDisplaySection">
-                <h2 className="domine-Label">Flagged Comments</h2>
+                <h2 className="domine-Label adminPageTitle">Flagged Comments</h2>
                 <div>
                     {flaggedComments.flaggedComments.length === 0 ? (
                     <>No comments yet.</>
                     ) : (
                     flaggedComments.flaggedComments.map((comment, index) => (
-                        <div key={comment._id} className="comment-item">
+                        <div key={comment._id} className="comment-item jost-regular">
                             <div style={{ display: 'grid'}}>
                                 <img className="CommentUserPic" src={comment.profilePic || Profile1} alt="Profile"/>
                                 <span onClick={() => removeComment(comment._id)} style={{ alignSelf: 'end', display: 'flex', fontSize: '24px', cursor: 'pointer'}}><FiTrash2 style={{ alignSelf: 'end', paddingRight: '8px', color: '#CC0000'}} /><h4> Remove</h4></span>
