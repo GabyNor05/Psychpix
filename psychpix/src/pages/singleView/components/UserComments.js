@@ -49,9 +49,50 @@ function UserComment( {data} ){
     }
 
     let commentID = commentData._id;
-    let timeAgo = Date.parse(commentData.timestamp);
-    const timeNow = Date.now();
-    const timeDifference = timeNow - timeAgo;
+
+    function parseDDMMYYYY(dateStr) {
+        if (typeof dateStr !== 'string') {
+            console.warn("Invalid date string:", dateStr);
+            return new Date(NaN); // invalid date
+        }
+
+        const parts = dateStr.split('/');
+        if (parts.length < 3) {
+            console.warn("Unexpected date format:", dateStr);
+            return new Date(NaN);
+        }
+
+        const [day, month, rest] = parts;
+        if (!rest) {
+            console.warn("Missing year/time portion:", dateStr);
+            return new Date(NaN);
+        }
+
+        const restParts = rest.trim().split(' ');
+        if (restParts.length < 3) {
+            console.warn("Expected 'YYYY hh:mm AM/PM' format, got:", rest);
+            return new Date(NaN);
+        }
+
+        const [year, time, meridiem] = restParts;
+        const [hourStr, minuteStr] = time.split(':');
+
+        let hour = parseInt(hourStr, 10);
+        const minute = parseInt(minuteStr, 10);
+
+        if (meridiem === 'PM' && hour !== 12) hour += 12;
+        if (meridiem === 'AM' && hour === 12) hour = 0;
+
+        const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00`;
+
+        return new Date(isoString);
+    }
+
+
+    const timestamp = parseDDMMYYYY(commentData.timestamp); 
+    const now = new Date();
+
+    const msAgo = Math.abs(now.getTime() - timestamp.getTime());
 
     function TimeAgo(msAgo) {
         const seconds = Math.floor(msAgo / 1000);
@@ -65,7 +106,7 @@ function UserComment( {data} ){
         return `${days} day${days !== 1 ? 's' : ''} ago`;
     }
 
-    let currentTimeAgo = TimeAgo(timeDifference);
+    const currentTimeAgo = TimeAgo(msAgo);
     
     async function ToggleLike(){
         toggleLikeState(!isLiked);
@@ -102,7 +143,7 @@ function UserComment( {data} ){
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
-                <img className='CommentProfilePic' src={userData.profilePic} style={{gridArea: 'userPic'}}/>
+                <img className='CommentProfilePic' src={userData.username === "Guest" ? `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg` : userData.profilePic} style={{gridArea: 'userPic'}}/>
                 <h1 className='domine-Label m-0' style={{gridArea: 'userName'}}>{userData.username}</h1>
                 <h5 className="jost-light userTimeStamp" style={{gridArea: 'userTimeStamp'}}>{currentTimeAgo}</h5>
                 <div className='StarRatingBlock' style={{gridArea: 'userRating', fontSize: 'clamp(20px, 4vw, 42px)'}}>

@@ -5,7 +5,7 @@ import Rating from './Rating';
 import { useLocation } from 'react-router-dom';
 
 // Get default profile image if user is not logged in or has no profilePic
-import DefaultProfilePic from '../images/pfp.webp';
+let DefaultProfilePic = `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg`
 
 function CommentInput( callback ){
     const location = useLocation();
@@ -16,7 +16,7 @@ function CommentInput( callback ){
     // Get user info from sessionStorage ONCE
     let username = "Guest";
     let profilePic = DefaultProfilePic;
-    let userId = '6838c46ed8607af2f8846e9c'; // fallback
+    let userId = '6841edbdaf8a2cf16b83becc'; // fallback
     try {
         const user = JSON.parse(sessionStorage.getItem("user"));
         if (user) {
@@ -91,7 +91,8 @@ function CommentInput( callback ){
             }
 
             const idBody = {
-                commentId: currentComment._id
+                rating: userRating,
+                commentId: currentComment._id,
             };
 
             const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}/comments`, {

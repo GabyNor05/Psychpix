@@ -237,7 +237,6 @@
 }
 
 .profile-comment-item-details .comment-product-container {
-  margin-top: 12px;
   padding: 10px 12px;
   background: #00000009;
   border-radius: 10px;
@@ -247,6 +246,35 @@
   gap: 16px;
   justify-content: flex-start;
   box-shadow: 8px 8px 8px #0001;
+}
+
+.comment-product-container{
+  margin-left: 24px;
+  transition: transform 250ms cubic-bezier(0.54, 0, 0.5, 1.7);
+}
+
+.comment-product-container:hover{
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.comment-item-wrapper{
+  margin-top: 12px;
+}
+
+.comment-item-wrapper::before{
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  border-radius: 12px;
+  background: #0e3964;
+  transition: background 0.2s ease;
+  left: 0;
+}
+
+.comment-item-wrapper:hover::before{
+  background: #4a82b9;
 }
 
 .profile-comment-item-details > div:nth-child(2) {

@@ -12,7 +12,7 @@ function Rating({userRating, setUserRating, canRate = true}){
         for (let i = 0; i < 5; i++) {
             stars.push(
                 <span key={i}>
-                    <Star size={42} weight={i < userRating ? "fill" : "light"} onClick={() => {handleRatingClick(i)}} style={{ cursor: 'pointer'}}/>
+                    <Star size={42} weight={i < userRating ? "fill" : "light"} onClick={() => {handleRatingClick(i)}} style={{ cursor: canRate? 'pointer' : 'default'}}/>
                 </span>
             );
         }

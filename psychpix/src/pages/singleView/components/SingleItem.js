@@ -1,6 +1,6 @@
 import lineSquare from '../../_GeneralComponents/icons/lilsquare.png';
 import { XIcon } from '@phosphor-icons/react';
-import { GetItemsData } from '../../../ItemsData';
+import Rating from './Rating';
 import { useState, useEffect, useRef } from 'react';
 import { useLocation,  useNavigate} from 'react-router-dom';
 import WoodFrame from '../images/woodFrame.jpg';
@@ -188,6 +188,7 @@ function SingleItemSelection()
                                 <h1 className='jost-light'>R {FormatPrice(ItemData.price * (1 - (ItemData.discount / 100)))}</h1>
                             </div>
                             ) : (<h1 className='jost-light'>R {FormatPrice(ItemData.price)}</h1>)}
+                        <Rating userRating={ItemData.rating} canRate={false} />
                         <h5 className='jost-light'>{ItemData.commentsId.length} reviews</h5>
                         
                         <div style={{ position: 'relative', borderBottom: '4px solid', marginBottom: '16px'}}>

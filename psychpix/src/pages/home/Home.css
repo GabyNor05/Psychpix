@@ -7,6 +7,21 @@ footer{
 .box{
     background-color: hsl(0, 0%, 7%);
     border-radius: 24px;
+    transition: transform 0.2s ease;
+}
+
+.nav-search-container{
+    overflow: hidden;
+    width: 48px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.nav-search-container input{
+    flex-shrink: 1;
+    width: 0px;
+    border: none;
+    padding: 0;
 }
 
 .box:hover{

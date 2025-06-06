@@ -7,7 +7,7 @@ function UserCommentReplies( {data} ){
         
             <div className="UserReplyBlock">
                 <img className='lineSquareTL' src={lineSquare} alt='lilSquare'/>
-                <img className='CommentProfilePic' src={data.userProfilePic} style={{gridArea: 'userPic'}}/>
+                <img className='CommentProfilePic' src={data.userName === "Guest"? `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg` : data.userProfilePic} style={{gridArea: 'userPic'}}/>
                 <h1 className='domine-Label m-0' style={{gridArea: 'userName', alignSelf: 'center'}}>{data.userName}</h1>
                 <h5 className="jost-light userTimeStamp" style={{gridArea: 'userTimeStamp'}}>{Math.floor(Math.random() * 24)}h ago</h5>
 

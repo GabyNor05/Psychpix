@@ -22,6 +22,8 @@ router.post('/', async (req, res) => {
       tags: tags,
       stock: Number(req.body.stock),
       year: Number(req.body.year),
+      rating: 0,
+      ratingAmount: 0,
       discount: req.body.discount ? Number(req.body.discount) : undefined,
       imageUrl: req.body.imageUrl,
     });
@@ -73,11 +75,35 @@ router.put('/:id/comments', async (req, res) => {
       }
 
       const newCommentId = req.body.commentId;
-      if (!newCommentId) {
-        return res.status(400).json({ message: 'Missing commentId in body' });
+      const totalRating = (item.rating || 0) + Number(req.body.rating);
+      const totalAmount = (item.ratingAmount || 0) + 1;
+      const newRating = totalRating / totalAmount;
+      if (!newCommentId || !newRating) {
+        return res.status(400).json({ message: 'Missing parameters in body' });
       }
 
       item.commentsId.push(newCommentId);
+      item.rating = newRating;
+      item.ratingAmount += 1;
+      await item.save();
+      res.status(201).json({ message: 'Comment added on item!', item });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+router.put('/:id/rating', async (req, res) => {
+  try {
+      const item = await Item.findById(req.params.id);
+      if (!item) {
+        console.log('Item not found');
+        return res.status(404).json({ message: 'Item not found' });
+      }
+
+      const newRating = (item.rating + req.body.rating) / ratingAmount + 1;
+
+      item.rating = newRating;
+      item.ratingAmount += 1;
       await item.save();
       res.status(201).json({ message: 'Comment added on item!', item });
     } catch (err) {

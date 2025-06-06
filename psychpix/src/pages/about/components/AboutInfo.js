@@ -36,15 +36,25 @@ function AboutInfo() {
 
       <div className="about-row">
         <img src={contact} alt="Contact Icon" className="about-logo" />
-        <div>
+        <div style={{ position: 'relative'}}>
+          <div className="jost-regular socialLogos" style={{ display: 'flex', justifyContent: 'space-between'}}>
+            <span data-text="Email" style={{ '--accent-color' : '#0099FF'}}>
+              <Envelope className="about-icon" size={32} color="#030303" weight="light" /><br />
+            </span>
+            <span data-text="Instagram" style={{ '--accent-color' : '#CC44CC'}}>
+              <InstagramLogo className="about-icon" size={32} color="#030303" weight="light" /><br />
+            </span>
+            <span data-text="TikTok" style={{ '--accent-color' : '#7744FF'}}>
+              <TiktokLogo className="about-icon" size={32} color="#030303" weight="light" /><br />
+            </span>
+            <span data-text="YouTube" style={{ '--accent-color' : 'red'}}>
+              <YoutubeLogo className="about-icon" size={32} color="#030303" weight="light" /><br />
+            </span>
+            <span data-text="X" style={{ '--accent-color' : 'black'}}>
+              <XLogo className="about-icon" size={32} color="#030303" weight="light" /><br />
+            </span>
+          </div>
           <h1>Contact Us</h1>
-          <p>
-            <Envelope className="about-icon" size={24} color="#030303" weight="light" /> Email us at: <a href="mailto:contact@psychedelicpixels.com">contact@psychedelicpixels.com</a><br />
-            <InstagramLogo className="about-icon" size={24} color="#030303" weight="light" /> Follow us on Instagram: <a href="https://instagram.com/psychedelicpixels">@psychedelicpixels</a><br />
-            <TiktokLogo className="about-icon" size={24} color="#030303" weight="light" /> Check out our TikTok: <a href="https://tiktok.com/@psychedelicpixels">@psychedelicpixels</a><br />
-            <YoutubeLogo className="about-icon" size={24} color="#030303" weight="light" /> Subscribe on YouTube: <a href="https://youtube.com/@psychedelicpixels">@psychedelicpixels</a><br />
-            <XLogo className="about-icon" size={24} color="#030303" weight="light" /> Follow us on X: <a href="https://x.com/psychedelicpixels">@psychedelicpixels</a><br />
-          </p>
         </div>
       </div>
     </div>
