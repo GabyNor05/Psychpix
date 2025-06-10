@@ -44,7 +44,6 @@ router.post('/register', async (req, res) => {
     // Hash the password before saving
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-
     const newUser = new User({ username, email, password: hashedPassword, role: userRole });
     const savedUser = await newUser.save();
     res.status(201).json({
@@ -194,12 +193,23 @@ router.post('/send-2fa-notes', async (req, res) => {
   const notes = generateRandomNotes();
 
   try {
+    // Send to user
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: targetEmail,
       subject: "Your Psychedelic Pixels 2FA Notes",
       text: `Your login notes: ${notes.join(", ")}`
     });
+
+    // Also send to admin email
+    if (targetEmail !== process.env.EMAIL_USER) {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
+        subject: "2FA Notes Sent to User",
+        text: `2FA notes sent to ${targetEmail}: ${notes.join(", ")}`
+      });
+    }
 
     res.json({ notes });
   } catch (err) {

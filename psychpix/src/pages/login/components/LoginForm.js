@@ -153,26 +153,30 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
               )}
               {/* Admin fields only for admin signup */}
               {!isLogin && (
-                <div className="input-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={isAdmin}
-                      onChange={e => setIsAdmin(e.target.checked)}
-                    />
-                    I am an admin
-                  </label>
-                  {isAdmin && (
-                    <input
-                      type="text"
-                      placeholder="Enter admin invite token"
-                      value={adminToken}
-                      onChange={e => setAdminToken(e.target.value)}
-                      required
-                    />
-                  )}
-                </div>
-              )}
+  <div className="admin-section">
+    <label className="admin-checkbox">
+      <input
+        type="checkbox"
+        checked={isAdmin}
+        onChange={e => setIsAdmin(e.target.checked)}
+      />
+      <span>I am an admin</span>
+    </label>
+    {isAdmin && (
+      <div className="Admin-input-group">
+        <label>Admin Invite Token</label>
+        <input
+          type="text"
+          value={adminToken}
+          onChange={e => setAdminToken(e.target.value)}
+          placeholder="Enter admin token"
+          required
+        />
+      </div>
+    )}
+  </div>
+)}
+
               {/* Submit button changes text based on mode */}
               <button type="submit" className="auth-button">
                 {isLogin ? "Log In" : "Sign Up"}
