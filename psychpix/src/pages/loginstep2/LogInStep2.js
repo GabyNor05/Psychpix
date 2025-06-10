@@ -1,30 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Paino from "./components/paino";
 import "./css/LogInStep2.css";
 
 // LogInStep2 handles the 2-factor authentication step after username/password login
 function LogInStep2() {
-  // Get navigation and location hooks from React Router
   const location = useLocation();
   const navigate = useNavigate();
-  // Retrieve username and password from previous login step
   const { username, password } = location.state || {};
 
-  // State to store the 7 piano keys the user plays for 2FA
+  const [notes, setNotes] = useState([]);
   const [factorKeys, setFactorKeys] = useState([]);
-  // State for displaying error messages
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+
+  // Fetch user email and send notes on mount
+  useEffect(() => {
+    if (sent) return;
+    console.log("Sending login 2FA notes");
+    async function sendNotes() {
+      const res = await fetch("http://localhost:5000/api/users/send-2fa-notes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setNotes(data.notes);
+        setSent(true);
+      } else {
+        setError(data.message || "Failed to send notes to email.");
+      }
+    }
+    sendNotes();
+  }, [username, sent]);
 
   // Handles submission of the 2FA piano keys
   const handleSubmit = async () => {
-    // Require exactly 7 keys for 2FA
     if (factorKeys.length !== 7) {
-      setError("Please play exactly 7 keys for your 2-factor authentication.");
+      setError("Please play all 7 notes.");
+      return;
+    }
+    if (factorKeys.join(",") !== notes.join(",")) {
+      setError("The notes you played do not match the email notes.");
+      setFactorKeys([]);
       return;
     }
     setError("");
-    // Send username, password, and 2-factor keys to backend for login
     try {
       const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
@@ -32,25 +55,22 @@ function LogInStep2() {
         body: JSON.stringify({
           username,
           password,
-          twoFactor: factorKeys
+          twoFactor: notes
         })
       });
       if (response.ok) {
-        // Login successful, show welcome and go to home page
         const data = await response.json();
-        // Save user info in sessionStorage
         sessionStorage.setItem("user", JSON.stringify({
           username: data.user.username,
           role: data.user.role,
           email: data.user.email,
-          id: data.user.id || data.user._id, // <-- Always store as id
+          id: data.user.id || data.user._id,
           profilePic: data.user.profilePic || ""
         }));
         localStorage.setItem("token", data.token);
         alert("Login successful! Welcome, " + data.user.username);
-        navigate("/"); // Go to home page
+        navigate("/");
       } else {
-        // Show error from backend
         const data = await response.json();
         setError(data.message || "Login failed.");
       }
@@ -61,11 +81,8 @@ function LogInStep2() {
 
   return (
     <div>
-      {/* Title for 2FA step */}
-      <h2 style={{textAlign: "center"}}>2-Factor Authentication: Play your 7 keys</h2>
-      {/* Show error if present */}
+      <h2 style={{textAlign: "center"}}>2-Factor Authentication: Play the 7 notes sent to your email</h2>
       {error && <div style={{color: "red", textAlign: "center"}}>{error}</div>}
-      {/* Render the Paino component for 2FA input */}
       <Paino
         factorKeys={factorKeys}
         setFactorKeys={setFactorKeys}

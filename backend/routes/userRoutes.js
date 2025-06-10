@@ -4,11 +4,32 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { authenticateJWT, requireAdmin } = require('../middleware/auth');
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt'); // Add this at the top
+require('dotenv').config();
+
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+// Utility to generate 7 random notes
+function generateRandomNotes() {
+  const notes = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
+  let result = [];
+  for (let i = 0; i < 7; i++) {
+    result.push(notes[Math.floor(Math.random() * notes.length)]);
+  }
+  return result;
+}
 
 // Route to register a new user
 router.post('/register', async (req, res) => {
-  console.log(req.body); // <-- Add this line
-  const { username, email, password, role, adminToken, twoFactor } = req.body;
+  console.log(req.body);
+  const { username, email, password, role, adminToken } = req.body;
 
   let userRole = "customer";
   if (role === "admin") {
@@ -20,14 +41,18 @@ router.post('/register', async (req, res) => {
   }
 
   try {
-    const newUser = new User({ username, email, password, twoFactor, role: userRole });
+    // Hash the password before saving
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const newUser = new User({ username, email, password: hashedPassword, role: userRole });
     const savedUser = await newUser.save();
     res.status(201).json({
       user: {
         username: savedUser.username,
         role: savedUser.role,
         email: savedUser.email,
-        id: savedUser._id, // <-- This is correct!
+        id: savedUser._id,
         profilePic: savedUser.profilePic || ""
       }
     });
@@ -36,6 +61,26 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// Route to get current user info
+router.get('/me', async (req, res) => {
+  const username = req.query.username || req.headers['x-username'];
+  if (!username) return res.status(400).json({ message: "Username required" });
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      profilePic: user.profilePic,
+      role: user.role
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Route to get user by id
 router.get('/:id', async (req, res) => {
   try {
         const item = await User.findById(req.params.id); // Gets all users
@@ -64,8 +109,9 @@ router.post('/check', async (req, res) => {
     // Find user by username
     const user = await User.findOne({ username });
     if (!user) return res.status(401).json({ message: "User not found" });
-    // Check password
-    if (user.password !== password) return res.status(401).json({ message: "Incorrect password" });
+    // Check password using bcrypt
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) return res.status(401).json({ message: "Incorrect password" });
     // If correct, respond with success
     res.status(200).json({ message: "Credentials correct" });
   } catch (err) {
@@ -75,17 +121,14 @@ router.post('/check', async (req, res) => {
 
 // Route for 2-factor login (step 2)
 router.post('/login', async (req, res) => {
-  const { username, password, twoFactor } = req.body;
+  const { username, password } = req.body;
   try {
     // Find user by username
     const user = await User.findOne({ username });
     if (!user) return res.status(401).json({ message: "User not found" });
-    // Check password
-    if (user.password !== password) return res.status(401).json({ message: "Incorrect password" });
-    // Check 2-factor authentication (array comparison)
-    if (!twoFactor || !Array.isArray(twoFactor) || user.twoFactor.join(",") !== twoFactor.join(",")) {
-      return res.status(401).json({ message: "2-factor authentication failed" });
-    }
+    // Check password using bcrypt
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) return res.status(401).json({ message: "Incorrect password" });
     // If all checks pass, login is successful
     const token = jwt.sign(
       { id: user._id, username: user.username, role: user.role },
@@ -99,30 +142,11 @@ router.post('/login', async (req, res) => {
         role: user.role,
         email: user.email,
         id: user._id,
-        profilePic: user.profilePic // <-- Add this line
+        profilePic: user.profilePic
       }
     });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
-  }
-});
-
-// Route to get current user info
-router.get('/me', async (req, res) => {
-  const username = req.query.username || req.headers['x-username'];
-  if (!username) return res.status(400).json({ message: "Username required" });
-  try {
-    const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ message: "User not found" });
-    res.json({
-      _id: user._id, // <-- This is correct!
-      username: user.username,
-      email: user.email,
-      profilePic: user.profilePic,
-      role: user.role
-    });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
   }
 });
 
@@ -149,7 +173,39 @@ router.get('/admin/some-data', authenticateJWT, requireAdmin, (req, res) => {
   res.json({ secret: "admin stuff" });
 });
 
+// Route to send 2FA notes to email (supports both signup and login)
+router.post('/send-2fa-notes', async (req, res) => {
+  const { email, username } = req.body;
+  let targetEmail = email;
 
+  // If no email provided, look up by username (for login)
+  if (!targetEmail && username) {
+    const user = await User.findOne({ username });
+    if (!user || !user.email) {
+      return res.status(404).json({ message: "User not found or missing email" });
+    }
+    targetEmail = user.email;
+  }
+
+  if (!targetEmail) {
+    return res.status(400).json({ message: "Email required" });
+  }
+
+  const notes = generateRandomNotes();
+
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: targetEmail,
+      subject: "Your Psychedelic Pixels 2FA Notes",
+      text: `Your login notes: ${notes.join(", ")}`
+    });
+
+    res.json({ notes });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to send email" });
+  }
+});
 
 module.exports = router; // Export the router for use in the main app
 

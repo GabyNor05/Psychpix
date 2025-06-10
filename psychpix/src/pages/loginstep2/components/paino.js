@@ -158,7 +158,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
 
   // Instead of local displayedNotes, use factorKeys/setFactorKeys
   const clearNotes = () => {
-    setFactorKeys([]);
+    setFactorKeys(prev => prev.slice(0, -1));
   };
 
   return (

@@ -1,51 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Paino from "./components/paino";
 import "./css/SignUpStep2.css";
 
 // SignUpStep2 handles the 2-factor authentication setup during signup
 function SignUpStep2() {
-  // Get navigation and location hooks from React Router
   const location = useLocation();
   const navigate = useNavigate();
-  // Retrieve username, email, and password from previous signup step
   const { username, email, password, role, adminToken } = location.state || {};
 
-  // State to track which step the user is on (1: create, 2: confirm)
-  const [step, setStep] = useState(1);
-  // State to store the first set of 7 keys the user plays
-  const [firstKeys, setFirstKeys] = useState([]);
-  // State to store the confirmation set of 7 keys
-  const [confirmKeys, setConfirmKeys] = useState([]);
-  // State for displaying error messages
+  const [notes, setNotes] = useState([]);
+  const [factorKeys, setFactorKeys] = useState([]);
   const [error, setError] = useState("");
+  const [sent, setSent] = useState(false);
 
-  // Handles submission of the first set of keys
-  const handleFirstSubmit = () => {
-    // Require exactly 7 keys for 2FA
-    if (firstKeys.length !== 7) {
-      setError("Please select exactly 7 keys for your 2-factor authentication.");
+  // Send notes to email on component mount (only once)
+  useEffect(() => {
+    if (sent) return;
+    console.log("Sending signup 2FA notes");
+    async function sendNotes() {
+      const res = await fetch("http://localhost:5000/api/users/send-2fa-notes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setNotes(data.notes);
+        setSent(true);
+      } else {
+        setError(data.message || "Failed to send notes to email.");
+      }
+    }
+    sendNotes();
+  }, [email, sent]);
+
+  const handleSubmit = async () => {
+    if (factorKeys.length !== 7) {
+      setError("Please play all 7 notes.");
+      return;
+    }
+    if (factorKeys.join(",") !== notes.join(",")) {
+      setError("The notes you played do not match the email notes.");
+      setFactorKeys([]);
       return;
     }
     setError("");
-    setStep(2); // Move to confirmation step
-  };
-
-  // Handles submission of the confirmation set of keys
-  const handleConfirmSubmit = async () => {
-    // Require exactly 7 keys for confirmation
-    if (confirmKeys.length !== 7) {
-      setError("Please confirm by selecting exactly 7 keys.");
-      return;
-    }
-    // Check if the confirmation keys match the first set
-    if (firstKeys.join(",") !== confirmKeys.join(",")) {
-      setError("The keys you played do not match. Please try again.");
-      setConfirmKeys([]);
-      return;
-    }
-    setError("");
-    // Submit registration data (including 2FA keys) to backend
     try {
       const response = await fetch("http://localhost:5000/api/users/register", {
         method: "POST",
@@ -55,57 +55,39 @@ function SignUpStep2() {
           email,
           password,
           role,
-          adminToken,
-          twoFactor: firstKeys
+          adminToken
         })
       });
       if (response.ok) {
         const data = await response.json();
-        // Save user info in sessionStorage
         sessionStorage.setItem("user", JSON.stringify({
           username: data.user.username,
           role: data.user.role,
           email: data.user.email,
-          id: data.user.id || data.user._id, // <-- Always store as id
+          id: data.user.id || data.user._id,
           profilePic: data.user.profilePic || ""
         }));
         localStorage.setItem("token", data.token);
         alert("Signup successful! Welcome, " + data.user.username);
-        navigate("/"); // Go to home page after successful signup
+        navigate("/");
       } else {
         const data = await response.json();
-        alert("Sign up failed: " + (data.message || "Unknown error"));
+        setError(data.message || "Signup failed.");
       }
     } catch (err) {
-      alert("Sign up failed: " + err.message);
+      setError("Signup failed: " + err.message);
     }
   };
 
   return (
     <div>
-      {/* Step 1: User creates their 2FA piano key sequence */}
-      {step === 1 ? (
-        <div>
-          <h2 style={{textAlign: "center"}}>Step 1: Play your 7 piano keys</h2>
-          {error && <div style={{color: "red", textAlign: "center"}}>{error}</div>}
-          <Paino
-            factorKeys={firstKeys}
-            setFactorKeys={setFirstKeys}
-            onSubmit={handleFirstSubmit}
-          />
-        </div>
-      ) : (
-        // Step 2: User confirms their 2FA piano key sequence
-        <div>
-          <h2 style={{textAlign: "center"}}>Step 2: Confirm your 7 piano keys</h2>
-          {error && <div style={{color: "red", textAlign: "center"}}>{error}</div>}
-          <Paino
-            factorKeys={confirmKeys}
-            setFactorKeys={setConfirmKeys}
-            onSubmit={handleConfirmSubmit}
-          />
-        </div>
-      )}
+      <h2 style={{textAlign: "center"}}>Step 2: Play the 7 notes sent to your email</h2>
+      {error && <div style={{color: "red", textAlign: "center"}}>{error}</div>}
+      <Paino
+        factorKeys={factorKeys}
+        setFactorKeys={setFactorKeys}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }
