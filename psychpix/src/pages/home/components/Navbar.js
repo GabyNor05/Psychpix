@@ -65,7 +65,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navlinks text-white fs-5" style={{ display: 'flex', alignItems: 'center', width: '100%'}}>
         <img className="nav-logo" src={Logo} alt="PsychPixels" />
-        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/" data-text="Home" className="nav-link">Home</Link>
         <Link to="/discover" className="nav-link">Discover</Link>
         <Link to="/about" className="nav-link" >About</Link>
         <div style={{ marginRight: '50px', marginLeft: 'auto', display: 'flex', gap: '24px', alignItems: 'center' }}>

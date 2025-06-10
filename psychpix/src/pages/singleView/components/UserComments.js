@@ -112,6 +112,10 @@ function UserComment( {data} ){
         toggleLikeState(!isLiked);
         let addLike = !isLiked? 1 : -1;
         updateLikes(likes + addLike);
+
+        if(addLike === -1){
+            addLike = 0;
+        }
         const response = await fetch(`http://localhost:5000/api/comments/${commentID}/likes`, {
         method: 'PUT',
         headers: {
@@ -159,7 +163,7 @@ function UserComment( {data} ){
                             <HeartIcon onClick={() => ToggleLike(isLiked)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088', color: isLiked? '#FF0088' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight={isLiked? "fill": "light"} />
                             <h6 className="jost-light">{likes}</h6>
                         </div>
-                        <div>
+                        <div style={{ display: 'none'}}>
                             <ArrowUUpLeftIcon onClick={() => toggleReplyState(!showReply)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF', color: showReply? '#5555FF' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight="light" />
                         </div>
                         <div>
@@ -167,7 +171,7 @@ function UserComment( {data} ){
                         </div>
                     </div>
 
-                    <div className='replyInputContainer' style={{ height: showReply? '100%' : 0 , paddingTop: '32px'}}>
+                    <div className='replyInputContainer' style={{ height: showReply? '100px' : 0 , paddingTop: '32px'}}>
                         <form id='commentForm'>
                             <input className='CommentInput' placeholder="My experience was.. " name="Comment" onChange={handleChange} value={inputText}>
                             
@@ -181,7 +185,7 @@ function UserComment( {data} ){
                     </div>
                 </div>    
             </div> 
-            <div style={{gridArea: 'userReply', display: 'block'}}>
+            <div style={{gridArea: 'userReply', display: 'none'}}>
                 {repliesData.map((item, index) => {
                     return(
                         <UserReplies key={index} data={repliesData[0]} />

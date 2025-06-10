@@ -78,7 +78,7 @@ const AdminStockCard = ({
               <p><strong>Description:</strong> <input name="description" value={editData.description} onChange={handleChange} /></p>
               <p>
                 <strong>Tags:</strong>
-                {['Digital Artworks', 'Sculptures', 'Paintings', 'African', 'Psychedelic', 'Artificial Intelligence', 'Photography', 'Galaxy'].map(tag => (
+                {['Digital Artworks', 'Sculptures', 'Paintings', 'African', 'Psychedelic', 'Artificial Intelligence', 'Photography', 'Galaxy', 'Trending'].map(tag => (
                   <label key={tag} style={{ marginLeft: 8 }}>
                     <input
                       type="checkbox"

@@ -1,13 +1,14 @@
 footer{
     border-radius: 50px 50px 0px 0px;
-    background: #060C12;
+    background: radial-gradient(hsl(210, 48%, 10%) 20%, #060C12);
     color: white;
 }
 
 .box{
-    background-color: hsl(0, 0%, 7%);
+    background: linear-gradient(120deg, rgb(16, 28, 61), rgb(44, 15, 51));
     border-radius: 24px;
-    transition: transform 0.2s ease;
+    filter: grayscale();
+    transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .nav-search-container{
@@ -26,6 +27,7 @@ footer{
 
 .box:hover{
     transform: scale(1.02);
+    filter: none;
 }
 
 .WelcomeUser{
@@ -52,7 +54,6 @@ footer{
     justify-content: center;
     min-height: 100vh;
     padding: 64px;
-    /* background: url('../home/images/Home1.jpeg'); */
     background-size: cover;
 }
 
@@ -117,7 +118,7 @@ footer{
 }
 
 .footerSocialIcons{
-    color: wheat;
+    color: rgb(163, 234, 255);
     display: flex;
 }
 
@@ -185,11 +186,6 @@ footer{
     border-style: solid;
 }
 
-#bentoImage1{
-    background-image: url('./images/bento/bento1.jpg');
-    background-size: cover;
-}
-
 #bentoContent1{
     position: relative;
     color: white;
@@ -198,6 +194,16 @@ footer{
     margin: auto;
     text-align: center;
     letter-spacing: 4px;
+    margin-top: 128px;
+}
+
+#bentoImage1{
+    overflow: hidden;
+}
+
+#bentoImage1 img{
+    width: 100%;
+    object-fit: cover;
 }
 
 #bentoImage2{
@@ -210,7 +216,7 @@ footer{
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(black, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
+    background: linear-gradient(black 50%, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
     border-radius: inherit;
     z-index: 1;
 }
@@ -244,16 +250,8 @@ footer{
 
 #bentoImage6{
     position: relative;
-    background-image: url('./images/bento/bento6.jpg');
-    background-size: contain;
-}
-
-#bentoImage6::before{
-    content: '';
-    position: absolute;
-    background-image: linear-gradient(40deg, rgba(12, 50, 70, 0.253), rgb(22, 15, 48));
-    inset: 0;
-    border-radius: inherit;
+    background-image: url('./images/bento/Home2.jpeg');
+    background-size: cover;
 }
 
 #bentoImage7{

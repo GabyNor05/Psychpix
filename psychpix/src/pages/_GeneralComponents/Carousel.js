@@ -74,7 +74,7 @@ export default function Carousel({ slides = [], Title}) {
         }
 
         if(increments <= 1){
-            return(<div className='carouselProgress'></div>);
+            return(<></>);
         }
 
 
@@ -96,7 +96,8 @@ export default function Carousel({ slides = [], Title}) {
     const navigate = useNavigate();
 
     const handleSelect = (item) => {
-        navigate('/singleItem', { state: { selectedItem: item } });
+        navigate(`/singleItem/${item}`, { state: { selectedItem: item } });
+        window.location.reload();
     };
 
     return (

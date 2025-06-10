@@ -11,7 +11,7 @@ function CommentInput( callback ){
     const location = useLocation();
     const { selectedItem } = location.state || {};
     const [inputText, setInputText] = useState('');
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState(5);
 
     // Get user info from sessionStorage ONCE
     let username = "Guest";
