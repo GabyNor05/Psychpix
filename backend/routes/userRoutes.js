@@ -17,12 +17,24 @@ let transporter = nodemailer.createTransport({
 });
 
 // Utility to generate 7 random notes
-function generateRandomNotes() {
-  const notes = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
-  let result = [];
+function generateHarmonicMinorNotes() {
+  const chromatic = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+  const scaleFormula = [0, 2, 3, 5, 7, 8, 11]; // Harmonic minor steps
+
+  // 1. Pick a random root note
+  const rootIndex = Math.floor(Math.random() * chromatic.length);
+  const rootNote = chromatic[rootIndex];
+
+  // 2. Build harmonic minor scale from root
+  const scale = scaleFormula.map(semitone => chromatic[(rootIndex + semitone) % 12]);
+
+  // 3. Pick 7 random notes from that scale
+  const result = [];
   for (let i = 0; i < 7; i++) {
-    result.push(notes[Math.floor(Math.random() * notes.length)]);
+    const randomNote = scale[Math.floor(Math.random() * scale.length)];
+    result.push(randomNote);
   }
+
   return result;
 }
 
@@ -190,7 +202,7 @@ router.post('/send-2fa-notes', async (req, res) => {
     return res.status(400).json({ message: "Email required" });
   }
 
-  const notes = generateRandomNotes();
+  const notes = generateHarmonicMinorNotes();
 
   try {
     // Send to user

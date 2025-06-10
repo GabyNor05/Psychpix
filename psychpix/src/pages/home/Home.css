@@ -214,7 +214,7 @@ footer{
 
 #bentoImage2::before{
     content: '';
-    position: absolute;
+    position: absolute; 
     inset: 0;
     background: linear-gradient(black 50%, rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.295));
     border-radius: inherit;
