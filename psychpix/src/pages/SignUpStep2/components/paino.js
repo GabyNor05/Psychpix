@@ -158,7 +158,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
 
   // Clear all notes from the music sheet
   const clearNotes = () => {
-    setFactorKeys([]);
+    setFactorKeys(prev => prev.slice(0, -1));
   };
 
   return (

@@ -1,11 +1,11 @@
-const dotenv = require('dotenv');
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const itemRoutes = require('./routes/itemRoutes');
 const commentRoutes = require('./routes/commentRoutes');
-const cartRoutes = require('./routes/cartRoutes'); // Import cartRoutes
+const cartRoutes = require('./routes/cartRoutes');
 
 // To serve uploaded images
 
@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:3000", // your frontend origin
+  origin: "http://localhost:3000",
   credentials: true
 }));
 const PORT = process.env.PORT || 5000;

@@ -44,6 +44,7 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
         role: isAdmin ? 'admin' : 'customer',
         adminToken: isAdmin ? adminToken : undefined
       };
+      // Sign Up: go to signupstep2
       navigate("/signupstep2", { state: signupData });
     } else {
       // Login: send username & password to backend for verification (step 1)
@@ -61,6 +62,7 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
           const { username } = formData;
           localStorage.setItem("username", username);
           // Do NOT set userRole or token yet!
+          // Login: go to loginstep2
           navigate("/loginstep2", { state: { username, password: formData.password } });
         } else {
           const data = await response.json();
