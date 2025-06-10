@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ItemCard from "./components/itemCard";
 import OrderSummary from "./components/OrderSummary";
+import lineSquare from './assets/lilsquare.png';
 import "./css/cart.css";
 
 function Cart() {
@@ -52,7 +53,11 @@ function Cart() {
   return (
     <div className = "cart-container" >
       <div style={{ flex: 2 }}>
-        <h2 className="domine-Label">Your Cart</h2>
+        <div className="SectionLabels" style={{ paddingRight: '32px'}}>
+          <h2 className="domine-Label" style={{ width: 'fit-content'}}>Your Cart</h2>
+          <img className='lineSquareBR' src={lineSquare} alt='lilSquare' style={{ bottom: '-12px'}}/>
+        </div>
+        
         <div className = "heading-row" >
           <div>Product</div>
           <div>Price</div>

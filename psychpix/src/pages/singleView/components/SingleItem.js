@@ -1,36 +1,15 @@
 import lineSquare from '../../_GeneralComponents/icons/lilsquare.png';
-import { XIcon } from '@phosphor-icons/react';
-import { GetItemsData } from '../../../ItemsData';
+import { XIcon, PlusIcon, MinusIcon } from '@phosphor-icons/react';
+import Rating from './Rating';
 import { useState, useEffect, useRef } from 'react';
 import { useLocation,  useNavigate} from 'react-router-dom';
 import WoodFrame from '../images/woodFrame.jpg';
 import WoodFrame2 from '../images/WoodFrame5.jpeg';
 import WoodFrame3 from '../images/WoodFrame8.jpeg';
 
-async function GetSelectedItem(ItemID){
-    try {
-    const response = await fetch(`http://localhost:5000/api/items/${ItemID}`);
-
-    if (response.ok) {
-        const item = await response.json();
-        console.log('Item data:', item);
-        return item;
-    } else {
-        console.log(ItemID);
-        alert('Item not found');
-    }
-    } catch (err) {
-    console.error('Fetch failed:', err);
-    }
-}
-
-function SingleItemSelection()
+function SingleItemSelection({ItemData})
 {
-    const location = useLocation();
     const navigate = useNavigate();
-    const { selectedItem } = location.state || {};
-
-    const [ItemData, setItemData] = useState(null);
 
     const[CurrentWoodFrame, setWoodFrame] = useState(WoodFrame);
 
@@ -44,10 +23,6 @@ function SingleItemSelection()
 
     let frameSizes = ['XL', 'L', 'M', 'S', 'XS'];
     let frameDimensions = ['72 x 102 cm', '41 x 51 cm', '25 x 30 cm', '13 x 13 cm', '5 x 5 cm'];
-
-    useEffect(() => {
-        GetSelectedItem(selectedItem).then(data => setItemData(data)); 
-    }, []);
 
     useEffect(() => {
         const el = document.querySelector('.woodFrame');
@@ -188,6 +163,7 @@ function SingleItemSelection()
                                 <h1 className='jost-light'>R {FormatPrice(ItemData.price * (1 - (ItemData.discount / 100)))}</h1>
                             </div>
                             ) : (<h1 className='jost-light'>R {FormatPrice(ItemData.price)}</h1>)}
+                        <Rating userRating={ItemData.rating} canRate={false} />
                         <h5 className='jost-light'>{ItemData.commentsId.length} reviews</h5>
                         
                         <div style={{ position: 'relative', borderBottom: '4px solid', marginBottom: '16px'}}>
@@ -243,18 +219,18 @@ function SingleItemSelection()
                 <div className='jost-regular' style={{ alignSelf: 'flex-end'}}>
                     <div className="checkoutSection" style={{ columnCount: 1}}>
                         <div className="AddItemWrapper">
-                            <h3 className='' style={{ padding: '8px'}}>{CopiesLeft} Copies Left</h3>
+                            <h4 className='jost-regular' style={{ padding: '8px'}}>{CopiesLeft} Copies Left</h4>
                             <div className="AddItem">
-                                <button onClick={() => handleCopies(-1)}>-</button>
-                                <span>{CopiesAdded}</span>
-                                <button onClick={() => handleCopies(1)}>+</button>
+                                <button style={{'--accent-color': '#FF004422'}} onClick={() => handleCopies(-1)}><MinusIcon size={48} color="#FFFFFF" weight="bold" /></button>
+                                <span style={{ width: '64px'}}>{CopiesAdded}</span>
+                                <button style={{'--accent-color': '#0088FF22'}} onClick={() => handleCopies(1)}><PlusIcon size={48} color="#FFFFFF" weight="bold" /></button>
                             </div>
                         </div>
 
                         <div className="AddToCart">
                           <h3
                             className='jost-regular'
-                            style={{ letterSpacing: '4px', cursor: 'pointer' }}
+                            style={{ letterSpacing: '4px' }}
                             onClick={handleAddToCart}
                           >
                             Add To Cart

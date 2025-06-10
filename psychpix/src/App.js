@@ -32,7 +32,7 @@ function AppContent() {
         <Route path="/about" element={<About />} />
         <Route path="/login/*" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/singleItem" element={<SingleItem />} />
+        <Route path="/singleItem/*" element={<SingleItem />} />
         <Route path="/adminForm" element={<AdminForm />} />
         <Route path="/stocklist" element={<Stocklist />} />
         <Route path="/signupstep2" element={<SignUpStep2 />} />

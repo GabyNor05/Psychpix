@@ -57,7 +57,7 @@ function CommentSection()
     }
 
         fetchComments();
-    }, []);
+    }, [comments]);
 
     const handleNewComment = (newComment) => {
         setComments(prev => [...prev, newComment]);
@@ -66,7 +66,7 @@ function CommentSection()
     return (
         <div className="CommentSection">
             <h1 className='domine-Label CommentSectionTitle'>Reviews</h1>
-            <div className='CommentScroll'>
+            <div className='CommentScroll' style={{ height: comments.length === 0? '300px' : '800px'}}>
                 {comments.length === 0 ? (
                     <DefaultCommentState />
                 ) : (

@@ -10,6 +10,8 @@ const ItemSchema = new mongoose.Schema({
   stock: Number,
   year: Number,
   discount: Number,
+  rating: Number,
+  ratingAmount: Number,
   commentsId: [String],
   imageUrl: String // Store the image file path or URL
 });

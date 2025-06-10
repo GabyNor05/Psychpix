@@ -7,6 +7,19 @@ function UserComment( {data} ){
     const [inputText, setInputText] = useState('');
     const [currentUserData, SetUserData] = useState(null);
     const [isLiked, toggleLikeState] = useState(false);
+    const [showReply, toggleReplyState] = useState(false);
+
+    // useEffect(() => {
+    //     function handleClickOutside(event) {
+    //       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+    //         setShowProfileMenu(false);
+    //       }
+    //     }
+    //     if (showProfileMenu) {
+    //       document.addEventListener("mousedown", handleClickOutside);
+    //     }
+    //     return () => document.removeEventListener("mousedown", handleClickOutside);
+    //   }, [showProfileMenu]);
     
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
@@ -36,9 +49,50 @@ function UserComment( {data} ){
     }
 
     let commentID = commentData._id;
-    let timeAgo = Date.parse(commentData.timestamp);
-    const timeNow = Date.now();
-    const timeDifference = timeNow - timeAgo;
+
+    function parseDDMMYYYY(dateStr) {
+        if (typeof dateStr !== 'string') {
+            console.warn("Invalid date string:", dateStr);
+            return new Date(NaN); // invalid date
+        }
+
+        const parts = dateStr.split('/');
+        if (parts.length < 3) {
+            console.warn("Unexpected date format:", dateStr);
+            return new Date(NaN);
+        }
+
+        const [day, month, rest] = parts;
+        if (!rest) {
+            console.warn("Missing year/time portion:", dateStr);
+            return new Date(NaN);
+        }
+
+        const restParts = rest.trim().split(' ');
+        if (restParts.length < 3) {
+            console.warn("Expected 'YYYY hh:mm AM/PM' format, got:", rest);
+            return new Date(NaN);
+        }
+
+        const [year, time, meridiem] = restParts;
+        const [hourStr, minuteStr] = time.split(':');
+
+        let hour = parseInt(hourStr, 10);
+        const minute = parseInt(minuteStr, 10);
+
+        if (meridiem === 'PM' && hour !== 12) hour += 12;
+        if (meridiem === 'AM' && hour === 12) hour = 0;
+
+        const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00`;
+
+        return new Date(isoString);
+    }
+
+
+    const timestamp = parseDDMMYYYY(commentData.timestamp); 
+    const now = new Date();
+
+    const msAgo = Math.abs(now.getTime() - timestamp.getTime());
 
     function TimeAgo(msAgo) {
         const seconds = Math.floor(msAgo / 1000);
@@ -52,12 +106,16 @@ function UserComment( {data} ){
         return `${days} day${days !== 1 ? 's' : ''} ago`;
     }
 
-    let currentTimeAgo = TimeAgo(timeDifference);
+    const currentTimeAgo = TimeAgo(msAgo);
     
     async function ToggleLike(){
         toggleLikeState(!isLiked);
         let addLike = !isLiked? 1 : -1;
         updateLikes(likes + addLike);
+
+        if(addLike === -1){
+            addLike = 0;
+        }
         const response = await fetch(`http://localhost:5000/api/comments/${commentID}/likes`, {
         method: 'PUT',
         headers: {
@@ -80,10 +138,16 @@ function UserComment( {data} ){
         }
     }
 
+    let repliesData = [{
+        userProfilePic: userData.profilePic,
+        userName: userData.username,
+        userComment: commentData.comment
+    }]
+
     return(
         <div className="userCommentContainer">
             <div className="UserCommentBlock">
-                <img className='CommentProfilePic' src={userData.profilePic} style={{gridArea: 'userPic'}}/>
+                <img className='CommentProfilePic' src={userData.username === "Guest" ? `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg` : userData.profilePic} style={{gridArea: 'userPic'}}/>
                 <h1 className='domine-Label m-0' style={{gridArea: 'userName'}}>{userData.username}</h1>
                 <h5 className="jost-light userTimeStamp" style={{gridArea: 'userTimeStamp'}}>{currentTimeAgo}</h5>
                 <div className='StarRatingBlock' style={{gridArea: 'userRating', fontSize: 'clamp(20px, 4vw, 42px)'}}>
@@ -99,15 +163,15 @@ function UserComment( {data} ){
                             <HeartIcon onClick={() => ToggleLike(isLiked)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088', color: isLiked? '#FF0088' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight={isLiked? "fill": "light"} />
                             <h6 className="jost-light">{likes}</h6>
                         </div>
-                        <div>
-                            <ArrowUUpLeftIcon className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF'}} size={42} weight="light" />
+                        <div style={{ display: 'none'}}>
+                            <ArrowUUpLeftIcon onClick={() => toggleReplyState(!showReply)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF', color: showReply? '#5555FF' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight="light" />
                         </div>
                         <div>
                             <MegaphoneIcon onClick={() => addReport()} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0000'}} size={42} weight="light" />
                         </div>
                     </div>
 
-                    <div className='replyInputContainer' style={{ height: '0' }}>
+                    <div className='replyInputContainer' style={{ height: showReply? '100px' : 0 , paddingTop: '32px'}}>
                         <form id='commentForm'>
                             <input className='CommentInput' placeholder="My experience was.. " name="Comment" onChange={handleChange} value={inputText}>
                             
@@ -121,13 +185,13 @@ function UserComment( {data} ){
                     </div>
                 </div>    
             </div> 
-            {/* <div style={{gridArea: 'userReply', display: 'none'}}>
-                {userReplies.map((item, index) => {
+            <div style={{gridArea: 'userReply', display: 'none'}}>
+                {repliesData.map((item, index) => {
                     return(
-                        <UserReplies key={index} userProfilePic={item.userProfilePic} userName={item.userName} userComment={item.userComment} />
+                        <UserReplies key={index} data={repliesData[0]} />
                     );
                 })}
-            </div> */}
+            </div>
         </div>
     )
 }

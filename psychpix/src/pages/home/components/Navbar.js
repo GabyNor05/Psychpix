@@ -65,40 +65,17 @@ function Navbar() {
     <nav className="navbar">
       <div className="navlinks text-white fs-5" style={{ display: 'flex', alignItems: 'center', width: '100%'}}>
         <img className="nav-logo" src={Logo} alt="PsychPixels" />
-        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/" data-text="Home" className="nav-link">Home</Link>
         <Link to="/discover" className="nav-link">Discover</Link>
         <Link to="/about" className="nav-link" >About</Link>
         <div style={{ marginRight: '50px', marginLeft: 'auto', display: 'flex', gap: '24px', alignItems: 'center' }}>
           {/* Collapsible Search */}
           <div className="nav-search-container" style={{ position: 'relative' }}>
-            {showSearch ? (
-              <input
-                ref={searchRef}
-                type="text"
-                className="nav-search-input"
-                placeholder="Search..."
-                onBlur={() => setShowSearch(false)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    // Handle search logic here
-                    console.log('Searching for:', e.target.value);
-                    setShowSearch(false);
-                  }
-                }}
-              />
-            ) : (
-              <MagnifyingGlassIcon
-                weight="bold"
-                size={48}
-                className="nav-link-icon"
-                style={{ cursor: 'pointer' }}
-                onClick={() => setShowSearch(true)}
-                title="Search"
-              />
-            )}
+            <input />
+            <MagnifyingGlassIcon weight="light" size={42} className="nav-link-icon" style={{ cursor: 'pointer' }} onClick={() => setShowSearch(true)} title="Search" />
           </div>
           <Link to="/cart" className="nav-link-icon" title="Cart">
-            <ShoppingCartIcon size={48} weight="fill"/>
+            <ShoppingCartIcon size={42} weight="light"/>
           </Link>
           {/* Profile dropdown */}
           <div

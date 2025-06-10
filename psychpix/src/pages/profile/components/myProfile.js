@@ -38,6 +38,10 @@ const MyProfile = ({ user, ...props }) => {
   const [error, setError] = useState("");
   const [userComments, setUserComments] = useState([]);
 
+  const handleSelect = (item) => {
+      navigate('/singleItem', { state: { selectedItem: item } });
+  };
+
   // Fetch user info on mount
   useEffect(() => {
     const fetchUser = async () => {
@@ -225,8 +229,8 @@ const MyProfile = ({ user, ...props }) => {
               <div className="profile-username">{userState.username}</div>
               <div className="profile-email">{userState.email}</div>
               <div className="profile-userid">User ID: {userState.id || userState._id}</div>
-              <div className="profile-role">Role: {userState.role || "customer"}</div>
-              <button className="auth-button" onClick={() => setEditMode(true)}>Edit Profile</button>
+              <div className="profile-role">{userState.role || "customer"}</div>
+              <button className="auth-button" onClick={() => userState.username === "Guest"? '' : setEditMode(true)}>Edit Profile</button>
               {/* Removed Log out and Admin Form buttons */}
             </>
           )}
@@ -256,7 +260,8 @@ const MyProfile = ({ user, ...props }) => {
                     Rating: {comment.rating}
                   </div>
                   {(comment.itemTitle || comment.itemImageUrl) && (
-                    <div className="comment-product-container">
+                    <div className="comment-item-wrapper" onClick={() => handleSelect(comment.itemId)} style={{ position: 'relative'}}>
+                      <div className="comment-product-container">
                       {comment.itemImageUrl && (
                         <div className="comment-item-image">
                           <img
@@ -270,6 +275,7 @@ const MyProfile = ({ user, ...props }) => {
                           Product: {comment.itemTitle}
                         </div>
                       )}
+                      </div>
                     </div>
                   )}
                 </div>

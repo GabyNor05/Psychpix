@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import Profile1 from "../../profile/assets/userprofile/profile1.jpg";
-import { FiEdit2, FiTrash2, FiEye} from 'react-icons/fi';
+import { TrashIcon, XIcon } from "@phosphor-icons/react";
 import TestImage from '../../home/images/Home1.jpeg'
 
 function DisplayFlaggedComments(){
@@ -61,6 +61,19 @@ function DisplayFlaggedComments(){
         }
     }
 
+    async function dismissComment(id){
+        const response = await fetch(`http://localhost:5000/api/comments/${id}/flags`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify({ flags: 0 })
+        });
+        if(response.ok){
+            alert('Comment Dismissed');
+        }
+    }
+
     const [flaggedComments, setComments] = useState([]);
 
     useEffect(() => {
@@ -104,7 +117,8 @@ function DisplayFlaggedComments(){
                         <div key={comment._id} className="comment-item jost-regular">
                             <div style={{ display: 'grid'}}>
                                 <img className="CommentUserPic" src={comment.profilePic || Profile1} alt="Profile"/>
-                                <span onClick={() => removeComment(comment._id)} style={{ alignSelf: 'end', display: 'flex', fontSize: '24px', cursor: 'pointer'}}><FiTrash2 style={{ alignSelf: 'end', paddingRight: '8px', color: '#CC0000'}} /><h4> Remove</h4></span>
+                                <span onClick={() => dismissComment(comment._id)} style={{ alignSelf: 'end', display: 'flex', fontSize: '24px', cursor: 'pointer'}}><XIcon size={32} color="#00AAFF" weight="bold" /><h4>Dismiss</h4></span>
+                                <span onClick={() => removeComment(comment._id)} style={{ alignSelf: 'end', display: 'flex', fontSize: '24px', cursor: 'pointer'}}><TrashIcon size={32} color="#EE0000" weight="bold" /><h4>Remove</h4></span>
                             </div>
                             
                             <div className="profile-comment-item-details CommentContent" style={{ width: '70%', paddingRight: '32px'}}>
