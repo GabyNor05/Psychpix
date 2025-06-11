@@ -73,18 +73,20 @@ router.put('/:id/comments', async (req, res) => {
         console.log('Item not found');
         return res.status(404).json({ message: 'Item not found' });
       }
-
+      
       const newCommentId = req.body.commentId;
-      const totalRating = (item.rating || 0) + Number(req.body.rating);
-      const totalAmount = (item.ratingAmount || 0) + 1;
-      const newRating = totalRating / totalAmount;
+      const newRating = Number(req.body.rating);
+      const currentTotal = item.rating * item.ratingAmount;
+      const newRatingAmount = item.ratingAmount + 1;
+      const updatedAverage = (currentTotal + newRating) / newRatingAmount;
+
       if (!newCommentId || !newRating) {
         return res.status(400).json({ message: 'Missing parameters in body' });
       }
 
       item.commentsId.push(newCommentId);
-      item.rating = newRating;
-      item.ratingAmount += 1;
+      item.rating = updatedAverage;
+      item.ratingAmount = newRatingAmount;
       await item.save();
       res.status(201).json({ message: 'Comment added on item!', item });
     } catch (err) {
