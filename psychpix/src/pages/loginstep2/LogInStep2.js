@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Paino from "./components/paino";
 import "./css/LogInStep2.css";
 
@@ -30,7 +31,7 @@ function LogInStep2() {
         setNotes(data.notes);
         setSent(true);
       } else {
-        setError(data.message || "Failed to send notes to email.");
+        toast.error(data.message || "Failed to send notes to email.");
       }
     }
     sendNotes();
@@ -39,11 +40,11 @@ function LogInStep2() {
   // Handles submission of the 2FA piano keys
   const handleSubmit = async () => {
     if (factorKeys.length !== 7) {
-      setError("Please play all 7 notes.");
+      toast.error("Please play all 7 notes.");
       return;
     }
     if (factorKeys.join(",") !== notes.join(",")) {
-      setError("The notes you played do not match the email notes.");
+      toast.error("The notes you played do not match the email notes.");
       setFactorKeys([]);
       return;
     }
@@ -68,21 +69,20 @@ function LogInStep2() {
           profilePic: data.user.profilePic || ""
         }));
         localStorage.setItem("token", data.token);
-        alert("Login successful! Welcome, " + data.user.username);
+        toast.success("Login successful! Welcome, " + data.user.username);
         navigate("/");
       } else {
         const data = await response.json();
-        setError(data.message || "Login failed.");
+        toast.error(data.message || "Login failed.");
       }
     } catch (err) {
-      setError("Login failed: " + err.message);
+      toast.error("Login failed: " + err.message);
     }
   };
 
   return (
     <div>
       <h2 style={{textAlign: "center"}}>2-Factor Authentication: Play the 7 notes sent to your email</h2>
-      {error && <div style={{color: "red", textAlign: "center"}}>{error}</div>}
       <Paino
         factorKeys={factorKeys}
         setFactorKeys={setFactorKeys}
