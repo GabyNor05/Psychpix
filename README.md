@@ -25,6 +25,7 @@
     </li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#authors">Authors</a></li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknolegments">Acknolegments</a></li>
   </ol>
 </details>
