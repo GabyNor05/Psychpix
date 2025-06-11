@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import AdminStockCard from './AdminStockCard';
 
 const Stocklist = () => {
@@ -14,7 +15,7 @@ const Stocklist = () => {
       })
       .catch(err => {
         setLoading(false);
-        alert('Failed to fetch items');
+        toast.error('Failed to fetch items');
       });
   }, []);
 
@@ -27,10 +28,10 @@ const Stocklist = () => {
       if (res.ok) {
         setItems(items.filter(item => item._id !== id));
       } else {
-        alert('Failed to delete item');
+        toast.error('Failed to delete item');
       }
     } catch (err) {
-      alert('Network error');
+      toast.error('Network error');
     }
   };
 
@@ -55,7 +56,7 @@ const Stocklist = () => {
       const newItem = await res.json();
       setItems(items => items.map(i => i._id === newItem._id ? newItem : i));
     } else {
-      alert('Failed to update item');
+      toast.error('Failed to update item');
     }
   };
 

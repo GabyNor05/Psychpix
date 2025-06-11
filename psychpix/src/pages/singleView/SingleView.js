@@ -6,6 +6,7 @@ import Footer from "../home/components/Footer";
 import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import './SingleView.css';
+import { toast } from 'react-toastify';
 
 import image1 from '../home/images/bento/bento1.jpg';
 import image2 from '../home/images/bento/bento2.jpg';
@@ -33,7 +34,7 @@ async function GetSelectedItem(ItemID){
             return item;
         } else {
             console.log(ItemID);
-            alert('Item not found');
+            toast.error('Item not found');
         }
         } catch (err) {
         console.error('Fetch failed:', err);
@@ -47,7 +48,7 @@ async function GetSelectedItem(ItemID){
         const item = await response.json();
         ImageData = item;
       } else {
-        alert('Item not found');
+        toast.error('Item not found');
       }
     } catch (err) {
       console.error('Fetch failed:', err);

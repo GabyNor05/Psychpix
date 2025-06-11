@@ -6,6 +6,7 @@ import { useLocation,  useNavigate} from 'react-router-dom';
 import WoodFrame from '../images/woodFrame.jpg';
 import WoodFrame2 from '../images/WoodFrame5.jpeg';
 import WoodFrame3 from '../images/WoodFrame8.jpeg';
+import { toast } from 'react-toastify';
 
 function SingleItemSelection({ItemData})
 {
@@ -104,7 +105,7 @@ function SingleItemSelection({ItemData})
           });
         }
         localStorage.setItem("cart", JSON.stringify(cart));
-        alert("Added to cart!");
+        toast.success("Added to cart!");
         navigate("/cart");
       }
 

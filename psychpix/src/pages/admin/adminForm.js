@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './admin.css';
 import { useNavigate } from 'react-router-dom';
 import { FiEye } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 
 const AdminForm = () => {
@@ -82,13 +83,13 @@ const AdminForm = () => {
                 body: JSON.stringify(payload),
             });
             if (response.ok) {
-                alert('Item saved!');
+                toast.success('Item saved!');
                 // Optionally reset form here
             } else {
-                alert('Error saving item');
+                toast.error('Error saving item');
             }
         } catch (err) {
-            alert('Network error');
+            toast.error('Network error');
         }
     };
 
