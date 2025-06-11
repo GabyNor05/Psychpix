@@ -56,13 +56,6 @@ function AboutInfo() {
             </span>
           </div>
           <h1>Contact Us</h1>
-          <p>
-            <Envelope className="about-icon" size={24} color="#030303" weight="light" /> Email us at: psych.pixels@gmail.com<br />
-            <InstagramLogo className="about-icon" size={24} color="#030303" weight="light" /> Follow us on Instagram: <a href="https://instagram.com/psychedelicpixels">@psychedelicpixels</a><br />
-            <TiktokLogo className="about-icon" size={24} color="#030303" weight="light" /> Check out our TikTok: <a href="https://tiktok.com/@psychedelicpixels">@psychedelicpixels</a><br />
-            <YoutubeLogo className="about-icon" size={24} color="#030303" weight="light" /> Subscribe on YouTube: <a href="https://youtube.com/@psychedelicpixels">@psychedelicpixels</a><br />
-            <XLogo className="about-icon" size={24} color="#030303" weight="light" /> Follow us on X: <a href="https://x.com/psychedelicpixels">@psychedelicpixels</a><br />
-          </p>
         </div>
       </div>
     </div>
