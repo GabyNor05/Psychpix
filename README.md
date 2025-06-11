@@ -15,7 +15,7 @@
     <li>
       <a href="#how-to-run-psychedelic-pixels">How to run Psychedelic Pixels</a>
       <ul>
-        <li><a href="#step-1:">Step 1</a></li>
+        <li><a href="#step-1">Step 1</a></li>
         <li><a href="#installation">Step 2</a></li>
         <li><a href="#installation">Step 3</a></li>
         <li><a href="#installation">Step 4</a></li>
