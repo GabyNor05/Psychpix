@@ -12,13 +12,12 @@ import { XLogo } from "@phosphor-icons/react";
 function AboutInfo() {
   return (
     <div className="about-container">
-                  <h2>Welcome to Psychedelic Pixels!</h2>
+      <h2>Welcome to Psychedelic Pixels!</h2>
       <div className="about-row">
         <img src={logo} alt="Psychedelic Pixels Logo" className="about-logoMain" />
         <div>
           <h1>About Psychedelic Pixels</h1>
           <p>
-
             Psychedelic Pixels is an e-commerce platform dedicated to showcasing and selling unconventional, surreal, and imaginative artwork. The website offers a curated selection of unique paintings, sculptures, and other artistic creations that fall outside the mainstream. Its primary purpose is to give art lovers, collectors, and curious minds a place to discover and purchase "weird art" works that are bold, thought-provoking, and unlike anything found in traditional galleries. By connecting eccentric artists with an audience that appreciates the bizarre and the extraordinary, Psychedelic Pixels celebrates creativity in its most unusual forms.
           </p>
         </div>
@@ -39,7 +38,7 @@ function AboutInfo() {
         <div>
           <h1>Contact Us</h1>
           <p>
-            <Envelope className="about-icon" size={24} color="#030303" weight="light" /> Email us at: <a href="mailto:contact@psychedelicpixels.com">contact@psychedelicpixels.com</a><br />
+            <Envelope className="about-icon" size={24} color="#030303" weight="light" /> Email us at: psych.pixels@gmail.com<br />
             <InstagramLogo className="about-icon" size={24} color="#030303" weight="light" /> Follow us on Instagram: <a href="https://instagram.com/psychedelicpixels">@psychedelicpixels</a><br />
             <TiktokLogo className="about-icon" size={24} color="#030303" weight="light" /> Check out our TikTok: <a href="https://tiktok.com/@psychedelicpixels">@psychedelicpixels</a><br />
             <YoutubeLogo className="about-icon" size={24} color="#030303" weight="light" /> Subscribe on YouTube: <a href="https://youtube.com/@psychedelicpixels">@psychedelicpixels</a><br />
