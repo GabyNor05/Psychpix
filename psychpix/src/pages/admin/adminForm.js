@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './admin.css';
 import { useNavigate } from 'react-router-dom';
 import { FiEye } from 'react-icons/fi';
@@ -19,6 +19,7 @@ const AdminForm = () => {
     });
 
      const [imageFile, setFile] = useState(null); 
+     const fileInputRef = useRef(null);
 
     const [preview, setPreview] = useState(null);
     const navigate = useNavigate();
@@ -84,7 +85,22 @@ const AdminForm = () => {
             });
             if (response.ok) {
                 toast.success('Item saved!');
-                // Optionally reset form here
+                setFormData({
+                    serialNumber: '',
+                    title: '',
+                    creator: '',
+                    price: '',
+                    description: '',
+                    tags: [],
+                    stock: '',
+                    year: '',
+                    discount: '',
+                });
+                setFile(null);
+                setPreview(null);
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = ""; // Clear the file input in the DOM
+                }
             } else {
                 toast.error('Error saving item');
             }
@@ -148,11 +164,17 @@ const AdminForm = () => {
             </div>
                 <div className='image-upload'>
                     <label>Upload Image:</label>
-                    <input type="file" name="image" accept="image/*" onChange={handleChange} />
+                    <input
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={handleChange}
+                        ref={fileInputRef}
+                    />
                 </div>
                 <div className='admin-button-container'>
                     <div></div>
-                    <div><button type="submit">Submit</button> </div>
+                    <div><button type="submit">Submit</button></div>
                     <div><span className='admin-eye-btn'
                     type="button"
                     style={{ marginBottom: '20px' }}

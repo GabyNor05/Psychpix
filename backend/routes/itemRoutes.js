@@ -3,7 +3,7 @@ const router = express.Router();
 const Item = require('../models/Product'); // Create this model as shown earlier
 const multer = require('multer');
 const upload = multer(); // for memory storage; configure as needed
-
+const { authenticateJWT  } = require('../middleware/auth'); // JWT auth middleware
 
 // POST route to handle form data and file upload
 router.post('/', async (req, res) => {
@@ -164,6 +164,27 @@ router.put('/:id', upload.single('image'), async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
+});
+
+// Decrement stock
+router.post('/items/decrement-stock', authenticateJWT, async (req, res) => {
+  const { itemId, quantity } = req.body;
+  const item = await Item.findById(itemId);
+  if (!item) return res.status(404).json({ message: "Item not found" });
+  if (item.stock < quantity) return res.status(400).json({ message: "Not enough stock" });
+  item.stock -= quantity;
+  await item.save();
+  res.json({ message: "Stock decremented" });
+});
+
+// Increment stock
+router.post('/items/increment-stock', authenticateJWT, async (req, res) => {
+  const { itemId, quantity } = req.body;
+  const item = await Item.findById(itemId);
+  if (!item) return res.status(404).json({ message: "Item not found" });
+  item.stock += quantity;
+  await item.save();
+  res.json({ message: "Stock incremented" });
 });
 
 module.exports = router;

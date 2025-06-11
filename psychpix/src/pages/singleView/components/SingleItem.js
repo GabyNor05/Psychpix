@@ -84,30 +84,46 @@ function SingleItemSelection({ItemData})
     }
 
 
-    function handleAddToCart() {
-        if (CopiesAdded < 1) {
-          alert("Please select at least one copy.");
-          return;
-        }
-        // Get existing cart or empty array
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        // Check if item already in cart
-        const existing = cart.find(item => item._id === ItemData._id);
-        if (existing) {
-          existing.quantity += CopiesAdded;
-        } else {
-          cart.push({
-            _id: ItemData._id,
-            product: ItemData.title,
-            price: ItemData.price,
-            quantity: CopiesAdded,
-            image: ItemData.imageUrl
-          });
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        toast.success("Added to cart!");
-        navigate("/cart");
+    async function handleAddToCart() {
+      if (CopiesAdded < 1) {
+        toast.error("Please select at least one copy.");
+        return;
       }
+
+      // Decrement stock in the database
+      const res = await fetch(`http://localhost:5000/api/items/items/decrement-stock`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ itemId: ItemData._id, quantity: CopiesAdded })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.message || "Failed to update stock.");
+        return;
+      }
+
+      // Update cart in localStorage
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item._id === ItemData._id);
+      if (existing) {
+        existing.quantity += CopiesAdded;
+      } else {
+        cart.push({
+          _id: ItemData._id,
+          product: ItemData.title,
+          price: ItemData.price,
+          discount: ItemData.discount, // <-- Make sure this is included!
+          quantity: CopiesAdded,
+          image: ItemData.imageUrl
+        });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      toast.success("Added to cart!");
+      navigate("/cart");
+    }
 
     return(
     <>

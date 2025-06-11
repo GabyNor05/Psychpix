@@ -15,7 +15,21 @@ function Cart() {
     setCartItems(cart);
   }, []);
 
-  const handleRemove = (id) => {
+  const handleRemove = async (id) => {
+    const itemToRemove = cartItems.find(item => item._id === id);
+    if (!itemToRemove) return;
+
+    // Increment stock in the database
+    await fetch(`http://localhost:5000/api/items/items/increment-stock`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+      body: JSON.stringify({ itemId: id, quantity: itemToRemove.quantity })
+    });
+
+    // Remove from cart in localStorage
     const updatedCart = cartItems.filter(item => item._id !== id);
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -24,7 +38,12 @@ function Cart() {
     setCartItems([]);
     localStorage.removeItem("cart");
   }
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cartItems.reduce((sum, item) => {
+    const discountedPrice = item.discount
+      ? item.price * (1 - item.discount / 100)
+      : item.price;
+    return sum + discountedPrice * item.quantity;
+  }, 0);
 
   const handleCheckout = async () => {
     console.log("Checkout clicked");
