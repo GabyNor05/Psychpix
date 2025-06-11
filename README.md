@@ -23,12 +23,9 @@
         <li><a href="##step-6">Step 6</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#authors">Authors</a></li>
+    <li><a href="#acknolegments">Acknolegments</a></li>
   </ol>
 </details>
 
@@ -96,9 +93,9 @@ Run Frontend:
 npm start
 ```
 
-## Demo Vidio
+## Demo
 
-[Link to the Demo Vidio](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
+[Link to the Demo](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
 
 ## Authors
 
