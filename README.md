@@ -103,6 +103,13 @@ npm start
   <img src="https://contrib.rocks/image?repo=GabyNor05/Psychpix" />
 </a>
 
+
+## Contact
+
+Psychedelic Pixels - psych.pixels@gmail.com
+
+Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+
 ## Acknolegments
 
 Thanks for these awesome resources that were used during the development
