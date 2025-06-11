@@ -44,10 +44,10 @@ function Cart() {
         // Optionally navigate to a success page
       } else {
         const data = await response.json();
-        toast.success("Checkout failed: " + (data.message || "Unknown error"));
+        toast.error("Checkout failed: " + (data.message || "Unknown error"));
       }
     } catch (err) {
-      toast.success("Checkout error: " + err.message);
+      toast.error("Checkout error: " + err.message);
     }
   };
 
