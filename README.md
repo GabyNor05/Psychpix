@@ -7,9 +7,9 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="# About Psychedelic Pixels">About The Project</a>
+      <a href="# About-Psychedelic-Pixels">About The Project</a>
       <ul>
-        <li><a href="## Psychedelic Pixels is Build with">Built With</a></li>
+        <li><a href="# Psychedelic-Pixels-is-Build-with">Built With</a></li>
       </ul>
     </li>
     <li>
