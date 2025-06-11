@@ -16,11 +16,11 @@
       <a href="#how-to-run-psychedelic-pixels">How to run Psychedelic Pixels</a>
       <ul>
         <li><a href="#step-1">Step 1</a></li>
-        <li><a href="##step-2">Step 2</a></li>
-        <li><a href="##step-3">Step 3</a></li>
-        <li><a href="##step-4">Step 4</a></li>
-        <li><a href="##step-5">Step 5</a></li>
-        <li><a href="##step-6">Step 6</a></li>
+        <li><a href="#step-2">Step 2</a></li>
+        <li><a href="#step-3">Step 3</a></li>
+        <li><a href="#step-4">Step 4</a></li>
+        <li><a href="#step-5">Step 5</a></li>
+        <li><a href="#step-6">Step 6</a></li>
       </ul>
     </li>
     <li><a href="#demo">Demo</a></li>
