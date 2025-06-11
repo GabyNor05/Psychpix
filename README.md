@@ -7,16 +7,20 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-psychedelic-pixels">About The Project</a>
+      <a href="#about-psychedelic-pixels">About Psychedelic Pixels</a>
       <ul>
         <li><a href="#psychedelic-pixels-is-build-with">Built With</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#how-to-run-psychedelic-pixels">How to run Psychedelic Pixels</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#step-1:">Step 1</a></li>
+        <li><a href="#installation">Step 2</a></li>
+        <li><a href="#installation">Step 3</a></li>
+        <li><a href="#installation">Step 4</a></li>
+        <li><a href="#installation">Step 5</a></li>
+        <li><a href="#installation">Step 6</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
