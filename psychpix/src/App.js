@@ -13,6 +13,8 @@ import LogInStep2 from './pages/loginstep2/LogInStep2';
 import Stocklist from './pages/admin/Stocklist';
 import Profile from './pages/profile/Profile';
 import Comments from './pages/comments/Comments';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AppContent() {
   const location = useLocation();
@@ -41,6 +43,7 @@ function AppContent() {
         <Route path="/comments" element={<Comments />} />
         {/* Add more routes as needed */}
       </Routes>
+      <ToastContainer />
     </>
   );
 }
