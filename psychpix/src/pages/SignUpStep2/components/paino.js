@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/SignUpStep2.css"; // Import CSS styles
 import LongLogo from "../../../pages/LongLogo.png"; // Logo image
 
@@ -84,6 +85,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
   const NOTES = Object.keys(audioMap); // List of all notes
   const [pressedKeys, setPressedKeys] = useState([]); // Track currently pressed keys for UI highlight
   const [infoOpen, setInfoOpen] = useState(false); // Show/hide info dropdown
+  const navigate = useNavigate();
 
   // Add a note to the factorKeys array (max 7 notes)
   const handleKey = useCallback((note) => {
@@ -156,9 +158,14 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
     };
   }, [playNote, handleKey, stopNote]);
 
-  // Clear all notes from the music sheet
+  // Clear last note (backspace)
   const clearNotes = () => {
     setFactorKeys(prev => prev.slice(0, -1));
+  };
+
+  // Go back handler
+  const handleGoBack = () => {
+    navigate("/login");
   };
 
   return (
@@ -167,8 +174,23 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
       <div className="logo-container">
         <img src={LongLogo} alt="Logo" className="logo" />
       </div>
-      <div className="auth-piano-box">
-
+      <div className="auth-piano-box" style={{ position: "relative" }}>
+        {/* Go Back Arrow in top left */}
+        <span
+          style={{
+            cursor: "pointer",
+            fontSize: "3.5rem",
+            position: "absolute",
+            left: 10,
+            top: 0,
+            zIndex: 10
+          }}
+          title="Go back"
+          onClick={handleGoBack}
+          aria-label="Go back"
+        >
+          ←
+        </span>
         {/* Info Button with Dropdown for keyboard mapping */}
         <div className={`info-dropdown-container${infoOpen ? " info-open" : ""}`}>
           {!infoOpen && (

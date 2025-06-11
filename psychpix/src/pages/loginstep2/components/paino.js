@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/LogInStep2.css"; // Import CSS styles
 import LongLogo from "../../../pages/LongLogo.png"; // Logo image
 
@@ -82,6 +83,7 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
   const NOTES = Object.keys(audioMap);
   const [pressedKeys, setPressedKeys] = useState([]);
   const [infoOpen, setInfoOpen] = useState(false);
+  const navigate = useNavigate();
 
   // --- Move these ABOVE useEffect ---
   const playNote = (note) => {
@@ -161,14 +163,33 @@ function Paino({ onBack, onSubmit, factorKeys, setFactorKeys }) {
     setFactorKeys(prev => prev.slice(0, -1));
   };
 
+  // Go back handler
+  const handleGoBack = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="login-piano-container">
-                  <div className="logo-container">
-              <img src={LongLogo} alt="Logo" className="logo" />
-            </div>
-      <div className="auth-piano-box">
-
-
+      <div className="logo-container">
+        <img src={LongLogo} alt="Logo" className="logo" />
+      </div>
+      <div className="auth-piano-box" style={{ position: "relative" }}>
+        {/* Go Back Arrow in top left */}
+        <span
+          style={{
+            cursor: "pointer",
+            fontSize: "3.5rem",
+            position: "absolute",
+            left: 10,
+            top: 0,
+            zIndex: 10
+          }}
+          title="Go back"
+          onClick={handleGoBack}
+          aria-label="Go back"
+        >
+          ←
+        </span>
         {/* Info Button with Dropdown */}
         <div className={`info-dropdown-container${infoOpen ? " info-open" : ""}`}>
           {!infoOpen && (

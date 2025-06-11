@@ -8,11 +8,11 @@ export default function Carousel({ slides = [], Title}) {
     const [progress, setProgress] = useState(0);
 
     const scrollRight = () => {
-        scrollRef.current?.scrollBy({ left: 400, behavior: 'smooth' });
+        scrollRef.current?.scrollBy({ left: 600, behavior: 'smooth' });
     };
 
     const scrollLeft = () => {
-        scrollRef.current?.scrollBy({ left: -400, behavior: 'smooth' });
+        scrollRef.current?.scrollBy({ left: -600, behavior: 'smooth' });
     };
 
     function setScroll(amount){
@@ -58,40 +58,51 @@ export default function Carousel({ slides = [], Title}) {
         }
     }
 
+    const [progressKey, setProgressKey] = useState(0);
+    const [imagesLoaded, setImagesLoaded] = useState(0);
+
+    // In the effect:
+    useEffect(() => {
+        if (imagesLoaded === slides.length && slides.length > 0) {
+            setProgressKey(k => k + 1); // force re-evaluation
+        }
+    }, [imagesLoaded, slides.length]);
+
+    const MAX_INDICATORS = 6;
+
     const progressBits = () => {
         const container = scrollRef.current;
-        if(container == null){
-            return(<div className='carouselProgress'></div>);
+        if (container == null) {
+            return <div className='carouselProgress'></div>;
         }
+
         const excessScroll = container.scrollWidth - container.clientWidth;
-        const increments = excessScroll / 300;
-        let currentProgress;
+        if (excessScroll <= 0) return null;
 
-        if(progress + 10 < excessScroll){
-            currentProgress = Math.floor(progress / 300);
-        }else{
-            currentProgress = Math.floor(increments) + 1;
-        }
+        let increments = Math.floor(excessScroll / 500) + 1;
 
-        if(increments <= 1){
-            return(<></>);
-        }
+        // Cap to MAX_INDICATORS
+        let indicatorCount = Math.min(increments, MAX_INDICATORS);
+        let stepSize = excessScroll / indicatorCount;
 
+        let currentProgress = Math.floor(progress / stepSize);
 
         let progressBar = [];
 
-        for (let x = 0; x < increments + 1; x++) {
-            if(x != currentProgress){
-                progressBar.push(<div key={x} className='carouselProgress' onClick={() => setScroll(x * (excessScroll / increments))}></div>);
-            }else{
-                progressBar.push(<div key={x} className='carouselProgress' id='currentProg'></div>);
-            }
+        for (let i = 0; i < indicatorCount; i++) {
+            const isActive = i === currentProgress;
+            progressBar.push(
+                <div
+                    key={i}
+                    className='carouselProgress'
+                    id={isActive ? 'currentProg' : undefined}
+                    onClick={() => !isActive && setScroll(i * stepSize)}
+                />
+            );
         }
 
-        return(
-            progressBar
-        )
-    }
+        return progressBar;
+    };
     
     const navigate = useNavigate();
 
@@ -108,7 +119,7 @@ export default function Carousel({ slides = [], Title}) {
             </div>
 
             <div className='carouselProgressContainer'>
-                <div className='carouselProgressWrapper'>
+                <div className='carouselProgressWrapper' key={progressKey}>
                     {progressBits()}
                 </div>
             </div>
@@ -121,7 +132,7 @@ export default function Carousel({ slides = [], Title}) {
                     <div className="carousel-track">
                         {slides.map((item, i) => (
                             <div key={i}>
-                                <img src={item.imageUrl || item} className="carousel-image" alt={`Slide ${i}`} style={{ height: '350px'}} onClick={() => handleSelect(item.id)}/>
+                                <img src={item.imageUrl || item} className="carousel-image" alt={`Slide ${i}`} style={{ height: '350px'}} onLoad={() => setImagesLoaded(prev => prev + 1)} onClick={() => handleSelect(item.id)}/>
                                 <h5 className='jost-regular'>{item.name}</h5>
                                 <h4 className='jost-regular'>R{item.price}</h4>
                             </div>

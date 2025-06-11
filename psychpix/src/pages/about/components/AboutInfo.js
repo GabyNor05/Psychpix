@@ -13,17 +13,12 @@ import lineSquare from './assets/lilsquare.png';
 function AboutInfo() {
   return (
     <div className="about-container">
-      <div className="SectionLabels" style={{ margin: 'auto', paddingLeft: '32px', paddingRight: '32px'}}>
-        <h2>Welcome to Psychedelic Pixels!</h2> 
-        <img className='lineSquareBR' src={lineSquare} alt='lilSquare'/>
-        <img className='lineSquareBL' src={lineSquare} alt='lilSquare'/>
-      </div>       
+      <h2>Welcome to Psychedelic Pixels!</h2>
       <div className="about-row">
         <img src={logo} alt="Psychedelic Pixels Logo" className="about-logoMain" />
         <div>
           <h1>About Psychedelic Pixels</h1>
           <p>
-
             Psychedelic Pixels is an e-commerce platform dedicated to showcasing and selling unconventional, surreal, and imaginative artwork. The website offers a curated selection of unique paintings, sculptures, and other artistic creations that fall outside the mainstream. Its primary purpose is to give art lovers, collectors, and curious minds a place to discover and purchase "weird art" works that are bold, thought-provoking, and unlike anything found in traditional galleries. By connecting eccentric artists with an audience that appreciates the bizarre and the extraordinary, Psychedelic Pixels celebrates creativity in its most unusual forms.
           </p>
         </div>
@@ -61,6 +56,7 @@ function AboutInfo() {
             </span>
           </div>
           <h1>Contact Us</h1>
+
         </div>
       </div>
     </div>

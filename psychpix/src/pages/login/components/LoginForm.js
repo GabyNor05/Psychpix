@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import "../css/Login.css";
 
 // LoginForm component handles both login and signup forms
@@ -30,9 +31,14 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isLogin) {
+      // Password length validation for signup
+      if (formData.password.length < 8 || formData.password.length > 12) {
+        toast.error("Password must be between 8 and 12 characters.");
+        return;
+      }
       // Sign Up: check if passwords match, then go to signupstep2
       if (formData.password !== formData.confirmPassword) {
-        alert("Passwords do not match!");
+        toast.error("Passwords do not match!");
         return;
       }
       const { username, email, password } = formData;
@@ -49,6 +55,10 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     } else {
       // Login: send username & password to backend for verification (step 1)
       try {
+        if (formData.password.length < 8 || formData.password.length > 12) {
+          toast.error("Password must be between 8 and 12 characters.");
+          return;
+        }
         const response = await fetch("http://localhost:5000/api/users/check", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -64,12 +74,13 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
           // Do NOT set userRole or token yet!
           // Login: go to loginstep2
           navigate("/loginstep2", { state: { username, password: formData.password } });
+          toast.success("Login successful!");
         } else {
           const data = await response.json();
-          alert(data.message || "Login failed.");
+          toast.error(data.message || "Login failed.");
         }
       } catch (err) {
-        alert("Login failed: " + err.message);
+        toast.error("Login failed: " + err.message);
       }
     }
   };

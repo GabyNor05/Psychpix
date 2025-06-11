@@ -15,9 +15,24 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:5000/api/items/683809d4516e159ec44dd24d
+PUT http://localhost:5000/api/replies/683809d4516e159ec44dd24d
 Content-Type: application/json
 
 {
   "commentId": "6838239cc0cec85643ff64ea"
 }
+
+###
+
+POST http://localhost:5000/api/replies/68498957e4a03a99f1d127cc
+Content-Type: application/json
+
+{
+  "username": "Saucyy",
+  "comment": "This is a spicy take.",
+  "profilePic": "http://res.cloudinary.com/dgf9sqcdy/image/upload/v1749583564/whe8uynpymaqnf3o2fsv.jpg"
+}
+
+###
+
+PUT  http://localhost:5000/api/replies/6849c3a526da4ed583352d44/replies/6849c64ba84cced01e15e5d2/resetflag

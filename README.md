@@ -7,22 +7,24 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-psychedelic-pixels">About The Project</a>
+      <a href="#about-psychedelic-pixels">About Psychedelic Pixels</a>
       <ul>
         <li><a href="#psychedelic-pixels-is-build-with">Built With</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#how-to-run-psychedelic-pixels">How to run Psychedelic Pixels</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#step-1">Step 1</a></li>
+        <li><a href="#step-2">Step 2</a></li>
+        <li><a href="#step-3">Step 3</a></li>
+        <li><a href="#step-4">Step 4</a></li>
+        <li><a href="#step-5">Step 5</a></li>
+        <li><a href="#step-6">Step 6</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#authors">Authors</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -47,6 +49,7 @@ Psychedelic Pixels features a unique login and signup system where, instead of e
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![MongoDb](https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-grey?style=for-the-badge&logo=tailwind-css&logoColor=38B2AC)](https://tailwindcss.com/)
+[![React-Bootstarp](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://react-bootstrap.netlify.app/)
 
 ## How to run Psychedelic Pixels
 
@@ -92,9 +95,9 @@ Run Frontend:
 npm start
 ```
 
-## Demo Vidio
+## Demo
 
-[Link to the Demo Vidio](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
+[Link to the Demo](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
 
 ## Authors
 
@@ -102,4 +105,16 @@ npm start
   <img src="https://contrib.rocks/image?repo=GabyNor05/Psychpix" />
 </a>
 
-## Acknolegments
+
+## Contact
+
+Psychedelic Pixels - psych.pixels@gmail.com
+
+Project Link: [Psychedelic Pixels](https://github.com/GabyNor05/Psychpix/tree/main)
+
+## Acknowledgments
+
+Thanks for these awesome resources that were used during the development
+
+- <https://github.com/cookiecutter/cookiecutter>
+- Tsungai Katsuro - tsungai@openwindow.co.za

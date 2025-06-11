@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const UserReplySchema = new mongoose.Schema({
   username: { type: String, required: true },
-  timestamp: { type: Date },
+  timestamp: { type: String, required: true },
   comment: { type: String, required: true },
+  profilePic: { type: String },
   likes: { type: Number },
   flags: { type: Number },
 });
@@ -14,14 +15,13 @@ const CommentSchema = new mongoose.Schema({
   timestamp: { type: String, required: true }, 
   likes: { type: Number},
   flags: { type: Number},
-  replies: { type: String, sparse: true},
+  replies: [UserReplySchema],
   userId: { type: String },
   itemId: { type: String },
   username: { type: String },  
   profilePic: { type: String },  
   itemTitle: { type: String },
   itemImageUrl: { type: String } 
-
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);

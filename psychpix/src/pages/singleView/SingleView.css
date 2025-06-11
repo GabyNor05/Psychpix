@@ -2,7 +2,7 @@
     position: absolute;
     top: 0;
     height: 1300px;
-    background-color: black;
+    background-color: rgb(8, 8, 8);
     color: rgba(255, 255, 255, 0.158);
     width: 700px;
     z-index: -1;
@@ -489,7 +489,6 @@
 } */
 
 .CommentScroll{
-    height: 800px;
     width: 100%;
     margin: auto;
     overflow-y: scroll;
@@ -724,6 +723,7 @@
     display: grid;
     margin: auto;
     width: 90%;
+    gap: 32px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
     margin-top: 196px;
@@ -731,7 +731,7 @@
     "ItemDisplay ItemInfo";
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     .gridSingleItem{
     display: grid;
     margin: auto;
