@@ -24,7 +24,7 @@ function DisplayFlaggedComments(){
 
         const comments = await response.json(); 
         let flaggedComments = comments.filter(item => item.flags > 0);
-        let flagged = comments.map(comment => ({...comment, replies: comment.replies.filter(reply => reply.flags > 0)})).filter(comment => comment.replies.length > 0);
+        let flagged = comments.map(comment => ({...comment, replies: comment.replies.filter(reply => reply.flags > 0)}));
         let flaggedRepliesOnly = flagged.flatMap(item =>
         item.replies
         .filter(reply => reply.flags > 0)
