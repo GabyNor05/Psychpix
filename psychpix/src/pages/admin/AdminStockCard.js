@@ -34,7 +34,6 @@ const AdminStockCard = ({
     image
   });
   const [expanded, setExpanded] = useState(false);
-  const [showAccordion, setShowAccordion] = useState(false); // <-- separate state
 
   const imageSrc = image
     ? (typeof image === "string" ? image : URL.createObjectURL(image))
@@ -107,9 +106,14 @@ const AdminStockCard = ({
                 style={{ cursor: 'pointer', position: 'relative' }}
                 title={expanded ? "Click to collapse" : "Click to expand"}
               >
-                <strong>Description:</strong> {description}
-                {!expanded && (
-                  <span className="ellipsis-overlay">... more</span>
+                <strong>Description:</strong>{" "}
+                {expanded
+                  ? description
+                  : description && description.length > 100
+                    ? description.slice(0, 100) + "..."
+                    : description}
+                {!expanded && description && description.length > 100 && (
+                  <span className="ellipsis-overlay"> more</span>
                 )}
               </p>
               <p><strong>Tags:</strong> {tags && tags.join(', ')}</p>
@@ -125,31 +129,15 @@ const AdminStockCard = ({
                     Edit
                   </span>
                   <span
-                    className="admin-delete-text-btn" style={{color:'#a83236', fontWeight: 'bold', marginLeft: 10}}
-                    
-                    onClick={onDelete}
-                  >
+                    className="admin-delete-text-btn" style={{color:'#a83236', fontWeight: 'bold', marginLeft: 10}} onClick={onDelete}>
                     <FiTrash2 style={{ marginRight: 5, verticalAlign: 'middle' }} />
                     Delete
                   </span>
                 </div>
-                <span
-                    className="admin-eye-btn"
-                    onClick={() => setShowAccordion(!showAccordion)}
-                    title={showAccordion ? "Hide details" : "Show details"}
-                  >
-                  Details <FiEye style={{ marginLeft: 6, verticalAlign: 'middle' }} />
-                </span>
               </div>
             </>
           )}
         </div>
-      </div>
-      <div className="admin-accordion" style={{ height: showAccordion? '250px' : 0, padding: showAccordion? '30px 40px' : 0}}>
-        <p><strong>Andy Walhal:</strong> Psychedelic Pixels is a sleek, user-friendly art website showcasing diverse talent and stunning visual works. With artist profiles, insightful blogs, and a smooth buying experience, it’s perfect for art lovers seeking inspiration, discovery, or a meaningful connection to creativity.</p>
-        <p><strong>All Tags:</strong> {tags && tags.join(', ')}</p>
-        <p><strong>Rating:</strong> 5.5</p>
-        <p><strong>Likes:</strong> 658</p>
       </div>
     </>
   );
