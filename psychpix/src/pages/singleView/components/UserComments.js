@@ -4,34 +4,27 @@ import { MegaphoneIcon, HeartIcon, ArrowUUpLeftIcon, PaperPlaneRightIcon } from 
 import Rating from "./Rating";
 
 function UserComment( {data} ){
-    const [inputText, setInputText] = useState('');
-    const [currentUserData, SetUserData] = useState(null);
+    const [replyText, setReplyText] = useState('');
     const [isLiked, toggleLikeState] = useState(false);
     const [showReply, toggleReplyState] = useState(false);
 
-    // useEffect(() => {
-    //     function handleClickOutside(event) {
-    //       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
-    //         setShowProfileMenu(false);
-    //       }
-    //     }
-    //     if (showProfileMenu) {
-    //       document.addEventListener("mousedown", handleClickOutside);
-    //     }
-    //     return () => document.removeEventListener("mousedown", handleClickOutside);
-    //   }, [showProfileMenu]);
-    
-    const handleChange = (event) => {
-        setInputText(event.target.value); // stores the text in state
-    };
+    let DefaultProfilePic = `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg`;
+    let username = "Guest";
+    let profilePic = DefaultProfilePic;
+    let userId = '6841edbdaf8a2cf16b83becc'; // fallback
+    try {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        if (user) {
+            if (user.username) username = user.username;
+            user.profilePic? (user.username == 'Guest'? profilePic = DefaultProfilePic : profilePic = user.profilePic) : profilePic = DefaultProfilePic;
+            if (user.id || user._id) userId = user.id || user._id;
+        }
+    } catch {
+        // keep defaults
+    }
 
-    const handleAddReply = () => {
-        const replyData = {
-            profilePic: currentUserData.profilePic,
-            userName: currentUserData.userName,
-            userComment: inputText
-        };
-        setInputText('');  // Clear the input after adding the reply
+    const handleReplyChange = (event) => {
+        setReplyText(event.target.value); // stores the text in state
     };
     
     let commentData = data.commentData;
@@ -138,11 +131,34 @@ function UserComment( {data} ){
         }
     }
 
-    let repliesData = [{
-        userProfilePic: userData.profilePic,
-        userName: userData.username,
-        userComment: commentData.comment
-    }]
+    async function PostReply(comment){
+        let userData = {
+            username: username,
+            profilePic: profilePic,
+            comment: comment
+        }
+        try{
+            const response = await fetch(`http://localhost:5000/api/replies/${commentID}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify(userData)
+            });
+
+            if (response.ok) {
+                alert('Comment saved!');
+            } else {
+                const errorText = await response.text();
+                alert("Error: ", errorText);
+            }
+        } 
+        catch (err) {
+            console.error('Fetch failed:', err);
+        }
+    }
+
+    let repliesData = commentData.replies;
 
     return(
         <div className="userCommentContainer">
@@ -160,10 +176,10 @@ function UserComment( {data} ){
                     </h4>
                     <div className="userInteract">
                         <div className="userHearts">
-                            <HeartIcon onClick={() => ToggleLike(isLiked)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088', color: isLiked? '#FF0088' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight={isLiked? "fill": "light"} />
+                            <HeartIcon onClick={() => ToggleLike()} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#FF0088', color: isLiked? '#FF0088' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight={isLiked? "fill": "light"} />
                             <h6 className="jost-light">{likes}</h6>
                         </div>
-                        <div style={{ display: 'none'}}>
+                        <div>
                             <ArrowUUpLeftIcon onClick={() => toggleReplyState(!showReply)} className="commentIcon" style={{ cursor: 'pointer', '--hover-color': '#5555FF', color: showReply? '#5555FF' : 'rgba(255, 255, 255, 0.443)'}} size={42} weight="light" />
                         </div>
                         <div>
@@ -172,23 +188,27 @@ function UserComment( {data} ){
                     </div>
 
                     <div className='replyInputContainer' style={{ height: showReply? '100px' : 0 , paddingTop: '32px'}}>
-                        <form id='commentForm'>
-                            <input className='CommentInput' placeholder="My experience was.. " name="Comment" onChange={handleChange} value={inputText}>
+                        <form id='commentForm' onSubmit={(e) => {
+                            e.preventDefault();
+                            PostReply(replyText);
+                            setReplyText('');
+                            }}>
+                            <input className='CommentInput' placeholder="My experience was.. " name="Comment" onChange={handleReplyChange} value={replyText}>
                             
                             </input>
                             <span>
-                                <div className='submitCommentButton'>
+                                <button type="submit" className='submitCommentButton'>
                                     <span id='iconElement'><PaperPlaneRightIcon size={48} weight="light" /></span>
-                                </div>
+                                </button>
                             </span>
                         </form>
                     </div>
                 </div>    
             </div> 
-            <div style={{gridArea: 'userReply', display: 'none'}}>
+            <div style={{gridArea: 'userReply', display: 'block'}}>
                 {repliesData.map((item, index) => {
                     return(
-                        <UserReplies key={index} data={repliesData[0]} />
+                        <UserReplies key={index} data={item} commentID={commentID} />
                     );
                 })}
             </div>

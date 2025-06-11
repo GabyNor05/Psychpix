@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const itemRoutes = require('./routes/itemRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const cartRoutes = require('./routes/cartRoutes');
+const replyRoutes = require('./routes/replyRoutes');
 
 // To serve uploaded images
 
@@ -25,7 +26,8 @@ app.use('/api/items', itemRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/api/users', userRoutes);
 app.use('/api/comments', commentRoutes);
-app.use('/api/cart', cartRoutes); // Use cartRoutes
+app.use('/api/cart', cartRoutes);
+app.use('/api/replies', replyRoutes);
 
 console.log(`Connecting to MongoDB with URI: ${process.env.MONGO_URI}`);
 

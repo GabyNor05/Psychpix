@@ -5,7 +5,7 @@ import Rating from './Rating';
 import { useLocation } from 'react-router-dom';
 
 // Get default profile image if user is not logged in or has no profilePic
-let DefaultProfilePic = `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg`
+let DefaultProfilePic = `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg`;
 
 function CommentInput( callback ){
     const location = useLocation();
