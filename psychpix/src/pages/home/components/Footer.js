@@ -14,7 +14,7 @@ function Footer() {
             <Link to="/about" className="nav-link"><h5>About</h5></Link>
             <Link to="/about" className="nav-link"><h5>Contact Us</h5></Link>
             <Link to="/login" className="nav-link"><h5>Login</h5></Link>
-            <Link to="/cart" className="nav-link"><h5>Logout</h5></Link>  
+            <Link to="/cart" className="nav-link"><h5>cart</h5></Link>  
         </div>
 
         <div id="footerLogoContainer">
