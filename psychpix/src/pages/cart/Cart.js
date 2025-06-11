@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ItemCard from "./components/itemCard";
 import OrderSummary from "./components/OrderSummary";
 import lineSquare from './assets/lilsquare.png';
@@ -37,16 +38,16 @@ function Cart() {
         body: JSON.stringify({ items: cartItems }),
       });
       if (response.ok) {
-        alert("Checkout successful! Stock updated.");
+        toast.success("Checkout successful! Stock updated.");
         setCartItems([]);
         localStorage.removeItem("cart");
         // Optionally navigate to a success page
       } else {
         const data = await response.json();
-        alert("Checkout failed: " + (data.message || "Unknown error"));
+        toast.success("Checkout failed: " + (data.message || "Unknown error"));
       }
     } catch (err) {
-      alert("Checkout error: " + err.message);
+      toast.success("Checkout error: " + err.message);
     }
   };
 
