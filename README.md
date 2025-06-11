@@ -117,3 +117,4 @@ Project Link: [Psychedelic Pixels](https://github.com/GabyNor05/Psychpix/tree/ma
 Thanks for these awesome resources that were used during the development
 
 - <https://github.com/cookiecutter/cookiecutter>
+- Tsungai Katsuro - tsungai@openwindow.co.za
