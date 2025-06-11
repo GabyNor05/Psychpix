@@ -26,7 +26,7 @@
     <li><a href="#demo">Demo</a></li>
     <li><a href="#authors">Authors</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknolegments">Acknolegments</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -112,7 +112,7 @@ Psychedelic Pixels - psych.pixels@gmail.com
 
 Project Link: [Psychedelic Pixels](https://github.com/GabyNor05/Psychpix/tree/main)
 
-## Acknolegments
+## Acknowledgments
 
 Thanks for these awesome resources that were used during the development
 
