@@ -106,7 +106,7 @@ npm start
 
 ## Contact
 
-Psychedelic Pixels - [psych.pixels@gmail.com]psych.pixels@gmail.com
+Psychedelic Pixels - psych.pixels@gmail.com
 
 Project Link: [Psychedelic Pixels](https://github.com/GabyNor05/Psychpix/tree/main)
 
