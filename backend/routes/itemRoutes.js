@@ -3,7 +3,7 @@ const router = express.Router();
 const Item = require('../models/Product'); // Create this model as shown earlier
 const multer = require('multer');
 const upload = multer(); // for memory storage; configure as needed
-
+const { authenticateJWT  } = require('../middleware/auth'); // JWT auth middleware
 
 // POST route to handle form data and file upload
 router.post('/', async (req, res) => {
@@ -73,18 +73,20 @@ router.put('/:id/comments', async (req, res) => {
         console.log('Item not found');
         return res.status(404).json({ message: 'Item not found' });
       }
-
+      
       const newCommentId = req.body.commentId;
-      const totalRating = (item.rating || 0) + Number(req.body.rating);
-      const totalAmount = (item.ratingAmount || 0) + 1;
-      const newRating = totalRating / totalAmount;
+      const newRating = Number(req.body.rating);
+      const currentTotal = item.rating * item.ratingAmount;
+      const newRatingAmount = item.ratingAmount + 1;
+      const updatedAverage = (currentTotal + newRating) / newRatingAmount;
+
       if (!newCommentId || !newRating) {
         return res.status(400).json({ message: 'Missing parameters in body' });
       }
 
       item.commentsId.push(newCommentId);
-      item.rating = newRating;
-      item.ratingAmount += 1;
+      item.rating = updatedAverage;
+      item.ratingAmount = newRatingAmount;
       await item.save();
       res.status(201).json({ message: 'Comment added on item!', item });
     } catch (err) {
@@ -164,6 +166,27 @@ router.put('/:id', upload.single('image'), async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
+});
+
+// Decrement stock
+router.post('/items/decrement-stock', authenticateJWT, async (req, res) => {
+  const { itemId, quantity } = req.body;
+  const item = await Item.findById(itemId);
+  if (!item) return res.status(404).json({ message: "Item not found" });
+  if (item.stock < quantity) return res.status(400).json({ message: "Not enough stock" });
+  item.stock -= quantity;
+  await item.save();
+  res.json({ message: "Stock decremented" });
+});
+
+// Increment stock
+router.post('/items/increment-stock', authenticateJWT, async (req, res) => {
+  const { itemId, quantity } = req.body;
+  const item = await Item.findById(itemId);
+  if (!item) return res.status(404).json({ message: "Item not found" });
+  item.stock += quantity;
+  await item.save();
+  res.json({ message: "Stock incremented" });
 });
 
 module.exports = router;

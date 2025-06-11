@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Profile1 from "../assets/userprofile/profile1.jpg";
 import Profile2 from "../assets/userprofile/profile2.png";
 import Profile3 from "../assets/userprofile/profile3.png";
@@ -58,7 +59,7 @@ const MyProfile = ({ user, ...props }) => {
         setForm({ username: data.username, profilePic: null });
         setPreviewPic(data.profilePic || "");
       } catch (err) {
-        setError("Could not load profile.");
+        toast.error("Could not load profile.");
         console.error(err);
       }
       setLoading(false);
@@ -90,6 +91,7 @@ const MyProfile = ({ user, ...props }) => {
         setUserComments(filtered);
       } catch (err) {
         setUserComments([]);
+        toast.error("Could not load comments.");
       }
     };
     fetchComments();
@@ -142,8 +144,9 @@ const MyProfile = ({ user, ...props }) => {
       localStorage.setItem("username", data.username);
       // Notify other components (like Navbar) that user data changed
       window.dispatchEvent(new Event("user-profile-updated"));
+      toast.success("Profile updated successfully.");
     } catch (err) {
-      setError("Could not save changes.");
+      toast.error("Could not save changes.");
       console.error(err);
     }
   };

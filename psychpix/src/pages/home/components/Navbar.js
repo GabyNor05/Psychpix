@@ -69,11 +69,6 @@ function Navbar() {
         <Link to="/discover" className="nav-link">Discover</Link>
         <Link to="/about" className="nav-link" >About</Link>
         <div style={{ marginRight: '50px', marginLeft: 'auto', display: 'flex', gap: '24px', alignItems: 'center' }}>
-          {/* Collapsible Search */}
-          <div className="nav-search-container" style={{ position: 'relative' }}>
-            <input />
-            <MagnifyingGlassIcon weight="light" size={42} className="nav-link-icon" style={{ cursor: 'pointer' }} onClick={() => setShowSearch(true)} title="Search" />
-          </div>
           <Link to="/cart" className="nav-link-icon" title="Cart">
             <ShoppingCartIcon size={42} weight="light"/>
           </Link>

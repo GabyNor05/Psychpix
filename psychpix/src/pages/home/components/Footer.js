@@ -12,9 +12,7 @@ function Footer() {
             <Link to="/" className="nav-link"><h5>Home</h5></Link>
             <Link to="/discover" className="nav-link"><h5>Discover</h5></Link>
             <Link to="/about" className="nav-link"><h5>About</h5></Link>
-            <Link to="/about" className="nav-link"><h5>Contact Us</h5></Link>
-            <Link to="/login" className="nav-link"><h5>Login</h5></Link>
-            <Link to="/cart" className="nav-link"><h5>cart</h5></Link>  
+            <Link to="/login" className="nav-link"><h5>Logout</h5></Link> 
         </div>
 
         <div id="footerLogoContainer">

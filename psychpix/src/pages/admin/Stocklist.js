@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import AdminStockCard from './AdminStockCard';
+import { useNavigate } from 'react-router-dom'; // Add this import
 
 const Stocklist = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Add this line
 
   useEffect(() => {
     fetch('http://localhost:5000/api/items')
@@ -63,13 +65,19 @@ const Stocklist = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div style={{marginTop:  '64px'}}>
-      <h2 className="domine-Label adminPageTitle">Stock List</h2>
+    <div style={{marginTop: '64px'}}>
+      <div className = "headerContainer"> 
+    <h2 className="domine-Label adminPageTitle">Stocklist</h2>
+  <button
+    className="goToAdminFormButton"
+    onClick={() => navigate('/adminForm')}>
+    Add New Product
+  </button>
+</div>
       {items.length === 0 && <p>No items found.</p>}
       {items.map(item => (
-        <div style={{ margin: '32px 0px'}}>
+        <div style={{ margin: '32px 0px'}} key={item._id}>
             <AdminStockCard
-            key={item._id}
             _id={item._id}
             {...item}
             image={item.imageUrl }

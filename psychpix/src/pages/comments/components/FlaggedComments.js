@@ -22,7 +22,7 @@ function DisplayFlaggedComments(){
             throw new Error(`Error: ${response.status}`);
         }
 
-        const comments = await response.json(); 
+        const comments = await response.json();
         let flaggedComments = comments.filter(item => item.flags > 0);
         let flagged = comments.map(comment => ({...comment, replies: comment.replies.filter(reply => reply.flags > 0)}));
         let flaggedRepliesOnly = flagged.flatMap(item =>
@@ -30,8 +30,8 @@ function DisplayFlaggedComments(){
         .filter(reply => reply.flags > 0)
         .map(reply => ({
             ...reply,
-            itemId: item.itemId,        // Inherit from parent comment
-            parentCommentId: item._id,  // Optional: reference to the parent
+            itemId: item.itemId,
+            parentCommentId: item._id,
             profilePic: reply.profilePic || item.profilePic, // fallback if needed
             itemTitle: item.itemTitle,  // Also inherit if needed
             itemImageUrl: item.itemImageUrl
@@ -50,6 +50,8 @@ function DisplayFlaggedComments(){
             products: commentItems,
             flaggedReplies: flaggedRepliesOnly,
         }
+
+        console.log(commentItems);
 
         return payload; 
     } catch (error) {
@@ -134,19 +136,6 @@ function DisplayFlaggedComments(){
         getComments();
     }, [TotalComments]);
 
-    let commentsObject = [{
-        _id: 1234,
-        profilePic: Profile1,
-        itemTitle: 'Mercy',
-        username: 'SauceCode',
-        comment: `The image portrays an evil psychedelic cat, a visually arresting creature that slinks out of the surreal and into the sublime. Its fur, once mundane, now ripples with an iridescent spectrum of hyper-saturated colors—violet bleeding into acid green, electric orange flickering into ultraviolet blue. The cat’s eyes are dilated, bottomless pits that pulse with sentient menace, like miniature black holes rimmed with neon. Around its head, a halo of kaleidoscopic distortion warps the space, as if reality is bending to its will.
-        This is no ordinary feline—it’s a digital shaman, glitching between dimensions. Its pupils reflect sacred geometry and spiraling fractals, while its whiskers crackle like tiny bolts of lightning. Smoke or mist swirls at its feet, tinged with hues not found on any natural color wheel. Behind it, a backdrop of psychedelic chaos unspools—a cosmic tapestry of dripping stars, melting galaxies, and eyes that open and close within the fabric of space itself.
-        The photo has been edited to amplify the cat’s otherworldliness: shadows are unnaturally deep, highlights burst like flares, and texture overlays give its fur an almost reptilian sheen. There’s a tension between attraction and fear, beauty and dread. It stares directly at the viewer—not as prey, but as an omnipotent being that sees through your ego and into your soul.
-        `,
-        rating: 3,
-        flags: 1,
-    }]
-
     useEffect(() => {
         setTotalComments(flaggedComments.length);
     }, [flaggedComments.length]);
@@ -154,6 +143,8 @@ function DisplayFlaggedComments(){
     if(flaggedComments.length == 0){
         return(<p>...Loading</p>)
     }else{}
+
+    console.log(flaggedComments);
 
     return(
         <>

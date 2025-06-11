@@ -101,9 +101,7 @@ function SingleItemSelection({ItemData})
             product: ItemData.title,
             price: ItemData.price,
             quantity: CopiesAdded,
-            image: ItemData.imageUrl,
-            woodframe: CurrentWoodFrame,
-            framesize: currentFrameSize,
+            image: ItemData.imageUrl
           });
         }
         localStorage.setItem("cart", JSON.stringify(cart));
