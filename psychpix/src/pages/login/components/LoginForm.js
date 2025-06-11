@@ -30,6 +30,11 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isLogin) {
+      // Password length validation for signup
+      if (formData.password.length < 8 || formData.password.length > 12) {
+        alert("Password must be between 8 and 12 characters.");
+        return;
+      }
       // Sign Up: check if passwords match, then go to signupstep2
       if (formData.password !== formData.confirmPassword) {
         alert("Passwords do not match!");
@@ -49,6 +54,10 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     } else {
       // Login: send username & password to backend for verification (step 1)
       try {
+        if (formData.password.length < 8 || formData.password.length > 12) {
+          alert("Password must be between 8 and 12 characters.");
+          return;
+        }
         const response = await fetch("http://localhost:5000/api/users/check", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
