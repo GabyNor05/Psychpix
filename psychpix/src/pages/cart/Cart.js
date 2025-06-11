@@ -37,13 +37,13 @@ function Cart() {
         },
         body: JSON.stringify({ items: cartItems }),
       });
+      const data = await response.json();
       if (response.ok) {
         toast.success("Checkout successful! Stock updated.");
         setCartItems([]);
         localStorage.removeItem("cart");
         // Optionally navigate to a success page
       } else {
-        const data = await response.json();
         toast.error("Checkout failed: " + (data.message || "Unknown error"));
       }
     } catch (err) {
