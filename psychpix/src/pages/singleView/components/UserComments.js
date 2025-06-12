@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UserReplies from './CommentReplies';
 import { MegaphoneIcon, HeartIcon, ArrowUUpLeftIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
 import Rating from "./Rating";
+import { toast } from 'react-toastify';
 
 function UserComment( {data} ){
     const [replyText, setReplyText] = useState('');
@@ -81,7 +82,6 @@ function UserComment( {data} ){
         return new Date(isoString);
     }
 
-
     const timestamp = parseDDMMYYYY(commentData.timestamp); 
     const now = new Date();
 
@@ -127,7 +127,7 @@ function UserComment( {data} ){
             body: JSON.stringify({ flags: commentData.flags + 1 })
         });
         if(response.ok){
-            alert('Comment Reported');
+            toast.success('Comment Reported');
         }
     }
 
@@ -147,10 +147,10 @@ function UserComment( {data} ){
             });
 
             if (response.ok) {
-                alert('Comment saved!');
+                toast.success('Comment saved!');
             } else {
                 const errorText = await response.text();
-                alert("Error: ", errorText);
+                toast.error("Error: ", errorText);
             }
         } 
         catch (err) {

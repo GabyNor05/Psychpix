@@ -71,8 +71,8 @@ function Cart() {
   };
 
   return (
-    <div className = "cart-container" >
-      <div style={{ flex: 2 }}>
+    <div className = "cart-container jost-regular" >
+      <div>
         <div className="SectionLabels" style={{ paddingRight: '32px'}}>
           <h2 className="domine-Label" style={{ width: 'fit-content'}}>Your Cart</h2>
           <img className='lineSquareBR' src={lineSquare} alt='lilSquare' style={{ bottom: '-12px'}}/>

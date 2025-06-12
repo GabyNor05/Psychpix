@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import Profile1 from "../../profile/assets/userprofile/profile1.jpg";
 import { TrashIcon, XIcon } from "@phosphor-icons/react";
-import TestImage from '../../home/images/Home1.jpeg'
+import TestImage from '../../home/images/Home1.jpeg';
+import { toast } from 'react-toastify';
 
 function DisplayFlaggedComments(){
     const navigate = useNavigate();
@@ -72,7 +73,7 @@ function DisplayFlaggedComments(){
             setTotalComments(TotalComments - 1);
         }
         } catch (error) {
-            alert("Could not remove commnet");
+            toast.error("Could not remove comment");
             console.error('Error fetching comments:', error);
         return [];
         }
@@ -86,11 +87,11 @@ function DisplayFlaggedComments(){
         });
 
         if(response.ok){
-            alert("Comment removed");
+            toast.success("Comment removed");
             setTotalComments(TotalComments - 1);
         }
         } catch (error) {
-            alert("Could not remove commnet");
+            toast.error("Could not remove comment");
             console.error('Error fetching comments:', error);
         return [];
         }
@@ -116,11 +117,11 @@ function DisplayFlaggedComments(){
         });
 
         if(response.ok){
-            alert("Comment dismissed");
+            toast.success("Comment dismissed");
             setTotalComments(TotalComments - 1);
         }
         } catch (error) {
-            alert("Could not dissmess comment");
+            toast.error("Could not dissmess comment");
             console.error('Error fetching comments:', error);
         return [];
         }

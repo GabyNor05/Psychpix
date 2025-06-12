@@ -1,0 +1,10 @@
+.ArtWeek{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 32px;
+}
+
+.ArtWeekWrapper{
+    width: 80%;
+    margin: 32px auto;
+}

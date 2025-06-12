@@ -12,18 +12,30 @@ function SingleItemSelection({ItemData})
 {
     const navigate = useNavigate();
 
-    const[CurrentWoodFrame, setWoodFrame] = useState(WoodFrame);
-
-    const[currentFrameSize, setFrameSize] = useState(0);
-
+    const woodFrames = [{
+        image: WoodFrame,
+        name: 'OakWood'
+    },
+    {
+        image: WoodFrame2,
+        name: 'BlackWood'
+    },
+    {
+        image: WoodFrame3,
+        name: 'BloodWood'
+    },]
+    
+    const[CurrentWoodFrame, setWoodFrame] = useState(woodFrames[0]);
     const[showItemDesc, toggleItemDescription] = useState(0);
     const descRef = useRef(null);
-
+    
     const[CopiesLeft, setCopiesLeft] = useState(0);
     const[CopiesAdded, setCopies] = useState(0);
-
+    
     let frameSizes = ['XL', 'L', 'M', 'S', 'XS'];
     let frameDimensions = ['72 x 102 cm', '41 x 51 cm', '25 x 30 cm', '13 x 13 cm', '5 x 5 cm'];
+    const[currentFrameSize, setFrameSize] = useState(frameDimensions[0]);
+    const[currentWoodSizeSymbol, setSizeSymbol] = useState(frameSizes[0]);
 
     useEffect(() => {
         const el = document.querySelector('.woodFrame');
@@ -84,30 +96,58 @@ function SingleItemSelection({ItemData})
     }
 
 
-    function handleAddToCart() {
-        if (CopiesAdded < 1) {
-          alert("Please select at least one copy.");
-          return;
-        }
-        // Get existing cart or empty array
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        // Check if item already in cart
-        const existing = cart.find(item => item._id === ItemData._id);
-        if (existing) {
-          existing.quantity += CopiesAdded;
-        } else {
-          cart.push({
-            _id: ItemData._id,
-            product: ItemData.title,
-            price: ItemData.price,
-            quantity: CopiesAdded,
-            image: ItemData.imageUrl
-          });
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        toast.success("Added to cart!");
-        navigate("/cart");
+    async function handleAddToCart() {
+        console.log(currentFrameSize);
+      if (CopiesAdded < 1) {
+        toast.error("Please select at least one copy.");
+        return;
       }
+
+      // Decrement stock in the database
+      const res = await fetch(`http://localhost:5000/api/items/items/decrement-stock`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ itemId: ItemData._id, quantity: CopiesAdded })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.message || "Failed to update stock.");
+        return;
+      }
+
+      // Update cart in localStorage
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const index = cart.findIndex(item => item._id === ItemData._id);
+      setSizeSymbol(frameSizes[index]);
+        const existing = index !== -1 ? cart[index] : null;
+      if (existing) {
+        
+        existing.quantity += CopiesAdded;
+        cart[index].woodframe = CurrentWoodFrame;
+        cart[index].framesize = currentFrameSize;
+        cart[index].framesymbol = currentWoodSizeSymbol;
+        console.log(cart);
+        localStorage.setItem("cart", JSON.stringify(cart));
+      } else {
+        cart.push({
+          _id: ItemData._id,
+          product: ItemData.title,
+          price: ItemData.price,
+          discount: ItemData.discount, // <-- Make sure this is included!
+          quantity: CopiesAdded,
+          image: ItemData.imageUrl,
+          woodframe: CurrentWoodFrame,
+          framesize: currentFrameSize,
+          framesymbol: currentWoodSizeSymbol,
+        });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      toast.success("Added to cart!");
+      navigate("/cart");
+    }
 
     return(
     <>
@@ -137,7 +177,7 @@ function SingleItemSelection({ItemData})
                 <div className="ItemDisplay">
                     <div id='imageBlock'>
                         <div className="catagoryText"><h1>{ItemData.tags[0]}</h1></div>
-                        <div className='woodFrame' style={{background: `url('${CurrentWoodFrame}')`}}>
+                        <div className='woodFrame' style={{background: `url('${CurrentWoodFrame.image}')`}}>
                             <img src={ItemData.imageUrl} id='itemImage' />
                         </div>
                     </div>
@@ -182,9 +222,9 @@ function SingleItemSelection({ItemData})
                         <div className="selectBoxWrapper">
                             <h5>Wood Frame</h5>
                             <div className="selectBox">
-                                <span data-text="Oak Wood" onClick={() => setWoodFrame(WoodFrame)} style={{ '--accent-color': '#FFAA44'}}><div className="woodItem" style={{ background: `url('${WoodFrame}')`, backgroundSize: 'cover', border: CurrentWoodFrame == WoodFrame? '2px solid white': '2px solid transparent'}}></div></span>
-                                <span data-text="Black Walnut" onClick={() => setWoodFrame(WoodFrame2)} style={{'--accent-color': '#442000'}}><div className="woodItem" style={{ background: `url('${WoodFrame2}')`, backgroundSize: 'cover', border: CurrentWoodFrame == WoodFrame2? '2px solid white': '2px solid transparent' }}></div></span>
-                                <span data-text="Bloodwood" onClick={() => setWoodFrame(WoodFrame3)} style={{ '--accent-color': '#880000'}}><div className="woodItem" style={{ background: `url('${WoodFrame3}')`, backgroundSize: 'cover', border: CurrentWoodFrame == WoodFrame3? '2px solid white': '2px solid transparent' }}></div></span>
+                                <span data-text="Oak Wood" onClick={() => setWoodFrame(woodFrames[0])} style={{ '--accent-color': '#FFAA44'}}><div className="woodItem" style={{ background: `url('${WoodFrame}')`, backgroundSize: 'cover', border: CurrentWoodFrame.image == WoodFrame? '2px solid white': '2px solid transparent'}}></div></span>
+                                <span data-text="Black Walnut" onClick={() => setWoodFrame(woodFrames[1])} style={{'--accent-color': '#442000'}}><div className="woodItem" style={{ background: `url('${WoodFrame2}')`, backgroundSize: 'cover', border: CurrentWoodFrame.image == WoodFrame2? '2px solid white': '2px solid transparent' }}></div></span>
+                                <span data-text="Bloodwood" onClick={() => setWoodFrame(woodFrames[2])} style={{ '--accent-color': '#880000'}}><div className="woodItem" style={{ background: `url('${WoodFrame3}')`, backgroundSize: 'cover', border: CurrentWoodFrame.image == WoodFrame3? '2px solid white': '2px solid transparent' }}></div></span>
                             </div>
                         </div>
                         
@@ -208,7 +248,7 @@ function SingleItemSelection({ItemData})
                                                     return 0;
                                                 }
                                             }
-                                            return(<span data-text={frameDimensions[index]} style={{ '--accent-color': '#000000'}}><div><h1 onClick={() => setFrameSize(index)} style={{ '--selected-color': compare(index), cursor: 'pointer' }}>{item}</h1></div></span>);
+                                            return(<span data-text={frameDimensions[index]} style={{ '--accent-color': '#000000'}}><div><h1 onClick={() => setFrameSize(frameDimensions[index])} style={{ '--selected-color': compare(frameDimensions[index]), cursor: 'pointer' }}>{item}</h1></div></span>);
                                         })
                                     }
                                 </div>
@@ -228,12 +268,8 @@ function SingleItemSelection({ItemData})
                             </div>
                         </div>
 
-                        <div className="AddToCart">
-                          <h3
-                            className='jost-regular'
-                            style={{ letterSpacing: '4px' }}
-                            onClick={handleAddToCart}
-                          >
+                        <div className="AddToCart" onClick={handleAddToCart}>
+                          <h3 className='jost-regular' style={{ letterSpacing: '4px' }}>
                             Add To Cart
                           </h3>
                         </div>

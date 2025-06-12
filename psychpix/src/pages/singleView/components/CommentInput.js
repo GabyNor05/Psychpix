@@ -3,6 +3,7 @@ import { Star, PaperPlaneRight } from "@phosphor-icons/react";
 import UserComment from './UserComments';
 import Rating from './Rating';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Get default profile image if user is not logged in or has no profilePic
 let DefaultProfilePic = `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg`;
@@ -80,13 +81,13 @@ function CommentInput( callback ){
 
             if (!response.ok) {
                 const errorText = await response.text();
-                alert("Failed to save comment: " + errorText);
+                toast.error("Failed to save comment: " + errorText);
                 return;
             }
 
             const currentComment = await response.json();
             if (!currentComment._id) {
-                alert("Failed to save comment: No comment ID returned.");
+                toast.error("Failed to save comment: No comment ID returned.");
                 return;
             }
 
@@ -102,11 +103,11 @@ function CommentInput( callback ){
             });
 
             if (ItemResponse.ok) {
-                alert('Item saved!');
+                toast.success('Comment saved!');
                 callback(ItemResponse);
             } else {
                 const errorText = await ItemResponse.text();
-                alert(errorText);
+                toast.error("Could not add comment!")
             }
         } catch (err) {
             console.error('Fetch failed:', err);

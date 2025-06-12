@@ -1,6 +1,7 @@
 import { Star, Heart, MegaphoneIcon, PaperPlaneRight } from "@phosphor-icons/react";
 import lineSquare from '../../home/images/lil_square2.png';
 import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 
 function UserCommentReplies( {data, commentID} ){
     const [likes, updateLikes] = useState(0);
@@ -87,6 +88,9 @@ function UserCommentReplies( {data, commentID} ){
         const response = await fetch(`http://localhost:5000/api/replies/${commentID}/replies/${data._id}/flag`, {
             method: 'PUT'
         });
+        if(response.ok){
+            toast.success('Comment Reported');
+        }
     }
 
     return(

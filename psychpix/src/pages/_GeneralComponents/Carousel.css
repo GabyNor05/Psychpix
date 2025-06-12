@@ -127,7 +127,7 @@
   
   .carousel-image{
     border-radius: 8px;
-    transition: transform 0.1s ease;
+    transition: transform 0.2s cubic-bezier(0.54, 0, 0.5, 1.7);
     scroll-snap-align: center;
     height: inherit;
     object-fit: cover;

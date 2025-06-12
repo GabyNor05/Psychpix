@@ -13,7 +13,12 @@ import lineSquare from './assets/lilsquare.png';
 function AboutInfo() {
   return (
     <div className="about-container">
-      <h2>Welcome to Psychedelic Pixels!</h2>
+      <div style={{ position: 'relative', width: 'fit-content', margin: 'auto', borderBottom: '3px solid black', padding: '0px 32px'}}>
+        <h2>Welcome to Psychedelic Pixels!</h2>
+        <img className="lineSquareBR" src={lineSquare} />
+        <img className="lineSquareBL" src={lineSquare} />
+      </div>
+      
       <div className="about-row">
         <img src={logo} alt="Psychedelic Pixels Logo" className="about-logoMain" />
         <div>
