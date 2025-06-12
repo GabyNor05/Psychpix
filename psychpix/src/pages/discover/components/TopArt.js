@@ -11,7 +11,6 @@ function TopArt() {
 
             if (response.ok) {
                 const item = await response.json();
-                console.log('Item data:', item);
                 return item;
             } else {
                 console.log(ItemID);
@@ -26,8 +25,6 @@ function TopArt() {
     if(!ItemData){
         return(<>...Loading</>);
     }
-
-    console.log(ItemData);
     
     return (
         <div className='ArtWeekWrapper' style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>

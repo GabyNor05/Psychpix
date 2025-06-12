@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import lineSquare from './icons/lilsquare.png';
+import { DotsThreeOutlineVerticalIcon } from '@phosphor-icons/react';
 import './Carousel.css';
 
 export default function Carousel({ slides = [], Title}) {
@@ -111,10 +112,78 @@ export default function Carousel({ slides = [], Title}) {
         window.location.reload();
     };
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [sortHigh, setSortMethod] = useState(false);
+    const menuRef = useRef();
+
+    // Close menu if clicked outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setIsMenuOpen(false);
+        }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    function sortByPrice(array, order = 'asc') {
+        if (!Array.isArray(array)) return [];
+
+        return array.slice().sort((a, b) => {
+            const priceA = parseFloat(a.price.replace(/,/g, ''));
+            const priceB = parseFloat(b.price.replace(/,/g, ''));
+
+            if (isNaN(priceA) || isNaN(priceB)) return 0;
+
+            return order === 'asc' ? priceA - priceB : priceB - priceA;
+        });
+    }
+    
+    const sortedLowToHigh = sortByPrice(slides, 'asc');
+    const sortedHighToLow = sortByPrice(slides, 'desc');
+
+    const [sortedSlides, sortPrice] = useState(slides);
+
+    useEffect(() => {
+        if(sortHigh){
+            sortPrice(sortByPrice(sortedSlides, 'asc'));
+        }else{
+            sortPrice(sortByPrice(sortedSlides, 'desc'));
+        }
+    }, [sortHigh])
+
     return (
         <div style={{ display: slides.length == 0? 'none' : 'block'}}>
             <div className='carouselTitle domine-Label pb-3 me-2s'>
-                <h1 className='fw-bold'>{Title}</h1>
+                <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                <div onClick={() => setIsMenuOpen((prev) => !prev)} style={{ cursor: 'pointer' }}>
+                    <DotsThreeOutlineVerticalIcon size={48} />
+                </div>
+                <h1 className='fw-bold' style={{ marginLeft: '0.5rem' }}>{Title}</h1>
+
+                {isMenuOpen && (
+                    <div
+                        ref={menuRef}
+                        className='jost-regular'
+                        style={{
+                            position: 'absolute',
+                            top: '60px',
+                            left: '0',
+                            backgroundColor: '#fff',
+                            border: '1px solid #ccc',
+                            borderRadius: '8px',
+                            boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+                            padding: '10px',
+                            zIndex: 1000,
+                        }}
+                        >
+                        <div onClick={() => setSortMethod(false)} style={{ padding: '5px 10px', cursor: 'pointer', letterSpacing: '2px', textShadow: 'none' }}>Price: High - Low</div>
+                        <div onClick={() => setSortMethod(true)} style={{ padding: '5px 10px', cursor: 'pointer', letterSpacing: '2px', textShadow: 'none' }}>Price: Low - High</div>
+                    </div>
+                )}
+                </div>
+                
                 <img className='lineSquareBR' src={lineSquare} alt='lilSquare'/>
             </div>
 
@@ -130,7 +199,7 @@ export default function Carousel({ slides = [], Title}) {
                 <div className="GeneralCarousel carousel-scroll" ref={scrollRef}>
                 
                     <div className="carousel-track">
-                        {slides.map((item, i) => (
+                        {sortedSlides.map((item, i) => (
                             <div key={i}>
                                 <img src={item.imageUrl || item} className="carousel-image" alt={`Slide ${i}`} style={{ height: '350px'}} onLoad={() => setImagesLoaded(prev => prev + 1)} onClick={() => handleSelect(item.id)}/>
                                 <h5 className='jost-regular'>{item.name}</h5>
