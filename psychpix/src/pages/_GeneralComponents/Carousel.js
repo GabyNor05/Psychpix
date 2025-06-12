@@ -168,7 +168,7 @@ export default function Carousel({ slides = [], Title}) {
                 <div className="GeneralCarousel carousel-scroll" ref={scrollRef}>
                 
                     <div className="carousel-track">
-                        {slides.map((item, i) => (
+                        {sortedSlides.map((item, i) => (
                             <div key={i}>
                                 <img src={item.imageUrl || item} className="carousel-image" alt={`Slide ${i}`} style={{ height: '350px'}} onLoad={() => setImagesLoaded(prev => prev + 1)} onClick={() => handleSelect(item.id)}/>
                                 <h5 className='jost-regular'>{item.name}</h5>
