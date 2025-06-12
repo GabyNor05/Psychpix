@@ -3,7 +3,7 @@ const router = express.Router();
 const Item = require('../models/Product'); // Create this model as shown earlier
 const multer = require('multer');
 const upload = multer(); // for memory storage; configure as needed
-const { authenticateJWT  } = require('../middleware/auth'); // JWT auth middleware
+const { authenticateJWT } = require('../middleware/auth'); // JWT auth middleware
 
 // POST route to handle form data and file upload
 router.post('/', async (req, res) => {
@@ -169,7 +169,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
 });
 
 // Decrement stock
-router.post('/items/decrement-stock', authenticateJWT, async (req, res) => {
+router.post('/items/decrement-stock', async (req, res) => {
   const { itemId, quantity } = req.body;
   const item = await Item.findById(itemId);
   if (!item) return res.status(404).json({ message: "Item not found" });
@@ -180,7 +180,7 @@ router.post('/items/decrement-stock', authenticateJWT, async (req, res) => {
 });
 
 // Increment stock
-router.post('/items/increment-stock', authenticateJWT, async (req, res) => {
+router.post('/items/increment-stock', async (req, res) => {
   const { itemId, quantity } = req.body;
   const item = await Item.findById(itemId);
   if (!item) return res.status(404).json({ message: "Item not found" });

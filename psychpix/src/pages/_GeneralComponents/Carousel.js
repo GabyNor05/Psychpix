@@ -111,6 +111,44 @@ export default function Carousel({ slides = [], Title}) {
         window.location.reload();
     };
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [sortHigh, setSortMethod] = useState(false);
+    const menuRef = useRef();
+
+    // Close menu if clicked outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setIsMenuOpen(false);
+        }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    function sortByPrice(array, order = 'asc') {
+        if (!Array.isArray(array)) return [];
+
+        return array.slice().sort((a, b) => {
+            const priceA = parseFloat(a.price.replace(/,/g, ''));
+            const priceB = parseFloat(b.price.replace(/,/g, ''));
+
+            if (isNaN(priceA) || isNaN(priceB)) return 0;
+
+            return order === 'asc' ? priceA - priceB : priceB - priceA;
+        });
+    }
+
+    const [sortedSlides, sortPrice] = useState(slides);
+
+    useEffect(() => {
+        if(sortHigh){
+            sortPrice(sortByPrice(sortedSlides, 'asc'));
+        }else{
+            sortPrice(sortByPrice(sortedSlides, 'desc'));
+        }
+    }, [sortHigh])
+
     return (
         <div style={{ display: slides.length == 0? 'none' : 'block'}}>
             <div className='carouselTitle domine-Label pb-3 me-2s'>

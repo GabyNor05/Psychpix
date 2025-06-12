@@ -7,4 +7,9 @@
 .ArtWeekWrapper{
     width: 80%;
     margin: 32px auto;
+    padding: 64px;
+}
+
+.trans-title{
+    color: rgba(0, 0, 0, 0.753);
 }
