@@ -153,7 +153,7 @@ function Navbar() {
                         navigate("/adminForm");
                       }}
                     >
-                      Admin Form
+                      Product Form
                     </button>
                     <button
                       className="dropdown-item"
