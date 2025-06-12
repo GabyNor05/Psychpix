@@ -38,7 +38,7 @@ Psychedelic Pixels is an e-commerce platform dedicated to showcasing and selling
 
 ## About Psychedelic Pixels authentication method
 
-Psychedelic Pixels features a unique login and signup system where, instead of entering a traditional password, users authenticate by playing a custom sequence of 7 notes on a virtual piano. This melody acts as their secure and creative authentication method, reflecting the site's artistic and unconventional spirit.
+Psychedelic Pixels features a unique login and signup system where, instead of entering a traditional password, users authenticate by playing a custom sequence of 7 notes on a virtual piano. The 7 note swill be recieved form a email. This melody acts as their secure and creative authentication method, reflecting the site's artistic and unconventional spirit.
 
 
 

@@ -36,10 +36,6 @@ function BentoGrids() {
             <div>
                 <img src='' />
             </div>
-            <div>
-                <h2>UserName</h2>
-                <h4>Testimony</h4>
-            </div>
         </div>)
     }
 

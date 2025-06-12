@@ -122,8 +122,8 @@ function SingleItemSelection({ItemData})
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const index = cart.findIndex(item => item._id === ItemData._id);
       const newSymbol = frameSizes[index];
-    setSizeSymbol(newSymbol);
-    console.log(newSymbol); // This is safe—it’s just a normal variable
+      setSizeSymbol(newSymbol);
+      console.log(newSymbol); // This is safe—it’s just a normal variable
       const existing = index !== -1 ? cart[index] : null;
       if (existing) {
         

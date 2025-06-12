@@ -6,12 +6,11 @@ function TopArt() {
     const [ItemData, setItemData] = useState(null);
     const topArtID = '6849d42c12ea23743ab81d92';
     async function GetSelectedItem(ItemID){
-            try {
+        try {
             const response = await fetch(`http://localhost:5000/api/items/${ItemID}`);
 
             if (response.ok) {
                 const item = await response.json();
-                console.log('Item data:', item);
                 return item;
             } else {
                 console.log(ItemID);
@@ -26,8 +25,6 @@ function TopArt() {
     if(!ItemData){
         return(<>...Loading</>);
     }
-
-    console.log(ItemData);
     
     return (
         <div className='ArtWeekWrapper' style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
@@ -62,25 +59,24 @@ function TopArt() {
                 />
 
                 <div style={{ position: 'relative', zIndex: 1}}>
-                    <h3 className='domine-Label trans-title' style={{ paddingBottom: '32px'}}>Art of The Week</h3>
+                    <h3 className='domine-Label' style={{ paddingBottom: '32px'}}>Art of The Week</h3>
                     <div className='ArtWeek jost-regular'>
                         <img style={{ width: '100%', height: '600px', objectFit: 'cover', borderRadius: '12px'}} src={ItemData.imageUrl} />
                         <div style={{ width: '70%'}}>
-                            <h1 className='domine-Label trans-title'>{ItemData.title}</h1>
+                            <h1 className='domine-Label'>{ItemData.title}</h1>
                             <div style={{ borderBottom: '2px solid black', width: 'fit-content', paddingRight: '32px', position: 'relative'}}>
-                                <h3 className='trans-title'>{ItemData.creator}</h3>
+                                <h3>{ItemData.creator}</h3>
                                 <img className="lineSquareBR" src={lineSquare} />
                             </div>
                             
                             
-                            <h4 className='trans-title' style={{ paddingTop: '32px', color: '#000000AA'}}>{ItemData.description}</h4>
+                            <h4 style={{ paddingTop: '32px'}}>{ItemData.description}</h4>
                         </div>
                     </div>
-                    
-                    
-                    <h4 style={{ paddingTop: '32px'}}>{ItemData.description}</h4>
                 </div>
+                
             </div>
+            
         </div>
     );
 }

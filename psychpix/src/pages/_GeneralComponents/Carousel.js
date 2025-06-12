@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import lineSquare from './icons/lilsquare.png';
+import { DotsThreeOutlineVerticalIcon } from '@phosphor-icons/react';
 import './Carousel.css';
 
 export default function Carousel({ slides = [], Title}) {
@@ -152,7 +153,34 @@ export default function Carousel({ slides = [], Title}) {
     return (
         <div style={{ display: slides.length == 0? 'none' : 'block'}}>
             <div className='carouselTitle domine-Label pb-3 me-2s'>
-                <h1 className='fw-bold'>{Title}</h1>
+                <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                <div onClick={() => setIsMenuOpen((prev) => !prev)} style={{ cursor: 'pointer' }}>
+                    <DotsThreeOutlineVerticalIcon size={48} />
+                </div>
+                <h1 className='fw-bold' style={{ marginLeft: '0.5rem' }}>{Title}</h1>
+
+                {isMenuOpen && (
+                    <div
+                        ref={menuRef}
+                        className='jost-regular'
+                        style={{
+                            position: 'absolute',
+                            top: '60px',
+                            left: '0',
+                            backgroundColor: '#fff',
+                            border: '1px solid #ccc',
+                            borderRadius: '8px',
+                            boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+                            padding: '10px',
+                            zIndex: 1000,
+                        }}
+                        >
+                        <div onClick={() => setSortMethod(false)} style={{ padding: '5px 10px', cursor: 'pointer', letterSpacing: '2px', textShadow: 'none' }}>Price: High - Low</div>
+                        <div onClick={() => setSortMethod(true)} style={{ padding: '5px 10px', cursor: 'pointer', letterSpacing: '2px', textShadow: 'none' }}>Price: Low - High</div>
+                    </div>
+                )}
+                </div>
+                
                 <img className='lineSquareBR' src={lineSquare} alt='lilSquare'/>
             </div>
 

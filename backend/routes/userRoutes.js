@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { authenticateJWT, requireAdmin } = require('../middleware/auth');
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt'); // Add this at the top
+const bcrypt = require('bcrypt'); 
 require('dotenv').config();
 
 let transporter = nodemailer.createTransport({
@@ -17,6 +17,21 @@ let transporter = nodemailer.createTransport({
 });
 
 // Utility to generate 7 random notes
+// 
+// How the Harmonic Minor Scale Works:
+// - The harmonic minor scale is a 7-note scale often used in classical, jazz, and metal music.
+// - It is constructed by raising the 7th note of the natural minor scale by a half step (semitone).
+// - The interval pattern (in semitones) from the root is: 0, 2, 3, 5, 7, 8, 11.
+//   For example, in A harmonic minor: A, B, C, D, E, F, G#.
+//
+// Math Behind the Code:
+// - `chromatic` is an array of all 12 notes in the chromatic scale.
+// - `scaleFormula` lists the number of semitones to add to the root for each scale degree.
+// - A random root note is chosen by picking a random index in `chromatic`.
+// - The harmonic minor scale is built by adding each value in `scaleFormula` to the root index, using modulo 12 to wrap around the array.
+// - Finally, 7 random notes are picked from the generated scale (notes may repeat).
+// Utility to generate 7 random notes
+// there are 35 831 808 possible combinations of 7 notes from the harmonic minor scale
 function generateHarmonicMinorNotes() {
   const chromatic = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
   const scaleFormula = [0, 2, 3, 5, 7, 8, 11]; // Harmonic minor steps
@@ -169,7 +184,7 @@ router.put('/me', async (req, res) => {
     const update = {};
     if (req.body.newUsername) update.username = req.body.newUsername;
     if (req.body.email) update.email = req.body.email;
-    if (req.body.profilePic) update.profilePic = req.body.profilePic; // <-- ADD THIS LINE
+    if (req.body.profilePic) update.profilePic = req.body.profilePic; 
     const user = await User.findOneAndUpdate({ username }, update, { new: true });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.json(user);
