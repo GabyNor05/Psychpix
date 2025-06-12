@@ -121,14 +121,16 @@ function SingleItemSelection({ItemData})
       // Update cart in localStorage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const index = cart.findIndex(item => item._id === ItemData._id);
-      setSizeSymbol(frameSizes[index]);
-        const existing = index !== -1 ? cart[index] : null;
+      const newSymbol = frameSizes[index];
+    setSizeSymbol(newSymbol);
+    console.log(newSymbol); // This is safe—it’s just a normal variable
+      const existing = index !== -1 ? cart[index] : null;
       if (existing) {
         
         existing.quantity += CopiesAdded;
         cart[index].woodframe = CurrentWoodFrame;
         cart[index].framesize = currentFrameSize;
-        cart[index].framesymbol = currentWoodSizeSymbol;
+        cart[index].framesymbol = newSymbol;
         console.log(cart);
         localStorage.setItem("cart", JSON.stringify(cart));
       } else {
@@ -141,7 +143,7 @@ function SingleItemSelection({ItemData})
           image: ItemData.imageUrl,
           woodframe: CurrentWoodFrame,
           framesize: currentFrameSize,
-          framesymbol: currentWoodSizeSymbol,
+          framesymbol: newSymbol,
         });
       }
       localStorage.setItem("cart", JSON.stringify(cart));

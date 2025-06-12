@@ -9,6 +9,18 @@ const ItemCard = ({ item, onRemove }) => {
 
     console.log(item);
 
+    function FormatPrice(price){
+        let result = '';
+        let stringPrice = String(Math.floor(price));
+        for (let index = stringPrice.length - 1; index >= 0; index--) {
+            result += stringPrice[stringPrice.length - index - 1];
+            if(index % 3 == 0 && index != 0){
+                result += ',';
+            }
+        }
+        return result;
+    }
+
   return (
     <div className="itemCard">
       <h4 style={{ fontWeight: 500 }}>{item.product}</h4>
@@ -18,14 +30,14 @@ const ItemCard = ({ item, onRemove }) => {
             <span style={{ textDecoration: "line-through", color: "#888", marginRight: 8 }}>
               R {item.price}
             </span>
-            <span><h4 style={{ fontSize: '18px'}}>R {discountedPrice.toFixed(2)}</h4></span>
+            <span><h4 style={{ fontSize: '18px'}}>R {FormatPrice(discountedPrice.toFixed(2))}</h4></span>
           </div>
         ) : (
           <>R {item.price}</>
         )}
       </div>
       <div><h4>{item.quantity}</h4></div>
-      <div><h4 style={{ fontSize: '18px'}}>R {(discountedPrice * item.quantity).toFixed(2)}</h4></div>
+      <div><h4 style={{ fontSize: '18px'}}>R {FormatPrice((discountedPrice * item.quantity).toFixed(2))}</h4></div>
       <div style={{ display: 'grid', justifyItems: 'center', gap: '8px'}}>
         <img
           src={item.image}
