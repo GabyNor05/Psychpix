@@ -1,4 +1,4 @@
-![Psychpix headder img](https://github.com/GabyNor05/Psychpix/blob/main/psychpix/src/pages/LongLogo.png)
+![Psychpix headder img](https://drive.google.com/drive/folders/10EQjnKNlW51Su64sg21nsZCezbo72xP2)
 
 - - - -
 
