@@ -18,7 +18,7 @@ function UserComment( {data} ){
         if (user) {
             if (user.username) username = user.username;
             user.profilePic? (user.username == 'Guest'? profilePic = DefaultProfilePic : profilePic = user.profilePic) : profilePic = DefaultProfilePic;
-            if (user.id || user._id) userId = user.id || user._id;
+            if (user.id) userId = user.id;
         }
     } catch {
         // keep defaults
@@ -36,6 +36,8 @@ function UserComment( {data} ){
         if(commentData != null && commentData != undefined){
             updateLikes(commentData.likes); 
         }
+
+        console.log(data);
     }, []);
 
     if(commentData == null || !userData){

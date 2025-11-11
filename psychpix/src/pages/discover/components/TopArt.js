@@ -21,7 +21,11 @@ function TopArt() {
         }
     }
 
-    GetSelectedItem(topArtID).then(item => setItemData(item));
+    useEffect(() => {
+        GetSelectedItem(topArtID).then(item => setItemData(item));
+    }, []);
+
+    
     if(!ItemData){
         return(<>...Loading</>);
     }
