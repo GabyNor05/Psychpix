@@ -24,6 +24,10 @@ try {
 }
 
 function getImagesByTag(data, tag){
+  console.log(data);
+  if(data === ' ' || data == '' || !data){
+    return;
+  }
   const filtered = data.filter(item => item.tags.includes(tag));
   if (filtered.length === 0) return [];
 

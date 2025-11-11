@@ -3,6 +3,7 @@ import Carousel from '../_GeneralComponents/Carousel';
 import Footer from '../home/components/Footer';
 import TopArt from './components/TopArt';
 import './css/Discover.css';
+
 let data = '';
 try {
   const response = await fetch(`http://localhost:5000/api/items`);

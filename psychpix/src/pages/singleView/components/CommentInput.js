@@ -69,8 +69,8 @@ function CommentInput( callback ){
                 username: username,
                 profilePic: profilePic,
                 timestamp: formatTimestamp(new Date()),
-                itemTitle: itemTitle,         // <-- Add this
-                itemImageUrl: itemImageUrl    // <-- Add this
+                itemTitle: itemTitle, 
+                itemImageUrl: itemImageUrl 
             };
 
             const response = await fetch('http://localhost:5000/api/comments', {

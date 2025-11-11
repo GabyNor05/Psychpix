@@ -4,7 +4,7 @@ import lineSquare from '../../home/images/lil_square.png';
 
 function TopArt() {
     const [ItemData, setItemData] = useState(null);
-    const topArtID = '684a11d88c6d1bb7bd45b1c6';
+    const topArtID = '6849d42c12ea23743ab81d92';
     async function GetSelectedItem(ItemID){
         try {
             const response = await fetch(`http://localhost:5000/api/items/${ItemID}`);
@@ -21,7 +21,11 @@ function TopArt() {
         }
     }
 
-    GetSelectedItem(topArtID).then(item => setItemData(item));
+    useEffect(() => {
+        GetSelectedItem(topArtID).then(item => setItemData(item));
+    }, []);
+
+    
     if(!ItemData){
         return(<>...Loading</>);
     }

@@ -24,7 +24,7 @@ function CommentSection()
                 const ItemResponse = await fetch(`http://localhost:5000/api/items/${selectedItem}`);
                 if(ItemResponse.ok){
                   const ItemJSON = await ItemResponse.json();
-                  const commentIds = ItemJSON.commentsId;
+                  const commentIds = ItemJSON.commentsId || [];
                   const commentFetches = commentIds.map(id =>
                     fetch(`http://localhost:5000/api/comments/${id}`).then(res => res.json()).catch(res => null)
                   );
@@ -43,7 +43,7 @@ function CommentSection()
 
                 const userDataComments = await Promise.all(userDataFetches);
 
-                const userComments = commentsData.map((item, index) => ({
+                const userComments = commentsData?.filter(item => item != null).map((item, index) => ({
                     commentData: item,
                     userData: userDataComments[index]
                 }));
@@ -57,7 +57,7 @@ function CommentSection()
     }
 
         fetchComments();
-    }, [comments]);
+    }, []);
 
     const handleNewComment = (newComment) => {
         setComments(prev => [...prev, newComment]);

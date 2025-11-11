@@ -139,9 +139,6 @@ export default function Carousel({ slides = [], Title}) {
             return order === 'asc' ? priceA - priceB : priceB - priceA;
         });
     }
-    
-    const sortedLowToHigh = sortByPrice(slides, 'asc');
-    const sortedHighToLow = sortByPrice(slides, 'desc');
 
     const [sortedSlides, sortPrice] = useState(slides);
 

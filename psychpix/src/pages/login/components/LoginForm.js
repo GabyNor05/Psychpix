@@ -32,8 +32,8 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     e.preventDefault();
     if (!isLogin) {
       // Password length validation for signup
-      if (formData.password.length < 8 || formData.password.length > 12) {
-        toast.error("Password must be between 8 and 12 characters.");
+      if (formData.password.length < 8 || formData.password.length > 64) {
+        toast.error("Password must be more than 8 characters");
         return;
       }
       // Sign Up: check if passwords match, then go to signupstep2
@@ -55,8 +55,8 @@ const LoginForm = ({ isLogin, setIsLogin }) => {
     } else {
       // Login: send username & password to backend for verification (step 1)
       try {
-        if (formData.password.length < 8 || formData.password.length > 12) {
-          toast.error("Password must be between 8 and 12 characters.");
+        if (formData.password.length < 8 || formData.password.length > 64) {
+          toast.error("Password must be more than 8 characters");
           return;
         }
         const response = await fetch("http://localhost:5000/api/users/check", {
