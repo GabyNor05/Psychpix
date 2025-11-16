@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 // Get default profile image if user is not logged in or has no profilePic
 let DefaultProfilePic = `https://res.cloudinary.com/dgf9sqcdy/image/upload/v1748461716/DefaultProfilePic_xr1uie.jpg`;
 
-function CommentInput( callback ){
+function CommentInput( callback = () => {} ){
     const location = useLocation();
     const { selectedItem } = location.state || {};
     const [inputText, setInputText] = useState('');
