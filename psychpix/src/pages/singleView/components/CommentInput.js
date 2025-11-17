@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, PaperPlaneRight } from "@phosphor-icons/react";
 import UserComment from './UserComments';
 import Rating from './Rating';
@@ -13,21 +13,29 @@ function CommentInput( callback = () => {} ){
     const { selectedItem } = location.state || {};
     const [inputText, setInputText] = useState('');
     const [rating, setRating] = useState(5);
+    const [userInformation, setUserInformation] = useState('');
 
     // Get user info from sessionStorage ONCE
-    let username = "Guest";
-    let profilePic = DefaultProfilePic;
-    let userId = '6841edbdaf8a2cf16b83becc'; // fallback
-    try {
+    const [username, setUsername] = useState("Guest");
+    const [profilePic, setProfilePic] = useState(DefaultProfilePic);
+    const [userId, setUserId] = useState('6841edbdaf8a2cf16b83becc');
+
+    useEffect(() => {
+        try {
         const user = JSON.parse(sessionStorage.getItem("user"));
+        setUserInformation(user);
+        console.log(user);
         if (user) {
-            if (user.username) username = user.username;
-            user.profilePic? (user.username == 'Guest'? profilePic = DefaultProfilePic : profilePic = user.profilePic) : profilePic = DefaultProfilePic;
-            if (user.id || user._id) userId = user.id || user._id;
+            setUsername(user.username);
+            user.username === 'Guest'? setProfilePic(DefaultProfilePic) : setProfilePic(user.profilePic);
+            if (user?.id || user?._id) {
+                setUserId(user.id || user._id);
+            }
         }
     } catch {
         // keep defaults
     }
+    },[]);
 
     const handleChange = (event) => {
         setInputText(event.target.value); // stores the text in state
@@ -60,14 +68,16 @@ function CommentInput( callback = () => {} ){
                 }
             }
 
+            console.log(userInformation);
+
             const payload = {
                 comment: commentText,
                 likes: 0,
                 rating: userRating,
                 userId: userId,
                 itemId: selectedItem,
-                username: username,
-                profilePic: profilePic,
+                username: userInformation.username,
+                profilePic: userInformation.profilePic,
                 timestamp: formatTimestamp(new Date()),
                 itemTitle: itemTitle, 
                 itemImageUrl: itemImageUrl 

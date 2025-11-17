@@ -2,19 +2,19 @@ import LongLogo from '../images/LongLogo.png';
 import { motion } from "framer-motion";
 import bento1Img from '../images/bento/bento1.jpg';
 import bento2Img from '../images/bento/bento2.jpg';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function BentoGrids() {
-    // Get user from sessionStorage
-    let username = "Log in";
-    try {
-        const user = JSON.parse(sessionStorage.getItem("user"));
-        if (user && user.username) {
-            username = user.username;
+    const [username, setuserName] = useState("Guest");
+
+    useEffect(() => {
+        try {
+            const user = localStorage.getItem("username");
+            setuserName(user);
+        } catch {
+            // keep default
         }
-    } catch {
-        // keep default
-    }
+    }, [])
 
     const gridContainerVariants = {
         hidden: {opacity: 0}, 
@@ -82,9 +82,9 @@ function BentoGrids() {
                         <img style={{ height: `${secondImageState}%`, objectFit: 'cover'}} src={bento2Img} />
                     </motion.div>
                     <motion.div variants={gridSquareVariants} className="box" id='bentoImage2' style={{gridArea: 'box-2'}}>
-                        <div className='WelcomeUser'>
-                            <h3>Hi {username}</h3>
-                            <h3 style={{ paddingTop: '32px'}}>Welcome to <span>Psychedelic Pixels</span></h3>
+                        <div className='WelcomeUser p-4'>
+                            <h3 style={{ paddingLeft: '16px', paddingTop: '32px'}}>Hi {username}</h3>
+                            <h3 style={{ paddingTop: '4px', paddingLeft: '16px'}}>Welcome to <span>Psychedelic Pixels</span></h3>
                         </div>
                     </motion.div>
                     <motion.div variants={gridSquareVariants} className="box" id='bentoImage3' style={{gridArea: 'box-3'}}></motion.div>

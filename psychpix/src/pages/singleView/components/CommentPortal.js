@@ -70,12 +70,12 @@ function CommentSection()
                 {comments.length === 0 ? (
                     <DefaultCommentState />
                 ) : (
-                    comments.map((comment, index) => (
-                        <UserComment key={index} data={comment} />
+                    comments.map((item, index) => (
+                        <UserComment key={index} data={item} />
                     ))
                 )}
             </div>
-            <CommentInput callback={handleNewComment} />
+            <CommentInput callback={() => handleNewComment()} />
         </div>
     );
 }
