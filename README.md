@@ -97,7 +97,7 @@ npm start
 
 ## Demo
 
-[Link to the Demo](https://drive.google.com/file/d/1Pv9RDIhWIcIKTxj8oBubqpq1ReWYpA9Q/view?usp=sharing)
+[Watch Demo Video](https://drive.google.com/file/d/1u_7SFVrAn6GAjW3828EBBu2NESRfht5k/view?usp=sharing)
 
 ## Authors
 
